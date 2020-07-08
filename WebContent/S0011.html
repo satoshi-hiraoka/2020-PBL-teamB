@@ -1,66 +1,92 @@
 <!doctype html>
 <html lang="ja">
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="common.css">
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" >
-		<title>	売上登録確認画面</title>
-	</head>
-	<body>
-		<h2 id="S0011title">売上登録を登録してよろしいですか？</h2>
-			<form name="form"action="S0011.html" method="post">
-				<table class="table table-borderless">
-					<tr>
-						<td   align="right">販売日<span class="badge badge-pill badge-secondary">必須</span></td>
-						<td><input type="text"name="" size="10" value="2015/4/5" disabled></td>
-					</tr>
-					<tr>
-						<td   align="right">担当<span class="badge badge-pill badge-secondary">必須</span></td>
-						<td><select name="Responsible"class="length" disabled>
-								<option value="1">金井</option>
-								<option value="1">岩根</option>
-								<option value="1">宮崎</option>
-						</select></td>
-					</tr>
-					<tr>
-						<td   align="right">商品カテゴリ<span class="badge badge-pill badge-secondary">必須</span></td>
-						<td><select name="puroduct"class="length" disabled>
-							<option value="1">唐揚げ</option>
-							<option value="1">お寿司</option>
-							<option value="1">ラーメン</option>
-						</select></td>
-					</tr>
-					<tr>
-						<td  align="right">商品名<span class="badge badge-pill badge-secondary">必須</span></td>
-						<td><input type="text"name="" value="唐揚げ弁当" class="length" disabled></td>
-					</tr>
-					<tr>
-						<td   align="right">単価<span class="badge badge-pill badge-secondary">必須</span></td>
-						<td><input type="text"name=""value="540" size="10" disabled></td>
-					</tr>
-					<tr>
-						<td   align="right">個数<span class="badge badge-pill badge-secondary">必須</span></td>
-						<td><input type="text"name="" value="3" size="10" disabled></td>
-					</tr>
-					<tr>
-						<td   align="right" valign="top">備考</td>
-						<td><textarea name="message" rows="8" cols="40" placeholder="備考"class="length" disabled></textarea></td>
-					</tr>
-			</table>
-			<div>
-				<button type="submit" class="btn btn-primary mainbutton" ><i class="fas fa-check"></i>OK</button>
-				<button type="button" class="btn btn-outline-dark mainbutton">キャンセル</button>
-			</div>
-		</form>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+<link rel="stylesheet" href="title.css">
+<title>売上登録確認画面</title>
+</head>
+<body>
+	<h2 id="S0011title">売上登録を登録してよろしいですか？</h2>
+	<form name="form" action="S0011.html" method="post">
+		<table class="table table-borderless">
+			<tr>
+				<td align="right">販売日<span
+					class="badge badge-pill badge-secondary">必須</span></td>
+				<td><input type="text" name="" size="10" value="2015/4/5"
+					disabled></td>
+			</tr>
+			<tr>
+				<td align="right">担当<span
+					class="badge badge-pill badge-secondary">必須</span></td>
+				<td><select name="Responsible" class="SalesfiledLength"
+					disabled>
+						<option value="1">金井</option>
+						<option value="1">岩根</option>
+						<option value="1">宮崎</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td align="right">商品カテゴリ<span
+					class="badge badge-pill badge-secondary">必須</span></td>
+				<td><select name="puroduct" class="SalesfiledLength" disabled>
+						<option value="1">唐揚げ</option>
+						<option value="1">お寿司</option>
+						<option value="1">ラーメン</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td align="right">商品名<span
+					class="badge badge-pill badge-secondary">必須</span></td>
+				<td><input type="text" name="" value="唐揚げ弁当"
+					class="SalesfiledLength" disabled></td>
+			</tr>
+			<tr>
+				<td align="right">単価<span
+					class="badge badge-pill badge-secondary">必須</span></td>
+				<td><input type="text" name="" value="540" size="10" disabled></td>
+			</tr>
+			<tr>
+				<td align="right">個数<span
+					class="badge badge-pill badge-secondary">必須</span></td>
+				<td><input type="text" name="" value="3" size="10" disabled></td>
+			</tr>
+			<tr>
+				<td align="right" valign="top">備考</td>
+				<td><textarea name="message" rows="8" cols="40"
+						placeholder="備考" class="SalesfiledLength" disabled></textarea></td>
+			</tr>
+		</table>
+		<div>
+			<button type="submit" class="btn btn-primary mainbutton">
+				<i class="fas fa-check"></i>OK
+			</button>
+			<button type="button" class="btn btn-outline-dark mainbutton" onclick="history.back()">キャンセル</button>
+		</div>
+	</form>
 
-			<!-- Optional JavaScript -->
+	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-	</body>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+</body>
 </html>

@@ -1,15 +1,8 @@
 @charset "UTF-8";
 .mainbutton{
-  position:relative; left:450px;
+  position:relative; left:600px;
 }
-#S0010title{
-position: relative;left: 70px;
-position: relative;top: 20px;
-}
-#S0011title{
-  position: relative;left: 150px;
-  position: relative;top: 20px;
-}
-.length{
+
+.SalesfiledLength{
     width:400px;
 }
