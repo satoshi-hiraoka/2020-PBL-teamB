@@ -1,14 +1,14 @@
 @charset "UTF-8";
 .mainbutton{
-  position:relative; left:35%;
+  position:relative; left:450px;
 }
-h1{
-position: relative;left: 20%;
-position: relative;top: 150px;
+#S0010title{
+position: relative;left: 70px;
+position: relative;top: 20px;
 }
-h2{
-  position: relative;left: 12%;
-  position: relative;top: 150px;
+#S0011title{
+  position: relative;left: 150px;
+  position: relative;top: 20px;
 }
 .length{
     width:400px;
