@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.mainbutton{
+  position:relative; left:35%;
+}
+h1{
+position: relative;left: 20%;
+position: relative;top: 150px;
+}
+h2{
+  position: relative;left: 12%;
+  position: relative;top: 150px;
+}
+.length{
+    width:400px;
+}
