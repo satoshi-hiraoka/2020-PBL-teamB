@@ -11,14 +11,13 @@
 		<title>売上登録</title>
 	</head>
 	<body>
-		<h1>売上登録</h1>
+		<h1 id="S0010title">売上登録</h1>
 			<form name="form"action="S0011.html" method="post">
 				<table class="table table-borderless">
 					<tr>
 						<td   align="right">販売日<span class="badge badge-pill badge-secondary">必須</span></td>
 							<td><input type="text"name="" size="10"></td>
 					</tr>
-					<br>
 					<tr>
 						<td   align="right">担当<span class="badge badge-pill badge-secondary">必須</span></td>
 						<td><select name="Responsible" class="length">
@@ -26,8 +25,7 @@
 								<option value="1">岩根</option>
 								<option value="1">宮崎</option>
 						</select></td>
-				</tr>
-					<br>
+					</tr>
 					<tr>
 						<td   align="right">商品カテゴリ<span class="badge badge-pill badge-secondary">必須</span></td>
 						<td><select name="puroduct" class="length">
@@ -36,28 +34,25 @@
 							<option value="1">ラーメン</option>
 						</select></td>
 					</tr>
-					<br>
 					<tr>
 						<td  align="right">商品名<span class="badge badge-pill badge-secondary">必須</span></td>
 						<td><input type="text"name="" placeholder="商品名" class="length"></td>
 					</tr>
-					<br>
 					<tr>
 						<td   align="right">単価<span class="badge badge-pill badge-secondary">必須</span></td>
 						<td><input type="text"name=""placeholder="単価" size="10"></td>
-				</tr>
-				<br>
-				<tr>
-					<td   align="right">個数<span class="badge badge-pill badge-secondary">必須</span></td>
-					<td><input type="text"name="" placeholder="個数" size="10"></td>
-				</tr>
-				<br>
-				<tr>
-					<td   align="right" valign="top">備考</td>
-				<td><textarea name="message" rows="8" cols="40" placeholder="備考" class="length"></textarea></td>
+					</tr>
+					<tr>
+						<td   align="right">個数<span class="badge badge-pill badge-secondary">必須</span></td>
+						<td><input type="text"name="" placeholder="個数" size="10"></td>
+					</tr>
+					<tr>
+						<td   align="right" valign="top">備考</td>
+						<td><textarea name="message" rows="8" cols="40" placeholder="備考" class="length"></textarea></td>
+					</tr>
 			</table>
 			<div>
-				<button type="submit" class="btn btn-primary" ><i class="fas fa-check" class="mainbutton"></i>登 録</button>
+				<button type="submit" class="btn btn-primary mainbutton" ><i class="fas fa-check"></i>登 録</button>
 			</div>
 		</form>
 
