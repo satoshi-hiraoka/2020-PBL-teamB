@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
-<head>
-<!-- Required meta tags -->
+<html lang="ja">
+	<head>
+		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -9,10 +9,10 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" >
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" >
 
-<title>Insert title here</title>
-</head>
-<body>
-	<div class="m-5">
+		<title>アカウント登録|物品売上管理システム</title>
+	</head>
+	<body>
+		<div class="m-5">
 			<form action="S03002.html" method="POST" name="register-account">
 				<table class="table table-borderless">
 					<tr><td colspan="2"><h2>アカウント登録</h2></td></tr>
@@ -25,7 +25,7 @@
 					<tr>
 						<td><div class="text-right">メールアドレス<span class="badge badge-pill badge-secondary">必須</span></div></td>
 						<td>
-							<input type="email" name="email" size="40" placeholder="メールアドレス" required />
+							<input type="text" name="email" size="40" placeholder="メールアドレス" required />
 						</td>
 					</tr>
 					<tr>
@@ -43,15 +43,15 @@
 					<tr>
 						<td><div class="text-right">売上登録権限<span class="badge badge-pill badge-secondary">必須</span></div></td>
 						<td>
-							<input type="radio" name="auth-sales" value="権限なし" checked/>権限なし
-							<input type="radio" name="auth-sales" value="権限あり" />権限あり
+							<input type="radio" name="auth-sales" value="権限なし" required  checked/>権限なし
+							<input type="radio" name="auth-sales" value="権限あり" required  />権限あり
 						</td>
 					</tr>
 					<tr>
 						<td><div class="text-right">アカウント登録権限<span class="badge badge-pill badge-secondary">必須</span></div></td>
 						<td>
-							<input type="radio" name="auth-account" value="権限なし" checked/>権限なし
-							<input type="radio" name="auth-account" value="権限あり" />権限あり
+							<input type="radio" name="auth-account" value="権限なし" required  checked/>権限なし
+							<input type="radio" name="auth-account" value="権限あり" required  />権限あり
 						</td>
 					</tr>
 				</table>
@@ -65,4 +65,5 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 	</body>
+	
 </html>
