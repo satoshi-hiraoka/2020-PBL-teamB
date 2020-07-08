@@ -1,82 +1,208 @@
 <!DOCTYPE html>
 <html lang="ja">
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" >
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" >
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 
-		<title>アカウント検索|物品売上管理システム</title>
-	</head>
-	<body>
-
-		<div class="m-5">
-			<form action="S0042.html" method="POST" name="register-account">
-				<h2>アカウント検索結果一覧</h2>
-				<table class="table">
-					<tr>
-						<td>操作</td>
-						<td>No</td>
-						<td>氏名</td>
-						<td>メールアドレス</td>
-						<td>権限</td>
-					</tr>
-					<tr>
-						<td>
-							<button type="submit" class="btn btn-primary">
-								<i class="fas fa-check"></i>編集
-							</button>
-							<button type="submit" class="btn btn-danger">
-								<i class="fas fa-times"></i>削除
-							</button>
-						</td>
-						<td>
-							1
-						</td>
-						<td>
-							イチロー
-						</td>
-						<td>
-							ichiro@sak.com
-						</td>
-						<td>
-							アカウント登録
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<button type="submit" class="btn btn-primary">
-								<i class="fas fa-check"></i>編集
-							</button>
-							<button type="submit" class="btn btn-danger">
-								<i class="fas fa-times"></i>削除
-							</button>
-						</td>
-						<td>
-							2
-						</td>
-						<td>
-							ダルビッシュ  有
-						</td>
-						<td>
-							yu.darvish@sak.com
-						</td>
-						<td>
-							売上登録/アカウント登録
-						</td>
-					</tr>
-				</table>
-			</form>
-		</div>
-		<!-- Optional JavaScript -->
-		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-	</body>
-
+<title>アカウント検索|物品売上管理システム</title>
+</head>
+<body>
+	<div class="m-5">
+		<form action="S0042.html" method="POST" name="register-account">
+			<h2>アカウント検索結果一覧</h2>
+			<table class="table">
+				<tr>
+					<td>操作</td>
+					<td>No</td>
+					<td>氏名</td>
+					<td>メールアドレス</td>
+					<td>権限</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>編集
+						</button>
+						<button type="submit" class="btn btn-danger"
+							formaction="S0044.html">
+							<i class="fas fa-times"></i>削除
+						</button>
+					</td>
+					<td>1</td>
+					<td>イチロー</td>
+					<td>ichiro@sak.com</td>
+					<td>アカウント登録</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>編集
+						</button>
+						<button type="submit" class="btn btn-danger"
+							formaction="S0044.html">
+							<i class="fas fa-times"></i>削除
+						</button>
+					</td>
+					<td>2</td>
+					<td>ダルビッシュ 有</td>
+					<td>yu.darvish@sak.com</td>
+					<td>売上登録/アカウント登録</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>編集
+						</button>
+						<button type="submit" class="btn btn-danger"
+							formaction="S0044.html">
+							<i class="fas fa-times"></i>削除
+						</button>
+					</td>
+					<td>3</td>
+					<td>田中 将大</td>
+					<td>masahiro.tanaka@sak.com</td>
+					<td>売上登録/アカウント登録</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>編集
+						</button>
+						<button type="submit" class="btn btn-danger"
+							formaction="S0044.html">
+							<i class="fas fa-times"></i>削除
+						</button>
+					</td>
+					<td>4</td>
+					<td>松坂 大輔</td>
+					<td>daisuke.matsuzaka@sak.com</td>
+					<td>権限なし</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>編集
+						</button>
+						<button type="submit" class="btn btn-danger"
+							formaction="S0044.html">
+							<i class="fas fa-times"></i>削除
+						</button>
+					</td>
+					<td>5</td>
+					<td>本田 圭介</td>
+					<td>keisuke.honda@sak.com</td>
+					<td>アカウント登録</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>編集
+						</button>
+						<button type="submit" class="btn btn-danger"
+							formaction="S0044.html">
+							<i class="fas fa-times"></i>削除
+						</button>
+					</td>
+					<td>6</td>
+					<td>香川 真司</td>
+					<td>shinji.kagawa@sak.com</td>
+					<td>売上登録</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>編集
+						</button>
+						<button type="submit" class="btn btn-danger"
+							formaction="S0044.html">
+							<i class="fas fa-times"></i>削除
+						</button>
+					</td>
+					<td>7</td>
+					<td>内田 篤人</td>
+					<td>atsuto.uchida@sak.com</td>
+					<td>売上登録</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>編集
+						</button>
+						<button type="submit" class="btn btn-danger"
+							formaction="S0044.html">
+							<i class="fas fa-times"></i>削除
+						</button>
+					</td>
+					<td>8</td>
+					<td>錦織 圭</td>
+					<td>kei.nishikori@sak.com</td>
+					<td>アカウント登録</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>編集
+						</button>
+						<button type="submit" class="btn btn-danger"
+							formaction="S0044.html">
+							<i class="fas fa-times"></i>削除
+						</button>
+					</td>
+					<td>9</td>
+					<td>池田 勇太</td>
+					<td>yuta.ikeda@sak.com</td>
+					<td>アカウント登録</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>編集
+						</button>
+						<button type="submit" class="btn btn-danger"
+							formaction="S0044.html">
+							<i class="fas fa-times"></i>削除
+						</button>
+					</td>
+					<td>10</td>
+					<td>石川 遼</td>
+					<td>ryo.ishikawa@sak.com</td>
+					<td>売上登録</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>編集
+						</button>
+						<button type="submit" class="btn btn-danger"
+							formaction="S0044.html">
+							<i class="fas fa-times"></i>削除
+						</button>
+					</td>
+					<td>11</td>
+					<td>上田 桃子</td>
+					<td>momoko.ueda@sak.com</td>
+					<td>売上登録</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+</body>
 </html>
