@@ -1,8 +1,29 @@
 @charset "UTF-8";
-.mainbutton{
-  position:relative; left:600px;
+
+.mainbutton {
+	position: relative;
+	top: 60px;
+	position: relative;
+	left: 600px;
 }
 
-.SalesfiledLength{
-    width:400px;
+.SalesfiledLength {
+	width: 400px;
+}
+
+#title {
+	position: relative;
+	left: 280px;
+	position: relative;
+	top: 80px;
+}
+
+.tablePosition {
+	position: relative;
+	top: 60px;
+	position: relative;
+	left: 300px;
+	/*
+	tableの内側の幅は、<table cellpadding="10">で固定
+	*/
 }

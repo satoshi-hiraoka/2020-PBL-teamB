@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="/teamB/CSS/common.css">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
@@ -13,13 +12,14 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
-<link rel="stylesheet" href="title.css">
+<link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
+<link rel="stylesheet" href="/teamB/CSS/common.css">
 <title>売上登録確認画面</title>
 </head>
 <body>
-	<h2 id="S0011title">売上登録を登録してよろしいですか？</h2>
+	<h2 id="title">売上登録を登録してよろしいですか？</h2>
 	<form name="form" action="S0011.html" method="post">
-		<table class="table table-borderless">
+		<table class="tablePosition" cellpadding="10">
 			<tr>
 				<td align="right">販売日<span
 					class="badge badge-pill badge-secondary">必須</span></td>
@@ -71,7 +71,8 @@
 			<button type="submit" class="btn btn-primary mainbutton">
 				<i class="fas fa-check"></i>OK
 			</button>
-			<button type="button" class="btn btn-outline-dark mainbutton" onclick="history.back()">キャンセル</button>
+			<button type="button" class="btn btn-outline-dark mainbutton"
+				onclick="history.back()">キャンセル</button>
 		</div>
 	</form>
 

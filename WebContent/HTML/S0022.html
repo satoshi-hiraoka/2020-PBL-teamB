@@ -14,63 +14,53 @@
 	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
-<title>売上登録</title>
+<title>売上登録確認画面</title>
 </head>
 <body>
-	<h1 id="title">売上登録</h1>
+	<h2 id="title">売上登録を登録してよろしいですか？</h2>
 	<form name="form" action="S0011.html" method="post">
-		<table class="tablePosition" cellpadding="10">
+		<table>
 			<tr>
 				<td align="right">販売日<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" size="10"></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td align="right">担当<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="Responsible" class="SalesfiledLength">
-						<option value="" disabled selected hidden>選択して下さい</option>
-						<option value="1">金井</option>
-						<option value="1">岩根</option>
-						<option value="1">宮崎</option>
-				</select></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td align="right">商品カテゴリ<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="puroduct" class="SalesfiledLength">
-						<option value="" disabled selected hidden>選択して下さい</option>
-						<option value="1">唐揚げ</option>
-						<option value="1">お寿司</option>
-						<option value="1">ラーメン</option>
-				</select></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td align="right">商品名<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" placeholder="商品名"
-					class="SalesfiledLength"></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td align="right">単価<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" placeholder="単価" size="10"></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td align="right">個数<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" placeholder="個数" size="10"></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td align="right" valign="top">備考</td>
-				<td><textarea name="message" rows="8" cols="40"
-						placeholder="備考" class="SalesfiledLength"></textarea></td>
+				<td></td>
 			</tr>
 		</table>
 		<div>
 			<button type="submit" class="btn btn-primary mainbutton">
-				<i class="fas fa-check"></i>登 録
+				<i class="fas fa-check"></i>OK
 			</button>
+			<button type="button" class="btn btn-outline-dark mainbutton"
+				onclick="history.back()">キャンセル</button>
 		</div>
 	</form>
 
