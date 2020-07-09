@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+input {
+	width: 314px;
+	height: 45px;
+}
+
+.login {
+	margin: 10px;
+}
