@@ -26,5 +26,5 @@
 	left: 300px;
 	/* cellpadingの代わり↓*/
 	border-collapse: separate;
-	border-spacing: 10px;
+	border-spacing: 10px 10px;
 }

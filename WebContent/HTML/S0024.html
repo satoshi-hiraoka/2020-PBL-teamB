@@ -38,16 +38,16 @@
 		</div>
 	</nav>
 	<h2 id="title">売上を編集してよろしいですか？</h2>
-	<form name="form" action="S0011.html" method="post">
+	<form name="form" action="S0021.html" method="post">
 		<table class="tablePosition">
 			<tr>
 				<td align="right">販売日</td>
-				<td><input type="text" name="" size="10" value="2015/4/5"
-					disabled></td>
+				<td><input type="text" name="saleDate" size="10"
+					value="2015/4/5" disabled></td>
 			</tr>
 			<tr>
 				<td align="right">担当</td>
-				<td><select name="Responsible" class="salesFiledLength"
+				<td><select name="responsible" class="salesFiledLength"
 					disabled>
 						<option value="1">イチロー</option>
 						<option value="1">本田 圭佑</option>
@@ -56,7 +56,8 @@
 			</tr>
 			<tr>
 				<td align="right">商品カテゴリー</td>
-				<td><select name="puroduct" class="salesFiledLength" disabled>
+				<td><select name="puroductCategory" class="salesFiledLength"
+					disabled>
 						<option value="1">食料品</option>
 						<option value="1">本・雑誌</option>
 						<option value="1">飲料</option>
@@ -64,7 +65,7 @@
 			</tr>
 			<tr>
 				<td align="right">商品名</td>
-				<td><input type="text" name="" value="唐揚げ弁当"
+				<td><input type="text" name="puroductName" value="唐揚げ弁当"
 					class="salesFiledLength" disabled></td>
 			</tr>
 			<tr>
@@ -74,13 +75,8 @@
 			</tr>
 			<tr>
 				<td align="right">個数</td>
-				<td><input type="text" name="" value="3" size="10"
-					class="salesInputIntText" disabled></td>
-			</tr>
-			<tr>
-				<td align="right">個数</td>
-				<td><input type="text" name="" value="3" size="10"
-					class="salesInputIntText" disabled></td>
+				<td><input type="text" name="puroductUnitPrice" value="3"
+					size="10" class="salesInputIntText" disabled></td>
 			</tr>
 			<tr>
 				<td align="right">小計</td>
@@ -89,8 +85,8 @@
 			</tr>
 			<tr>
 				<td align="right" valign="top">備考</td>
-				<td><textarea name="message" rows="8" cols="40" value="今日から新商品"
-						class="salesFiledLength" disabled></textarea></td>
+				<td><textarea name="message" rows="8" cols="40"
+						class="salesFiledLength" disabled>今日からの新商品</textarea></td>
 			</tr>
 		</table>
 		<div>

@@ -41,7 +41,7 @@
 	<h2 id="title">売上詳細表示</h2>
 	<table class="tablePosition">
 		<tr>
-			<td align="right">販売日</td>
+			<td align="right" >販売日</td>
 			<td>2015/1/15</td>
 		</tr>
 		<tr>
@@ -50,7 +50,7 @@
 		</tr>
 		<tr>
 			<td align="right">商品カテゴリー</td>
-			<td></td>
+			<td>食料品</td>
 		</tr>
 		<tr>
 			<td align="right">商品名</td>
@@ -73,21 +73,19 @@
 			<td align="right">今日からの新商品</td>
 		</tr>
 	</table>
-	<div id="buttonParallel">
-		<form name="sales-edit" action="S0023.html" method="post">
+	<div>
+		<form action="S0023.html">
 			<button type="submit" class="btn btn-primary mainButton">
 				<i class="fas fa-check"></i>編集
 			</button>
-		</form>
-		<form name="salse-delete" action="S0025.html">
-			<button type="submit" class="btn btn-danger mainButton">
+			<button type="submit" class="btn btn-danger mainButton"
+				formaction="S0025.html">
 				<i class="fas fa-times"></i>削除
 			</button>
+			<button type="button" class="btn btn-outline-dark mainButton"
+				onclick="history.back()">キャンセル</button>
 		</form>
-		<button type="button" class="btn btn-outline-dark mainButton"
-			onclick="history.back()">キャンセル</button>
 	</div>
-<p>！！！！！！！！！！！！！！！！！！</p>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

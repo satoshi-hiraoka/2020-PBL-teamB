@@ -43,22 +43,24 @@
 			<tr>
 				<td align="right">販売日<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" size="10"></td>
+				<td><input type="text" name="saleDate" size="10" required></td>
 			</tr>
 			<tr>
 				<td align="right">担当<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="Responsible" class="salesFiledLength">
+				<td><select name="responsible" class="salesFiledLength"
+					required>
 						<option value="" disabled selected hidden>選択して下さい</option>
 						<option value="1">イチロー</option>
-						<option value="1">本田 圭佑</option>
-						<option value="1">池田 勇太</option>
+						<option value="2">本田 圭佑</option>
+						<option value="3">池田 勇太</option>
 				</select></td>
 			</tr>
 			<tr>
-				<td align="right">商品カテゴリ<span
+				<td align="right">商品カテゴリー<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="puroduct" class="salesFiledLength">
+				<td><select name="puroductCategory" class="salesFiledLength"
+					required>
 						<option value="" disabled selected hidden>選択して下さい</option>
 						<option value="1">食料品</option>
 						<option value="1">本・雑誌</option>
@@ -68,25 +70,26 @@
 			<tr>
 				<td align="right">商品名<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" placeholder="商品名"
-					class="salesFiledLength"></td>
+				<td><input type="text" name="puroductName" placeholder="商品名"
+					class="salesFiledLength" required></td>
 			</tr>
 			<tr>
 				<td align="right">単価<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" size="10"
-					class="salesInputIntText"></td>
+				<td><input type="text" name="puroductUnitPrice" size="10"
+					class="salesInputIntText" required></td>
 			</tr>
 			<tr>
 				<td align="right">個数<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" size="10"
-					class="salesInputIntText"></td>
+				<td><input type="text" name="puroductNumber" size="10"
+					class="salesInputIntText" required></td>
 			</tr>
 			<tr>
 				<td align="right" valign="top">備考</td>
 				<td><textarea name="message" rows="8" cols="40"
-						placeholder="備考" class="salesFiledLength"></textarea></td>
+						placeholder="備考" class="salesFiledLength" name="
+remark"></textarea></td>
 			</tr>
 		</table>
 		<div>
