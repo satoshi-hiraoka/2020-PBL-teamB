@@ -24,7 +24,9 @@
 	position: relative;
 	top: 60px;
 	left: 300px;
-	/* cellpadingの代わり↓*/
-	border-collapse: separate;
-	border-spacing: 10px 10px;
+	border-collapse: collapse;
+}
+
+td, th {
+	padding: 10px;
 }

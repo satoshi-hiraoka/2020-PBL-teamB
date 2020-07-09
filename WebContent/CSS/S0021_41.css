@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+#title {
+	position: relative;
+	left: 280px;
+	top: 60px;
+}
+
+td, th {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
