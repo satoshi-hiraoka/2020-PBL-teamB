@@ -14,12 +14,11 @@
 	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
-<link rel="stylesheet" href="/teamB/CSS/S0020.css">
-<title>売上検索条件入力</title>
+<title>売上詳細編削除確認ボタン</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<h3>物品売上管理システム</h3>
+		<h3>売上を削除してよろしいですか？</h3>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -38,53 +37,68 @@
 			</ul>
 		</div>
 	</nav>
-	<h2 id="title">売上検索条件入力</h2>
+	<h2 id="title">売上を削除してもよろしいですか？</h2>
 	<form name="form" action="S0021.html" method="post">
 		<table class="tablePosition">
 			<tr>
-				<td align="right">販売日<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" size="10"><span
-					id="margin-77">～</span><input type="text" name="" size="10"></td>
+				<td align="right">販売日</td>
+				<td><input type="text" name="" size="10" value="2015/4/5"
+					disabled></td>
 			</tr>
 			<tr>
-				<td align="right">担当<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="Responsible" class="salesFiledLength">
-						<option value="" disabled selected hidden>選択して下さい</option>
+				<td align="right">担当</td>
+				<td><select name="Responsible" class="salesFiledLength"
+					disabled>
 						<option value="1">イチロー</option>
 						<option value="1">本田 圭佑</option>
 						<option value="1">池田 勇太</option>
 				</select></td>
 			</tr>
 			<tr>
-				<td align="right">商品カテゴリ<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="puroduct" class="salesFiledLength">
-						<option value="" disabled selected hidden>選択して下さい</option>
+				<td align="right">商品カテゴリー</td>
+				<td><select name="puroduct" class="salesFiledLength" disabled>
 						<option value="1">食料品</option>
 						<option value="1">本・雑誌</option>
 						<option value="1">飲料</option>
 				</select></td>
 			</tr>
 			<tr>
-				<td align="right">商品名<span
-					class="badge badge-pill badge-secondary">部分一致</span></td>
-				<td><input type="text" name="" placeholder="商品名"
-					class="salesFiledLength"></td>
+				<td align="right">商品名</td>
+				<td><input type="text" name="" value="唐揚げ弁当"
+					class="salesFiledLength" disabled></td>
 			</tr>
 			<tr>
-				<td align="right" valign="top">備考<span
-					class="badge badge-pill badge-secondary">部分一致</span></td>
-				<td><input type="text" placeholder="備考"
-					class="salesFiledLength"></td>
+				<td align="right">単価</td>
+				<td><input type="text" name="" value="540"
+					class="salesInputIntText" size="10" disabled></td>
+			</tr>
+			<tr>
+				<td align="right">個数</td>
+				<td><input type="text" name="" value="3" size="10"
+					class="salesInputIntText" disabled></td>
+			</tr>
+			<tr>
+				<td align="right">個数</td>
+				<td><input type="text" name="" value="3" size="10"
+					class="salesInputIntText" disabled></td>
+			</tr>
+			<tr>
+				<td align="right">小計</td>
+				<td><input type="text" name="" value="1,350" size="10"
+					class="salesInputIntText" disabled></td>
+			</tr>
+			<tr>
+				<td align="right" valign="top">備考</td>
+				<td><textarea name="message" rows="8" cols="40" value="今日から新商品"
+						class="salesFiledLength" disabled></textarea></td>
 			</tr>
 		</table>
 		<div>
-			<button type="submit" class="btn btn-primary mainButton">
-				<i class="fas fa-search"></i>検索
+			<button type="submit" class="btn btn-danger mainButton">
+				<i class="fas fa-times"></i>O K
 			</button>
-			<button type="reset" class="btn btn-outline-dark mainButton">クリア</button>
+			<button type="button" class="btn btn-outline-dark mainButton"
+				onclick="history.back()">キャンセル</button>
 		</div>
 	</form>
 

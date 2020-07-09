@@ -26,80 +26,76 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" href="#">ダッシュボード</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">売上登録</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">売上検索</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">アカウント登録</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">アカウント検索</a></li>
+				<li class="nav-item"><a class="nav-link" href="C0020.html">ダッシュボード</a></li>
+				<li class="nav-item"><a class="nav-link" href="S0010.html">売上登録</a></li>
+				<li class="nav-item"><a class="nav-link" href="S0020.html">売上検索</a></li>
+				<li class="nav-item"><a class="nav-link" href="S0030.html">アカウント登録</a></li>
+				<li class="nav-item"><a class="nav-link" href="S0040.html">アカウント検索</a></li>
 			</ul>
 			<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-				<li class="nav-item"><a class="nav-link" href="#">ログアウト</a></li>
+				<li class="nav-item"><a class="nav-link" href="C0010.html">ログアウト</a></li>
 			</ul>
 		</div>
 	</nav>
 	<h2 id="title">売上検索結果表示</h2>
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
-		<table class="tablePosition table">
-			<tr>
-				<th scope="col">操作</th>
-				<th scope="col">No</th>
-				<th scope="col">販売日</th>
-				<th scope="col">担当</th>
-				<th scope="col">商品カテゴリー</th>
-				<th scope="col">商品名</th>
-				<th scope="col">単価</th>
-				<th scope="col">個数</th>
-				<th scope="col">小計</th>
-			</tr>
-			<tr>
-				<td><form name="details" action="" method="post">
-						<button type="submit" class="btn btn-primary">
-							<i class="fas fa-check"></i>詳細
-						</button>
-					</form></td>
-				<td>1</td>
-				<td>2015/1/15</td>
-				<td>イチロー</td>
-				<td>食料品</td>
-				<td>唐揚げ弁当</td>
-				<td>450</td>
-				<td>3</td>
-				<td>1,350</td>
-			</tr>
-			<tr>
-				<td><form name="details" action="" method="post">
-						<button type="submit" class="btn btn-primary">
-							<i class="fas fa-check"></i>詳細
-						</button>
-					</form></td>
-				<td>1</td>
-				<td>2015/1/15</td>
-				<td>イチロー</td>
-				<td>食料品</td>
-				<td>唐揚げ弁当</td>
-				<td>450</td>
-				<td>3</td>
-				<td>1,350</td>
-			</tr>
-			<tr>
-				<td><form name="details" action="" method="post">
-						<button type="submit" class="btn btn-primary">
-							<i class="fas fa-check"></i>詳細
-						</button>
-					</form></td>
-				<td>1</td>
-				<td>2015/1/15</td>
-				<td>イチロー</td>
-				<td>食料品</td>
-				<td>唐揚げ弁当</td>
-				<td>450</td>
-				<td>3</td>
-				<td>1,350</td>
-			</tr>
-		</table>
-	</div>
-	<div class="col-md-2"></div>
+	<table class="tablePosition">
+		<tr>
+			<th>操作</th>
+			<th>No</th>
+			<th>販売日</th>
+			<th>担当</th>
+			<th>商品カテゴリー</th>
+			<th>商品名</th>
+			<th>単価</th>
+			<th>個数</th>
+			<th>小計</th>
+		</tr>
+		<tr>
+			<td><form name="details" action="S0022.html" method="post">
+					<button type="submit" class="btn btn-primary">
+						<i class="fas fa-check"></i>詳細
+					</button>
+				</form></td>
+			<td align="right">1</td>
+			<td>2015/1/16</td>
+			<td>本田 圭佑</td>
+			<td>その他</td>
+			<td>Yシャツ</td>
+			<td align="right">1,200</td>
+			<td align="right">5</td>
+			<td align="right">6,000</td>
+		</tr>
+		<tr>
+			<td><form name="details" action="S0022.html" method="post">
+					<button type="submit" class="btn btn-primary">
+						<i class="fas fa-check"></i>詳細
+					</button>
+				</form></td>
+			<td align="right">2</td>
+			<td>2015/1/17</td>
+			<td>池田 勇太</td>
+			<td>本・雑誌</td>
+			<td>週刊少年ジャンプ2020年10号</td>
+			<td align="right">280</td>
+			<td align="right">1</td>
+			<td align="right">280</td>
+		</tr>
+		<tr>
+			<td><form name="details" action="S0022.html" method="post">
+					<button type="submit" class="btn btn-primary">
+						<i class="fas fa-check"></i>詳細
+					</button>
+				</form></td>
+			<td align="right">3</td>
+			<td>2015/1/15</td>
+			<td>イチロー</td>
+			<td>食料品</td>
+			<td>唐揚げ弁当</td>
+			<td align="right">450</td>
+			<td align="right">3</td>
+			<td>1,350</td>
+		</tr>
+	</table>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

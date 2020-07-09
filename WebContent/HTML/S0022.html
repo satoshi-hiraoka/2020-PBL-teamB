@@ -14,6 +14,7 @@
 	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
+<link rel="stylesheet" href="/teamB/CSS/S0022.css">
 <title>売上詳細表示</title>
 </head>
 <body>
@@ -38,53 +39,55 @@
 		</div>
 	</nav>
 	<h2 id="title">売上詳細表示</h2>
-	<form name="form" action="S0011.html" method="post">
-		<table class="tablePosition">
-			<tr>
-				<td align="right">販売日</td>
-				<td>2015/1/15</td>
-			</tr>
-			<tr>
-				<td align="right">担当</td>
-				<td>イチロー</td>
-			</tr>
-			<tr>
-				<td align="right">商品カテゴリー</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td align="right">商品名</td>
-				<td>唐揚げ弁当</td>
-			</tr>
-			<tr>
-				<td align="right">単価</td>
-				<td align="right">450</td>
-			</tr>
-			<tr>
-				<td align="right">個数</td>
-				<td align="right">3</td>
-			</tr>
-			<tr>
-				<td align="right">小計</td>
-				<td align="right">1,350</td>
-			</tr>
-			<tr>
-				<td align="right" valign="top">備考</td>
-				<td align="right">今日からの新商品</td>
-			</tr>
-		</table>
-		<div>
+	<table class="tablePosition">
+		<tr>
+			<td align="right">販売日</td>
+			<td>2015/1/15</td>
+		</tr>
+		<tr>
+			<td align="right">担当</td>
+			<td>イチロー</td>
+		</tr>
+		<tr>
+			<td align="right">商品カテゴリー</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td align="right">商品名</td>
+			<td>唐揚げ弁当</td>
+		</tr>
+		<tr>
+			<td align="right">単価</td>
+			<td align="right">450</td>
+		</tr>
+		<tr>
+			<td align="right">個数</td>
+			<td align="right">3</td>
+		</tr>
+		<tr>
+			<td align="right">小計</td>
+			<td align="right">1,350</td>
+		</tr>
+		<tr>
+			<td align="right" valign="top">備考</td>
+			<td align="right">今日からの新商品</td>
+		</tr>
+	</table>
+	<div id="buttonParallel">
+		<form name="sales-edit" action="S0023.html" method="post">
 			<button type="submit" class="btn btn-primary mainButton">
 				<i class="fas fa-check"></i>編集
 			</button>
+		</form>
+		<form name="salse-delete" action="S0025.html">
 			<button type="submit" class="btn btn-danger mainButton">
 				<i class="fas fa-times"></i>削除
 			</button>
-			<button type="button" class="btn btn-outline-dark mainButton"
-				onclick="history.back()">キャンセル</button>
-		</div>
-	</form>
-
+		</form>
+		<button type="button" class="btn btn-outline-dark mainButton"
+			onclick="history.back()">キャンセル</button>
+	</div>
+<p>！！！！！！！！！！！！！！！！！！</p>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

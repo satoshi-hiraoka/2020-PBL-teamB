@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.mainButton {
+	position: relative;
+	top: 60px;
+	left: 600px;
+}
+
+#buttonParallel {
+	style ="display: inline-flex;
+}
+a{
+	color: red;
+}
