@@ -5,6 +5,11 @@ input {
 	height: 45px;
 }
 
+
 .login {
 	margin: 10px;
+}
+
+table{
+	border-color:#EEEEEE;
 }
