@@ -19,7 +19,7 @@
 <body>
 	<h2 id="title">売上登録を登録してよろしいですか？</h2>
 	<form name="form" action="S0011.html" method="post">
-		<table class="tablePosition" cellpadding="10">
+		<table class="tablePosition">
 			<tr>
 				<td align="right">販売日<span
 					class="badge badge-pill badge-secondary">必須</span></td>
@@ -29,7 +29,7 @@
 			<tr>
 				<td align="right">担当<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="Responsible" class="SalesfiledLength"
+				<td><select name="Responsible" class="salesFiledLength"
 					disabled>
 						<option value="1">金井</option>
 						<option value="1">岩根</option>
@@ -39,7 +39,7 @@
 			<tr>
 				<td align="right">商品カテゴリ<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="puroduct" class="SalesfiledLength" disabled>
+				<td><select name="puroduct" class="salesFiledLength" disabled>
 						<option value="1">唐揚げ</option>
 						<option value="1">お寿司</option>
 						<option value="1">ラーメン</option>
@@ -49,29 +49,31 @@
 				<td align="right">商品名<span
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><input type="text" name="" value="唐揚げ弁当"
-					class="SalesfiledLength" disabled></td>
+					class="salesFiledLength" disabled></td>
 			</tr>
 			<tr>
 				<td align="right">単価<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" value="540" size="10" disabled></td>
+				<td><input type="text" name="" value="540"
+					class="salesInputIntText" size="10" disabled></td>
 			</tr>
 			<tr>
 				<td align="right">個数<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" value="3" size="10" disabled></td>
+				<td><input type="text" name="" value="3" size="10"
+					class="salesInputIntText" disabled></td>
 			</tr>
 			<tr>
 				<td align="right" valign="top">備考</td>
 				<td><textarea name="message" rows="8" cols="40"
-						placeholder="備考" class="SalesfiledLength" disabled></textarea></td>
+						placeholder="備考" class="salesFiledLength" disabled></textarea></td>
 			</tr>
 		</table>
 		<div>
-			<button type="submit" class="btn btn-primary mainbutton">
+			<button type="submit" class="btn btn-primary mainButton">
 				<i class="fas fa-check"></i>OK
 			</button>
-			<button type="button" class="btn btn-outline-dark mainbutton"
+			<button type="button" class="btn btn-outline-dark mainButton"
 				onclick="history.back()">キャンセル</button>
 		</div>
 	</form>
