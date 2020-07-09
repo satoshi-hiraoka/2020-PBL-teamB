@@ -1,8 +1,30 @@
 @charset "UTF-8";
-.mainbutton{
-  position:relative; left:600px;
+
+.mainButton {
+	position: relative;
+	top: 60px;
+	left: 600px;
 }
 
-.SalesfiledLength{
-    width:400px;
+.salesFiledLength {
+	width: 400px;
+}
+
+.salesInputIntText {
+	text-align: right
+}
+
+#title {
+	position: relative;
+	left: 280px;
+	top: 80px;
+}
+
+.tablePosition {
+	position: relative;
+	top: 60px;
+	left: 300px;
+	/* cellpadingの代わり↓*/
+	border-collapse: separate;
+	border-spacing: 10px;
 }

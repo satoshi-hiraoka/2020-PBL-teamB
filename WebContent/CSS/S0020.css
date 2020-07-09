@@ -1,5 +1,15 @@
 @charset "UTF-8";
-#margin-77{
-	margin-right:77px;
-	margin-left:77px;
+
+#margin-77 {
+	margin-right: 77px;
+	margin-left: 77px;
+}
+
+.tablePosition {
+	position: relative;
+	top: 60px;
+	left: 300px;
+	/* cellpadingの代わり↓*/
+	border-collapse: separate;
+	border-spacing: 20px;
 }

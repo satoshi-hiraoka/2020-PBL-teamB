@@ -10,20 +10,18 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
-<title>アカウント検索|物品売上管理システム</title>
+<title>アカウント編集確認|物品売上管理システム</title>
 </head>
 <body>
 	<form action="S0041.html" method="POST" name="register-account">
-		<h1 id="title">アカウント検索</h1>
+		<h1 id="title">アカウントを編集してよろしいですか？</h1>
 		<table class="tablePosition">
 			<tr>
 				<td>
-					<div class="text-right">
-						氏名<span class="badge badge-pill badge-secondary">部分一致</span>
-					</div>
+					<div class="text-right">氏名</div>
 				</td>
 				<td>
-					<input type="text" name="name" size="40" placeholder="氏名" />
+					<input type="text" name="name" size="40" value="イチロー" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -31,7 +29,23 @@
 					<div class="text-right">メールアドレス</div>
 				</td>
 				<td>
-					<input type="text" name="email" size="40" placeholder="メールアドレス" />
+					<input type="text" name="email" size="40" value="ichiro@sak.com" disabled />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="text-right">パスワード</div>
+				</td>
+				<td>
+					<input type="password" name="password" size="40" value="password" disabled />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="text-right">パスワード（確認）</div>
+				</td>
+				<td>
+					<input type="password" name="password" size="40" value="password" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -39,9 +53,8 @@
 					<div class="text-right">売上登録権限</div>
 				</td>
 				<td>
-					<label><input type="radio" name="auth-sales" value="全て" checked />全て</label>
-					<label><input type="radio" name="auth-sales" value="権限なし" />権限なし</label>
-					<label><input type="radio" name="auth-sales" value="権限あり" />権限あり</label>
+					<input type="radio" name="auth-sales" value="権限なし" disabled checked />権限なし
+					<input type="radio" name="auth-sales" value="権限あり" disabled />権限あり
 				</td>
 			</tr>
 			<tr>
@@ -49,17 +62,16 @@
 					<div class="text-right">アカウント登録権限</div>
 				</td>
 				<td>
-					<label><input type="radio" name="auth-account" value="全て" checked />全て</label>
-					<label><input type="radio" name="auth-account" value="権限なし" />権限なし</label>
-					<label><input type="radio" name="auth-account" value="権限あり" />権限あり</label>
+					<input type="radio" name="auth-account" value="権限なし" disabled />権限なし
+					<input type="radio" name="auth-account" value="権限あり" disabled checked />権限あり
 				</td>
 			</tr>
 		</table>
 		<button type="submit" class="btn btn-primary mainButton">
-			<i class="fas fa-search"></i>検 索
+			<i class="fas fa-check"></i>OK
 		</button>
-		<button type="reset" class="btn btn-outline-dark mainButton">
-			クリア
+		<button type="button" class="btn btn-outline-dark mainButton" onclick="history.back()">
+			キャンセル
 		</button>
 	</form>
 	<!-- Optional JavaScript -->
@@ -75,6 +87,5 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
-
 </body>
 </html>

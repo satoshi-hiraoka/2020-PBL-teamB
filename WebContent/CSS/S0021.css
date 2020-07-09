@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.tablePosition {
+	position: relative;
+	top: 60px;
+	border-collapse: separate;
+	border-spacing: 10px;
+}
+
+#title {
+	position: relative;
+	left: 280px;
+	top: 60px;
+}

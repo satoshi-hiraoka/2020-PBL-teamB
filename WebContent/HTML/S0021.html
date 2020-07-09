@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="common.css">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
@@ -13,7 +12,9 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
-<title>売上登録確認画面</title>
+<link rel="stylesheet" href="/teamB/CSS/common.css">
+<link rel="stylesheet" href="/teamB/CSS/S0021.css">
+<title>売上検索条件入力</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -36,6 +37,69 @@
 			</ul>
 		</div>
 	</nav>
+	<h2 id="title">売上検索結果表示</h2>
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<table class="tablePosition table">
+			<tr>
+				<th scope="col">操作</th>
+				<th scope="col">No</th>
+				<th scope="col">販売日</th>
+				<th scope="col">担当</th>
+				<th scope="col">商品カテゴリー</th>
+				<th scope="col">商品名</th>
+				<th scope="col">単価</th>
+				<th scope="col">個数</th>
+				<th scope="col">小計</th>
+			</tr>
+			<tr>
+				<td><form name="details" action="" method="post">
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>詳細
+						</button>
+					</form></td>
+				<td>1</td>
+				<td>2015/1/15</td>
+				<td>イチロー</td>
+				<td>食料品</td>
+				<td>唐揚げ弁当</td>
+				<td>450</td>
+				<td>3</td>
+				<td>1,350</td>
+			</tr>
+			<tr>
+				<td><form name="details" action="" method="post">
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>詳細
+						</button>
+					</form></td>
+				<td>1</td>
+				<td>2015/1/15</td>
+				<td>イチロー</td>
+				<td>食料品</td>
+				<td>唐揚げ弁当</td>
+				<td>450</td>
+				<td>3</td>
+				<td>1,350</td>
+			</tr>
+			<tr>
+				<td><form name="details" action="" method="post">
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>詳細
+						</button>
+					</form></td>
+				<td>1</td>
+				<td>2015/1/15</td>
+				<td>イチロー</td>
+				<td>食料品</td>
+				<td>唐揚げ弁当</td>
+				<td>450</td>
+				<td>3</td>
+				<td>1,350</td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-md-2"></div>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
