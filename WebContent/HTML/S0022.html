@@ -14,64 +14,73 @@
 	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
-<title>売上登録確認画面</title>
+<title>売上詳細表示</title>
 </head>
 <body>
-	<h2 id="title">売上登録を登録してよろしいですか？</h2>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<h3>物品売上管理システム</h3>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" href="C0020.html">ダッシュボード</a></li>
+				<li class="nav-item"><a class="nav-link" href="S0010.html">売上登録</a></li>
+				<li class="nav-item"><a class="nav-link" href="S0020.html">売上検索</a></li>
+				<li class="nav-item"><a class="nav-link" href="S0030.html">アカウント登録</a></li>
+				<li class="nav-item"><a class="nav-link" href="S0040.html">アカウント検索</a></li>
+			</ul>
+			<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+				<li class="nav-item"><a class="nav-link" href="C0010.html">ログアウト</a></li>
+			</ul>
+		</div>
+	</nav>
+	<h2 id="title">売上詳細表示</h2>
 	<form name="form" action="S0011.html" method="post">
-		<table class="tablePosition" cellpadding="10">
+		<table class="tablePosition">
 			<tr>
-				<td align="right">販売日<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" size="10" value="2015/4/5"
-					disabled></td>
+				<td align="right">販売日</td>
+				<td>2015/1/15</td>
 			</tr>
 			<tr>
-				<td align="right">担当<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="Responsible" class="SalesfiledLength"
-					disabled>
-						<option value="1">金井</option>
-						<option value="1">岩根</option>
-						<option value="1">宮崎</option>
-				</select></td>
+				<td align="right">担当</td>
+				<td>イチロー</td>
 			</tr>
 			<tr>
-				<td align="right">商品カテゴリ<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="puroduct" class="SalesfiledLength" disabled>
-						<option value="1">唐揚げ</option>
-						<option value="1">お寿司</option>
-						<option value="1">ラーメン</option>
-				</select></td>
+				<td align="right">商品カテゴリー</td>
+				<td></td>
 			</tr>
 			<tr>
-				<td align="right">商品名<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" value="唐揚げ弁当"
-					class="SalesfiledLength" disabled></td>
+				<td align="right">商品名</td>
+				<td>唐揚げ弁当</td>
 			</tr>
 			<tr>
-				<td align="right">単価<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" value="540" size="10" disabled></td>
+				<td align="right">単価</td>
+				<td align="right">450</td>
 			</tr>
 			<tr>
-				<td align="right">個数<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="" value="3" size="10" disabled></td>
+				<td align="right">個数</td>
+				<td align="right">3</td>
+			</tr>
+			<tr>
+				<td align="right">小計</td>
+				<td align="right">1,350</td>
 			</tr>
 			<tr>
 				<td align="right" valign="top">備考</td>
-				<td><textarea name="message" rows="8" cols="40"
-						placeholder="備考" class="SalesfiledLength" disabled></textarea></td>
+				<td align="right">今日からの新商品</td>
 			</tr>
 		</table>
 		<div>
-			<button type="submit" class="btn btn-primary mainbutton">
-				<i class="fas fa-check"></i>OK
+			<button type="submit" class="btn btn-primary mainButton">
+				<i class="fas fa-check"></i>編集
 			</button>
-			<button type="button" class="btn btn-outline-dark mainbutton"
+			<button type="submit" class="btn btn-danger mainButton">
+				<i class="fas fa-times"></i>削除
+			</button>
+			<button type="button" class="btn btn-outline-dark mainButton"
 				onclick="history.back()">キャンセル</button>
 		</div>
 	</form>
