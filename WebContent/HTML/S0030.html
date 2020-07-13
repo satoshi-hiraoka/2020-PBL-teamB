@@ -11,7 +11,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
-<link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
 <title>アカウント登録|物品売上管理システム</title>
 </head>
@@ -36,7 +35,7 @@
 			</ul>
 		</div>
 	</nav>
-	<form action="S0031.html" method="POST" name="register-account">
+	<form action="S0031.html" method="POST" name="registerAccount">
 		<h1 id="title">アカウント登録</h1>
 		<table class="tablePosition" >
 			<tr>
@@ -46,8 +45,8 @@
 				<td>
 					<input type="text" name="name" size="40" placeholder="氏名" required />
 				</td>
-				</tr>
-				<tr>
+			</tr>
+			<tr>
 				<td align="right">
 					メールアドレス<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
@@ -68,7 +67,7 @@
 					パスワード（確認）<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="password" name="password" size="40" placeholder="パスワード（確認）" required />
+					<input type="password" name="passwordCheck" size="40" placeholder="パスワード（確認）" required />
 				</td>
 			</tr>
 			<tr>
@@ -76,8 +75,8 @@
 					売上登録権限<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<label><input type="radio" name="auth-sales" value="権限なし" required />権限なし</label>
-					<label><input type="radio" name="auth-sales" value="権限あり" required />権限あり</label>
+					<label><input type="radio" name="authSales" value="0" required />権限なし</label>
+					<label><input type="radio" name="authSales" value="1" required />権限あり</label>
 				</td>
 			</tr>
 			<tr>
@@ -85,8 +84,8 @@
 					アカウント登録権限<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<label><input type="radio" name="auth-account" value="権限なし" required />権限なし</label>
-					<label><input type="radio" name="auth-account" value="権限あり" required />権限あり</label>
+					<label><input type="radio" name="authAccount" value="0" required />権限なし</label>
+					<label><input type="radio" name="authAccount" value="1" required />権限あり</label>
 				</td>
 			</tr>
 		</table>
@@ -96,17 +95,9 @@
 	</form>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+	<script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>
