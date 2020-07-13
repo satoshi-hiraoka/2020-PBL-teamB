@@ -30,6 +30,11 @@
 td, th {
 	padding: 10px;
 }
-.textAlign{
-	text-align:right;
+
+.textAlign {
+	text-align: right;
+}
+
+.textBoxAlignRemark {
+vertical-align: top;
 }
