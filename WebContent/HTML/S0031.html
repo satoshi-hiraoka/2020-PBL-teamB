@@ -8,7 +8,6 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
-<link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
 <title>アカウント登録確認|物品売上管理システム</title>
 </head>
@@ -33,7 +32,7 @@
 			</ul>
 		</div>
 	</nav>
-	<form action="S0030.html" method="POST" name="register-account-check">
+	<form action="S0030.html" method="POST" name="registerAccountCheck">
 		<h1 id="title">アカウントを登録してよろしいですか？</h1>
 		<table class="tablePosition">
 			<tr>
@@ -43,7 +42,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="text" name="name" size="40" value="サンプル" disabled />
+					<input type="text" name="name" size="40" placeholder="sample" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -53,7 +52,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="text" name="email" size="40" value="sample@sample.co.jp" disabled />
+					<input type="text" name="email" size="40" placeholder="sample@sample.co.jp" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -73,7 +72,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="password" name="password" size="40" value="pass" disabled />
+					<input type="password" name="passwordCheck" size="40" value="pass" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -83,8 +82,8 @@
 					</div>
 				</td>
 				<td>
-					<input type="radio" name="auth-sales" value="権限なし" disabled checked />権限なし
-					<input type="radio" name="auth-sales" value="権限あり" disabled />権限あり
+					<input type="radio" name="authSales" value="0" disabled checked />権限なし
+					<input type="radio" name="authSales" value="1" disabled />権限あり
 				</td>
 			</tr>
 			<tr>
@@ -94,8 +93,8 @@
 					</div>
 				</td>
 				<td>
-					<input type="radio" name="auth-account" value="権限なし" disabled checked />権限なし
-					<input type="radio" name="auth-account" value="権限あり" disabled />権限あり
+					<input type="radio" name="authAccount" value="0" disabled checked />権限なし
+					<input type="radio" name="authAccount" value="1" disabled />権限あり
 				</td>
 			</tr>
 		</table>
@@ -108,17 +107,9 @@
 	</form>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+	<script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -8,7 +8,6 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
-<link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
 <title>アカウント検索|物品売上管理システム</title>
 </head>
@@ -33,7 +32,7 @@
 			</ul>
 		</div>
 	</nav>
-	<form action="S0041.html" method="POST" name="register-account">
+	<form action="S0041.html" method="POST" name="searchAccount">
 		<h1 id="title">アカウント検索</h1>
 		<table class="tablePosition">
 			<tr>
@@ -59,9 +58,9 @@
 					<div class="text-right">売上登録権限</div>
 				</td>
 				<td>
-					<label><input type="radio" name="auth-sales" value="全て" checked />全て</label>
-					<label><input type="radio" name="auth-sales" value="権限なし" />権限なし</label>
-					<label><input type="radio" name="auth-sales" value="権限あり" />権限あり</label>
+					<label><input type="radio" name="authSales" value="all" checked />全て</label>
+					<label><input type="radio" name="authSales" value="0" />権限なし</label>
+					<label><input type="radio" name="authsales" value="1" />権限あり</label>
 				</td>
 			</tr>
 			<tr>
@@ -69,9 +68,9 @@
 					<div class="text-right">アカウント登録権限</div>
 				</td>
 				<td>
-					<label><input type="radio" name="auth-account" value="全て" checked />全て</label>
-					<label><input type="radio" name="auth-account" value="権限なし" />権限なし</label>
-					<label><input type="radio" name="auth-account" value="権限あり" />権限あり</label>
+					<label><input type="radio" name="authAccount" value="all" checked />全て</label>
+					<label><input type="radio" name="authAccount" value="0" />権限なし</label>
+					<label><input type="radio" name="authAccount" value="1" />権限あり</label>
 				</td>
 			</tr>
 		</table>
@@ -84,17 +83,11 @@
 	</form>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-		crossorigin="anonymous"></script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-		crossorigin="anonymous"></script>
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -33,7 +33,7 @@
 			</ul>
 		</div>
 	</nav>
-	<form action="S0043.html" method="POST" name="register-account">
+	<form action="S0043.html" method="POST" name="editAccount">
 		<h1 id="title">アカウント編集</h1>
 		<table class="tablePosition">
 			<tr>
@@ -83,8 +83,8 @@
 					</div>
 				</td>
 				<td>
-					<label><input type="radio" name="auth-sales" value="権限なし" required checked />権限なし</label>
-					<label><input type="radio" name="auth-sales" value="権限あり" required />権限あり</label>
+					<label><input type="radio" name="auth-sales" value="0" required checked />権限なし</label>
+					<label><input type="radio" name="auth-sales" value="1" required />権限あり</label>
 				</td>
 			</tr>
 			<tr>
@@ -94,8 +94,8 @@
 					</div>
 				</td>
 				<td>
-					<label><input type="radio" name="auth-account" value="権限なし" required />権限なし</label>
-					<label><input type="radio" name="auth-account" value="権限あり" required checked />権限あり</label>
+					<label><input type="radio" name="authAccount" value="0" required />権限なし</label>
+					<label><input type="radio" name="authAccount" value="1" required checked />権限あり</label>
 				</td>
 			</tr>
 		</table>
