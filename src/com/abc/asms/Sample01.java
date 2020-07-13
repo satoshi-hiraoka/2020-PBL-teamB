@@ -1,6 +1,7 @@
 package com.abc.asms;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class Sample
  */
 @WebServlet(name = "Samples", urlPatterns = { "/Samples" })
-public class Sample extends HttpServlet {
+public class Sample01 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
-     * Default constructor. 
+     * Default constructor.
      */
-    public Sample() {
+    public Sample01() {
         // TODO Auto-generated constructor stub
     }
 
@@ -27,6 +28,7 @@ public class Sample extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println("test");
 	}
 
 	/**
