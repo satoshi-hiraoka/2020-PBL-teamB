@@ -1,0 +1,29 @@
+アカウントテーブル
+CREATE TABLE accounts(
+	account_id int PRIMARY KEY AUTO_INCREMENT NOT null,
+	name varchar(20) NOT null,
+	mail varchar(100) NOT null,
+	password varchar(32) NOT null,
+	authority int NOT null DEFAULT '0'
+);
+
+商品カテゴリーテーブル
+CREATE TABLE categories(
+	category_id int PRIMARY KEY AUTO_INCREMENT NOT null,
+	category_name varchar(50) NOT null,
+	active_flg int NOT null DEFAULT '1'
+);
+
+売上テーブル
+CREATE TABLE sales(
+	sale_id int PRIMARY KEY AUTO_INCREMENT NOT null,
+	sale_date date NOT null,
+	account_id int PRIMARY KEY AUTO_INCREMENT NOT null,
+	FOREIGN KEY (account_id) REFERENCES accounts(account_id),
+	category_id int PRIMARY KEY AUTO_INCREMENT NOT null,
+	FOREIGN KEY (category_id) REFERENCES categories(category_id),
+	trade_name varchar(100) NOT null,
+	unit_price int NOT null,
+	sale_number int NOT null,
+	note text
+);
