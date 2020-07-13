@@ -18,6 +18,7 @@
 <title>売上登録</title>
 </head>
 <body>
+	<jsp:include page="menu.jsp" />
 	<h2 id="title">売上登録</h2>
 	<form name="form" action="S0011.html" method="post">
 		<table class="tablePosition">

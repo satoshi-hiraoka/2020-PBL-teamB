@@ -9,8 +9,8 @@
 	</button>
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="C0020.html">ダッシュボード</a></li>
-			<li class="nav-item"><a class="nav-link" href="S0010.html">売上登録</a></li>
+			<li class="nav-item"><a class="nav-link" href="/teamB/Samples">ダッシュボード</a></li>
+			<li class="nav-item"><a class="nav-link" href="/teamB/S0010">売上登録</a></li>
 			<li class="nav-item"><a class="nav-link" href="S0020.html">売上検索</a></li>
 			<li class="nav-item"><a class="nav-link" href="S0030.html">アカウント登録</a></li>
 			<li class="nav-item"><a class="nav-link" href="S0040.html">アカウント検索</a></li>
