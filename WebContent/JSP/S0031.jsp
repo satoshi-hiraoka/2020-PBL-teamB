@@ -5,15 +5,14 @@
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
 <link rel="stylesheet" href="/teamB/CSS/radioButton.css">
-<title>アカウント登録|物品売上管理システム</title>
+<title>アカウント登録確認|物品売上管理システム</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -36,62 +35,77 @@
 			</ul>
 		</div>
 	</nav>
-	<form action="S0031.html" method="POST" name="registerAccount">
-		<h1 id="title">アカウント登録</h1>
-		<table class="tablePosition" >
+	<form action="S0030.html" method="POST" name="registerAccountCheck">
+		<h1 id="title">アカウントを登録してよろしいですか？</h1>
+		<table class="tablePosition">
 			<tr>
-				<td align="right">
-					氏名<span class="badge badge-pill badge-secondary">必須</span>
+				<td>
+					<div class="text-right">
+						氏名<span class="badge badge-pill badge-secondary">必須</span>
+					</div>
 				</td>
 				<td>
-					<input type="text" name="name" size="40" placeholder="氏名" />
+					<input type="text" name="name" size="40" placeholder="sample" disabled />
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
-					メールアドレス<span class="badge badge-pill badge-secondary">必須</span>
+				<td>
+					<div class="text-right">
+						メールアドレス<span class="badge badge-pill badge-secondary">必須</span>
+					</div>
 				</td>
 				<td>
-					<input type="text" name="email" size="40" placeholder="メールアドレス" />
+					<input type="text" name="email" size="40" placeholder="sample@sample.co.jp" disabled />
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
-					パスワード<span class="badge badge-pill badge-secondary">必須</span>
+				<td>
+					<div class="text-right">
+						パスワード<span class="badge badge-pill badge-secondary">必須</span>
+					</div>
 				</td>
 				<td>
-					<input type="password" name="password" size="40" placeholder="パスワード" />
+					<input type="password" name="password" size="40" value="pass" disabled />
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
-					パスワード（確認）<span class="badge badge-pill badge-secondary">必須</span>
+				<td>
+					<div class="text-right">
+						パスワード（確認）<span class="badge badge-pill badge-secondary">必須</span>
+					</div>
 				</td>
 				<td>
-					<input type="password" name="passwordCheck" size="40" placeholder="パスワード（確認）" />
+					<input type="password" name="passwordCheck" size="40" value="pass" disabled />
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
-					売上登録権限<span class="badge badge-pill badge-secondary">必須</span>
+				<td>
+					<div class="text-right">
+						売上登録権限<span class="badge badge-pill badge-secondary">必須</span>
+					</div>
 				</td>
 				<td>
-					<label><input type="radio" name="authSales" value="0" />権限なし</label>
-					<label><input type="radio" name="authSales" value="1" />権限あり</label>
+					<label><input type="radio" name="authSales" value="0" disabled checked />権限なし</label>
+					<label><input type="radio" name="authSales" value="1" disabled />権限あり</label>
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
-					アカウント登録権限<span class="badge badge-pill badge-secondary">必須</span>
+				<td>
+					<div class="text-right">
+						アカウント登録権限<span class="badge badge-pill badge-secondary">必須</span>
+					</div>
 				</td>
 				<td>
-					<label><input type="radio" name="authAccount" value="0" />権限なし</label>
-					<label><input type="radio" name="authAccount" value="1" />権限あり</label>
+					<label><input type="radio" name="authAccount" value="0" disabled checked />権限なし</label>
+					<label><input type="radio" name="authAccount" value="1" disabled />権限あり</label>
 				</td>
 			</tr>
 		</table>
 		<button type="submit" class="btn btn-primary mainButton">
-			<i class="fas fa-check"></i>登 録
+			<i class="fas fa-check"></i>OK
+		</button>
+		<button type="button" class="btn btn-outline-dark mainButton"onclick="history.back()">
+			キャンセル
 		</button>
 	</form>
 	<!-- Optional JavaScript -->
