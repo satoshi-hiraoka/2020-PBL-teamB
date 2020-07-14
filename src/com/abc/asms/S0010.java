@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -34,40 +36,41 @@ public class S0010 extends HttpServlet {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
+		List<User> resposible_puroductCategory = new ArrayList<>();
+		User user = new User();
 		try {
 			Context initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:/comp/env");
-			DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/login");
+			DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
 
 			con = ds.getConnection();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("	SELECT");
-			sql.append("		u.id,");
-			sql.append("		u.loginID,");
-			sql.append("		u.delete_flag, ");
-			sql.append("		u.create_date,");
-			sql.append("		u.update_date,");
-			sql.append("		au.auth_id,");
-			sql.append("		a.name");
-			sql.append("	FROM");
-			sql.append("		auth_user au");
-			sql.append("		LEFT JOIN");
-			sql.append("			users u ON au.user_id=u.id");
-			sql.append("		LEFT JOIN");
-			sql.append("			auth a ON au.auth_id=a.id");
-			sql.append("	WHERE");
-			sql.append("		loginID='kanai'");
-			sql.append("		and password = MD5('shota')");
-			sql.append("		and u.delete_flag=0");
-			sql.append("		and au.delete_flag=0");
-			sql.append("		and a.delete_flag=0");
+			sql.append(" SELECT");
+			sql.append("	a.name,");
+			sql.append("	c.category_name");
+			sql.append(" FROM");
+			sql.append("	sales s");
+			sql.append("	LEFT JOIN");
+			sql.append("		accounts a ON s.account_id=a.account_id");
+			sql.append("	 LEFT JOIN");
+			sql.append("		categories c ON s.category_id=c.category_id");
+			sql.append(" WHERE");
+			sql.append("	c.active_flg=0;");
+			sql.append("");
+			sql.append("");
 
 			ps = con.prepareStatement(sql.toString());
 			rs = ps.executeQuery();
+			while (rs.next()) {
 
-			this.getServletContext().getRequestDispatcher("/UseManagement/searchUser.jsp").forward(request,
+				user.setName(rs.getString("name"));
+				resposible_puroductCategory.add(user);
+			}
+			for (int i = 0; i < resposible_puroductCategory.size(); i++) {
+				System.out.println(resposible_puroductCategory);
+			}
+			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
 					response);
 		} catch (Exception e) {
 			throw new ServletException(e);

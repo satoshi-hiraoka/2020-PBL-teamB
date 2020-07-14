@@ -33,8 +33,9 @@
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><select name="responsible" class="salesFiledLength">
 						<option value="" disabled selected>選択して下さい</option>
-						<c:forEach var="personInCharge" items="イチロー,本田圭佑,池田勇太">
-							<option value="${personInCharge}">${personInCharge}</option>
+						<c:forEach var="personInCharge"
+							items="${resposible_puroductCategory}">
+							<option value="${personInCharge.name}">${personInCharge.name}</option>
 						</c:forEach>
 				</select></td>
 			</tr>
