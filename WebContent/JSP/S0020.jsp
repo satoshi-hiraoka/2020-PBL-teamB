@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -15,67 +14,57 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+<link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
-<title>売上登録</title>
+<link rel="stylesheet" href="/teamB/CSS/S0020.css">
+<title>売上検索条件入力</title>
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
-	<h2 id="title">売上登録</h2>
-	<form name="form" action="S0011.html" method="post">
+	<h2 id="title">売上検索条件入力</h2>
+	<form name="form" action="S0021.html" method="post">
 		<table class="tablePosition">
 			<tr>
-				<td class="textAlign">販売日<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="saleDate" size="10"></td>
+				<td align="right">販売日</td>
+				<td><input type="text" name="saleDate" size="10"><span
+					id="margin-77">～</span><input type="text" name="" size="10"></td>
 			</tr>
 			<tr>
-				<td class="textAlign">担当<span
-					class="badge badge-pill badge-secondary">必須</span></td>
+				<td align="right">担当</td>
 				<td><select name="responsible" class="salesFiledLength">
 						<option value="" disabled selected>選択して下さい</option>
-						<c:forEach var="personInCharge" items="イチロー,本田圭佑,池田勇太">
-							<option value="${personInCharge}">${personInCharge}</option>
-						</c:forEach>
+						<option value="Ichiro">イチロー</option>
+						<option value="HondaKesuke">本田 圭佑</option>
+						<option value="IkedaYuta">池田 勇太</option>
 				</select></td>
 			</tr>
 			<tr>
-				<td class="textAlign">商品カテゴリー<span
-					class="badge badge-pill badge-secondary">必須</span></td>
+				<td align="right">商品カテゴリ</td>
 				<td><select name="puroductCategory" class="salesFiledLength">
 						<option value="" disabled selected>選択して下さい</option>
-						<c:forEach var="personInCharge" items="食料品,衣料品,その他">
-							<option value="${personInCharge}">${personInCharge}</option>
-						</c:forEach>
+						<option value="1">食料品</option>
+						<option value="1">本・雑誌</option>
+						<option value="1">飲料</option>
 				</select></td>
 			</tr>
 			<tr>
-				<td class="textAlign">商品名<span
-					class="badge badge-pill badge-secondary">必須</span></td>
+				<td align="right">商品名<span
+					class="badge badge-pill badge-secondary">部分一致</span></td>
 				<td><input type="text" name="puroductName" placeholder="商品名"
 					class="salesFiledLength"></td>
 			</tr>
 			<tr>
-				<td class="textAlign">単価<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="puroductUnitPrice" size="10"
-					class="salesInputIntText"></td>
-			</tr>
-			<tr>
-				<td class="textAlign">個数<span
-					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="puroductNumber" size="10"
-					class="salesInputIntText"></td>
-			</tr>
-			<tr>
-				<td class="textAlign textBoxAlignRemark" valign="top">備考</td>
-				<td><textarea rows="4" cols="40" placeholder="備考"
-						class="salesFiledLength" name="remark"></textarea></td>
+				<td align="right" valign="top">備考<span
+					class="badge badge-pill badge-secondary">部分一致</span></td>
+				<td><input type="text" placeholder="備考"
+					class="salesFiledLength"></td>
 			</tr>
 		</table>
 		<div>
 			<button type="submit" class="btn btn-primary mainButton">
-				<i class="fas fa-check"></i>登 録
+				<i class="fas fa-search"></i>検索
 			</button>
+			<button type="reset" class="btn btn-outline-dark mainButton">クリア</button>
 		</div>
 	</form>
 
