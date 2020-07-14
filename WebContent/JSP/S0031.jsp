@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -35,7 +36,7 @@
 			</ul>
 		</div>
 	</nav>
-	<form action="S0030.html" method="POST" name="registerAccountCheck">
+	<form action="S0030.jsp" method="POST" name="registerAccountCheck">
 		<h1 id="title">アカウントを登録してよろしいですか？</h1>
 		<table class="tablePosition">
 			<tr>
@@ -45,7 +46,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="text" name="name" size="40" placeholder="sample" disabled />
+					<input type="text" name="name" size="40" placeholder="${param['name']}" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -55,7 +56,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="text" name="email" size="40" placeholder="sample@sample.co.jp" disabled />
+					<input type="text" name="email" size="40" placeholder="${param['email']}" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -65,7 +66,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="password" name="password" size="40" value="pass" disabled />
+					<input type="password" name="password" size="40" value="${param['password']}" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -75,7 +76,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="password" name="passwordCheck" size="40" value="pass" disabled />
+					<input type="password" name="passwordCheck" size="40" value="${param['passwordCheck']}" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -85,7 +86,7 @@
 					</div>
 				</td>
 				<td>
-					<label><input type="radio" name="authSales" value="0" disabled checked />権限なし</label>
+					<label><input type="radio" name="authSales" value="0" disabled <c:if test="${param['authSales'] == 1}">checked</c:if> />権限なし</label>
 					<label><input type="radio" name="authSales" value="1" disabled />権限あり</label>
 				</td>
 			</tr>

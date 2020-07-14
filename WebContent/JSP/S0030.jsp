@@ -36,7 +36,7 @@
 			</ul>
 		</div>
 	</nav>
-	<form action="S0031.html" method="POST" name="registerAccount">
+	<form action="S0031.jsp" method="POST" name="registerAccount">
 		<h1 id="title">アカウント登録</h1>
 		<table class="tablePosition" >
 			<tr>
