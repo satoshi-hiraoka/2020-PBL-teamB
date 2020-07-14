@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
 <link rel="stylesheet" href="/teamB/CSS/radioButton.css">
+<link rel="stylesheet" href="/teamB/CSS/alert.css">
 <title>アカウント登録|物品売上管理システム</title>
 </head>
 <body>
@@ -36,13 +37,23 @@
 	</nav>
 	<form action="S0031.html" method="POST" name="registerAccount">
 		<h1 id="title">アカウント登録</h1>
+		<div class="alert alert-danger alert-dismissible" role="alert" id="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong><i class="fas fa-times"></i>エラーが発生しました！</strong><br>
+			<ul>
+				<li>氏名を入力してください。</li>
+				<li>売上登録権限を入力してください。</li>
+			</ul>
+		</div>
 		<table class="tablePosition" >
 			<tr>
 				<td align="right">
-					氏名<span class="badge badge-pill badge-secondary">必須</span>
+					<div class="text-danger">氏名<span class="badge badge-pill badge-secondary">必須</span></div>
 				</td>
 				<td>
-					<input type="text" name="name" size="40" placeholder="氏名" required />
+					<input type="text" name="name" size="40" placeholder="氏名" class="border border-danger rounded" required />
 				</td>
 			</tr>
 			<tr>
@@ -71,11 +82,11 @@
 			</tr>
 			<tr>
 				<td align="right">
-					売上登録権限<span class="badge badge-pill badge-secondary">必須</span>
+					<div class="text-danger">売上登録権限<span class="badge badge-pill badge-secondary">必須</span></div>
 				</td>
 				<td>
-					<label><input type="radio" name="authSales" value="0" required />権限なし</label>
-					<label><input type="radio" name="authSales" value="1" required />権限あり</label>
+					<label class="text-danger"><input type="radio" name="authSales" value="0" required />権限なし</label>
+					<label class="text-danger"><input type="radio" name="authSales" value="1" required />権限あり</label>
 				</td>
 			</tr>
 			<tr>
