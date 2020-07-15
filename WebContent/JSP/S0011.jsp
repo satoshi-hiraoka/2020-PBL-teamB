@@ -22,56 +22,56 @@
 <body>
 	<jsp:include page="menu.jsp" />
 	<h2 id="title">売上登録を登録してよろしいですか？</h2>
-	<form name="form" action="S0010.html" method="post">
+	<form name="form" action="/teamB/SalesRegisterComplete" method="post">
 		<table class="tablePosition">
 			<tr>
 				<td class="textAlign">販売日</td>
-				<td><input type="text" name="saleDate" size="10"
-					value="2015/4/5" disabled></td>
+				<td><input type="text" name="ConSaleDate" size="10"
+					value="${param['saleDate']}" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">担当</td>
-				<td><select name="responsible" class="salesFiledLength"
-					disabled>
-						<option value="Ichiro">イチロー</option>
-						<option value="HondaKesuke">本田 圭佑</option>
-						<option value="IkedaYuta">池田 勇太</option>
+				<td><select name="responsibleData" class="salesFiledLength">
+						<c:forEach var="responsibleData" items="${resposiblelist}">
+							<option value="${responsibleData.account_id}" selected>${responsibleData.name}</option>
+						</c:forEach>
 				</select></td>
 			</tr>
 			<tr>
 				<td class="textAlign">商品カテゴリー</td>
 				<td><select name="puroductCategory" class="salesFiledLength"
 					disabled>
-						<option value="1">食料品</option>
-						<option value="2">本・雑誌</option>
-						<option value="3">飲料</option>
+						<option value=""></option>
 				</select></td>
 			</tr>
 			<tr>
 				<td class="textAlign">商品名</td>
-				<td><input type="text" name="puroductName" value="唐揚げ弁当"
-					class="salesFiledLength" disabled></td>
+				<td><input type="text" name="puroductName"
+					value="${param['puroductName']}" class="salesFiledLength" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">単価</td>
-				<td><input type="text" name="puroductUnitPrice" value="540"
-					class="salesInputIntText" size="10" disabled></td>
+				<td><input type="text" name="puroductUnitPrice"
+					value="${requestScope['commaPrice']}" class="salesInputIntText"
+					size="10" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">個数</td>
-				<td><input type="text" name="puroductNumber" value="3"
-					size="10" class="salesInputIntText" disabled></td>
+				<td><input type="text" name="puroductNumber" size="10"
+					value="${requestScope['commaNumer']}" class="salesInputIntText"
+					disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">小計</td>
-				<td><input type="text" name="puroductNumber" value="1,620"
-					size="10" class="salesInputIntText" disabled></td>
+				<td><input type="text" name="puroductSubtotal"
+					value="${requestScope['commaSubtotal']}" size="10"
+					class="salesInputIntText" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign textBoxAlignRemark">備考</td>
 				<td><textarea rows="4" cols="40" placeholder="備考"
 						class="salesFiledLength" name="
-remark" disabled></textarea></td>
+remark" disabled>${param['remark']}</textarea></td>
 			</tr>
 		</table>
 		<div>
