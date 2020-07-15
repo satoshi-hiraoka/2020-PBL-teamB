@@ -28,7 +28,9 @@
 				<form class="login-form" action="/teamB/C0010" method="post">
 					<div class="text-center">
 						<input type="text" placeholder="メールアドレス" name="mail" /><br>
+						<span class="label label-danger">${errMsg}</span>
 						<input type="password" placeholder="パスワード" name="passWord" /><br>
+						<span class="label label-danger">${errMsg}</span>
 						<input type="submit" class="login btn btn-primary btn-lg" value="ログイン"><br>
 						<p class="message">
 							<a href="S0045.jsp">パスワードを忘れた方はこちら</a><br>

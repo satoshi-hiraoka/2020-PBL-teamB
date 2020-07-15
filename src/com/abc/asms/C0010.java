@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -20,10 +21,59 @@ import javax.sql.DataSource;
 @WebServlet("/C0010")
 public class C0010 extends HttpServlet {
 
-	///public void doGet(HttpServletRequest request, HttpServletResponse response)
-	//		throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		//response.setContentType("text/html; charset=UTF-8");
+		//request.setCharacterEncoding("UTF-8");
+		String mail = request.getParameter("mail");
+		String passWord = request.getParameter("passWord");
 
-	//}
+		ArrayList<String> errMsg = new ArrayList<String>();
+
+		checkName(mail, errMsg);
+		checkPassword(passWord, errMsg);
+
+		//errMsgの要素が1以上であれば何かしらの入力エラー。
+		//エラーがあればログイン画面に飛ばす。
+		//ログイン画面でerrmsgを全部出力する。
+		if (errMsg.size() > 0) {
+			request.setAttribute("errMsg", errMsg);
+			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
+		}
+
+	}
+
+	private void checkName(String mail, ArrayList<String> errMsg) {
+		if (mail.isEmpty()) {
+			errMsg.add("メールアドレスが入力されていません");
+		}
+		if (!checkLength(mail, 101)) {
+			errMsg.add("文字が長すぎます");
+		}
+	}
+
+	private void checkPassword(String passWord, ArrayList<String> errMsg) {
+		if (passWord.isEmpty()) {
+			errMsg.add("パスワードが入力されていません");
+		}
+		if (!checkLength(passWord, 31)) {
+			errMsg.add("パスワードが長すぎます");
+		}
+
+	}
+
+	//	private boolean checkEmpty(String value) {
+	//		if (value.isEmpty())
+	//			return false;
+	//		return true;
+	//	}
+
+	private boolean checkLength(String value, int max) {
+		int length = value.getBytes().length;
+		if (length < max)
+			return true;
+		return false;
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
