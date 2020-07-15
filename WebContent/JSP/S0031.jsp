@@ -56,7 +56,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="text" name="email" size="40" placeholder="${param['email']}" disabled />
+					<input type="text" name="email" size="40" placeholder="${param['mail']}" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -86,8 +86,8 @@
 					</div>
 				</td>
 				<td>
-					<label><input type="radio" name="authSales" value="0" disabled <c:if test="${param['authSales'] == 1}">checked</c:if> />権限なし</label>
-					<label><input type="radio" name="authSales" value="1" disabled />権限あり</label>
+					<label><input type="radio" name="authSales" value="0" disabled <c:if test="${param['authSales'] == '0'}">checked</c:if> />権限なし</label>
+					<label><input type="radio" name="authSales" value="1" disabled <c:if test="${param['authSales'] == '1'}">checked</c:if> />権限あり</label>
 				</td>
 			</tr>
 			<tr>
@@ -97,8 +97,8 @@
 					</div>
 				</td>
 				<td>
-					<label><input type="radio" name="authAccount" value="0" disabled checked />権限なし</label>
-					<label><input type="radio" name="authAccount" value="1" disabled />権限あり</label>
+					<label><input type="radio" name="authAccount" value="0" disabled <c:if test="${param['authAccount'] == '0'}">checked</c:if> />権限なし</label>
+					<label><input type="radio" name="authAccount" value="1" disabled <c:if test="${param['authAccount'] == '1'}">checked</c:if> />権限あり</label>
 				</td>
 			</tr>
 		</table>

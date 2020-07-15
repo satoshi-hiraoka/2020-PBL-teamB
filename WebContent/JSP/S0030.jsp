@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -13,6 +14,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
 <link rel="stylesheet" href="/teamB/CSS/radioButton.css">
+<link rel="stylesheet" href="/teamB/CSS/alert.css">
 <title>アカウント登録|物品売上管理システム</title>
 </head>
 <body>
@@ -38,6 +40,17 @@
 	</nav>
 	<form action="S0031.jsp" method="POST" name="registerAccount">
 		<h1 id="title">アカウント登録</h1>
+		<c:if test="${param['err'] == 1}">
+			<div class="alert alert-danger alert-dismissible" role="alert" id="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong><i class="fas fa-times"></i> エラーが発生しました！</strong><br>
+				<ul>
+					<li>メールアドレスが既に登録されています。</li>
+				</ul>
+			</div>
+		</c:if>
 		<table class="tablePosition" >
 			<tr>
 				<td align="right">
@@ -52,7 +65,7 @@
 					メールアドレス<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="text" name="email" size="40" placeholder="メールアドレス" />
+					<input type="text" name="mail" size="40" placeholder="メールアドレス" />
 				</td>
 			</tr>
 			<tr>
@@ -76,7 +89,7 @@
 					売上登録権限<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<label><input type="radio" name="authSales" value="0" />権限なし</label>
+					<label><input type="radio" name="authSales" value="0" checked />権限なし</label>
 					<label><input type="radio" name="authSales" value="1" />権限あり</label>
 				</td>
 			</tr>
@@ -85,7 +98,7 @@
 					アカウント登録権限<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<label><input type="radio" name="authAccount" value="0" />権限なし</label>
+					<label><input type="radio" name="authAccount" value="0" checked />権限なし</label>
 					<label><input type="radio" name="authAccount" value="1" />権限あり</label>
 				</td>
 			</tr>
