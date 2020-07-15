@@ -38,7 +38,7 @@
 			</ul>
 		</div>
 	</nav>
-	<form action="S0031.jsp" method="POST" name="registerAccount">
+	<form action="/teamB/S0030" method="POST" name="registerAccount">
 		<h1 id="title">アカウント登録</h1>
 		<c:if test="${param['err'] == 1}">
 			<div class="alert alert-danger alert-dismissible" role="alert" id="alert">
@@ -48,6 +48,17 @@
 				<strong><i class="fas fa-times"></i> エラーが発生しました！</strong><br>
 				<ul>
 					<li>メールアドレスが既に登録されています。</li>
+				</ul>
+			</div>
+		</c:if>
+		<c:if test="${param['suc'] == 1}">
+			<div class="alert alert-success alert-dismissible" role="alert" id="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong><i class="fas fa-check"></i> 成功しました！</strong><br>
+				<ul>
+					<li>アカウントを登録しました。</li>
 				</ul>
 			</div>
 		</c:if>

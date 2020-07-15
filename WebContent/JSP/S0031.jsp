@@ -36,7 +36,7 @@
 			</ul>
 		</div>
 	</nav>
-	<form action="S0030.jsp" method="POST" name="registerAccountCheck">
+	<form action="/teamB/S0031" method="POST" name="registerAccountCheck">
 		<h1 id="title">アカウントを登録してよろしいですか？</h1>
 		<table class="tablePosition">
 			<tr>
