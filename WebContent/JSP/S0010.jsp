@@ -21,7 +21,7 @@
 <body>
 	<jsp:include page="menu.jsp" />
 	<h2 id="title">売上登録</h2>
-	<form name="form" action="S0011.html" method="post">
+	<form name="form" action="/teamB/S0011" method="post">
 		<table class="tablePosition">
 			<tr>
 				<td class="textAlign">販売日<span
@@ -31,11 +31,10 @@
 			<tr>
 				<td class="textAlign">担当<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="responsible" class="salesFiledLength">
+				<td><select name="responsibleData" class="salesFiledLength">
 						<option value="" disabled selected>選択して下さい</option>
-						<c:forEach var="personInCharge"
-							items="${resposible_puroductCategory}">
-							<option value="${personInCharge.name}">${personInCharge.name}</option>
+						<c:forEach var="responsibleData" items="${resposiblelist}">
+							<option value="${responsibleData.account_id}">${responsibleData.name}</option>
 						</c:forEach>
 				</select></td>
 			</tr>
@@ -44,8 +43,9 @@
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><select name="puroductCategory" class="salesFiledLength">
 						<option value="" disabled selected>選択して下さい</option>
-						<c:forEach var="personInCharge" items="食料品,衣料品,その他">
-							<option value="${personInCharge}">${personInCharge}</option>
+						<c:forEach var="puroductCategoryData"
+							items="${puroductCategorylist}">
+							<option value="${puroductCategoryData.category_id}">${puroductCategoryData.category_name}</option>
 						</c:forEach>
 				</select></td>
 			</tr>

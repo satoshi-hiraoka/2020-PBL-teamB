@@ -36,8 +36,12 @@ public class S0010 extends HttpServlet {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<User> resposible_puroductCategory = new ArrayList<>();
-		User user = new User();
+		Connection con2 = null;
+		PreparedStatement ps2 = null;
+		ResultSet rs2 = null;
+		List<User> resposiblelist = new ArrayList<>();
+		List<User> puroductCategorylist = new ArrayList<>();
+
 		try {
 			Context initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:/comp/env");
@@ -47,29 +51,39 @@ public class S0010 extends HttpServlet {
 
 			StringBuilder sql = new StringBuilder();
 			sql.append(" SELECT");
-			sql.append("	a.name,");
-			sql.append("	c.category_name");
-			sql.append(" FROM");
-			sql.append("	sales s");
-			sql.append("	LEFT JOIN");
-			sql.append("		accounts a ON s.account_id=a.account_id");
-			sql.append("	 LEFT JOIN");
-			sql.append("		categories c ON s.category_id=c.category_id");
-			sql.append(" WHERE");
-			sql.append("	c.active_flg=0;");
-			sql.append("");
-			sql.append("");
-
+			sql.append("	*");
+			sql.append(" FROM ");
+			sql.append("	accounts");
 			ps = con.prepareStatement(sql.toString());
 			rs = ps.executeQuery();
-			while (rs.next()) {
 
-				user.setName(rs.getString("name"));
-				resposible_puroductCategory.add(user);
+			while (rs.next()) {
+				User responsibleUser = new User();
+				responsibleUser.setName(rs.getString("name"));
+				responsibleUser.setAccount_id(rs.getString("account_id"));
+				resposiblelist.add(responsibleUser);
+				request.setAttribute("resposiblelist", resposiblelist);
 			}
-			for (int i = 0; i < resposible_puroductCategory.size(); i++) {
-				System.out.println(resposible_puroductCategory);
+
+			con2 = ds.getConnection();
+
+			StringBuilder sql2 = new StringBuilder();
+			sql2.append(" SELECT ");
+			sql2.append("	*");
+			sql2.append(" FROM ");
+			sql2.append("	categories ");
+			ps2 = con2.prepareStatement(sql2.toString());
+			rs2 = ps2.executeQuery();
+
+			while (rs2.next()) {
+				User puroductCategoryData = new User();
+				puroductCategoryData.setCategory_name(rs2.getString("category_name"));
+				puroductCategoryData.setCategory_id(rs2.getString("category_id"));
+				puroductCategorylist.add(puroductCategoryData);
+				request.setAttribute("puroductCategorylist", puroductCategorylist);
+
 			}
+
 			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
 					response);
 		} catch (Exception e) {
