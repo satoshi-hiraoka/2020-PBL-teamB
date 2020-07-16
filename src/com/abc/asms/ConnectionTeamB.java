@@ -31,16 +31,3 @@ public class ConnectionTeamB implements interfaceConnectionTeamB {
 interface interfaceConnectionTeamB{
 	public Connection getCon();
 }
-
-//サーブレットに以下のソースコードを記述
-//	public クラス名 extends HttpServlet implements interfaceConnectionTeamB {
-//		private ConnectionTeamB cb;
-//	}
-//	public クラス名() throws ServletException, IOException {
-//		super();
-//		this.cb = new ConnectionTeamB();
-//	}
-//	public Connection getCon() {
-//		return this.cb.getCon();
-//	}
-//以降ConnectionはgetCon()で記述

@@ -2,3 +2,16 @@
 
 ・メソッド名変数名はキャメルケースで統一。
 ・<form>はpostで送る
+・データベース接続はConnectionTeamBを使用
+	ConnectionTeamB使用時はサーブレットに以下のソースコードを記述
+	public クラス名 extends HttpServlet implements interfaceConnectionTeamB {
+		private ConnectionTeamB cb;
+	}
+	public クラス名() throws ServletException, IOException {
+		super();
+		this.cb = new ConnectionTeamB();
+	}
+	public Connection getCon() {
+		return this.cb.getCon();
+	}
+	以降ConnectionはgetCon()で記述
