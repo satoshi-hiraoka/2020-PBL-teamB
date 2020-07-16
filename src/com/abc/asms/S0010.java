@@ -39,8 +39,8 @@ public class S0010 extends HttpServlet {
 		Connection con2 = null;
 		PreparedStatement ps2 = null;
 		ResultSet rs2 = null;
-		List<User> resposiblelist = new ArrayList<>();
-		List<User> puroductCategorylist = new ArrayList<>();
+		List<Account> resposiblelist = new ArrayList<>();
+		List<Categories> puroductCategorylist = new ArrayList<>();
 
 		try {
 			Context initContext = new InitialContext();
@@ -58,7 +58,7 @@ public class S0010 extends HttpServlet {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				User responsibleUser = new User();
+				Account responsibleUser = new Account();
 				responsibleUser.setName(rs.getString("name"));
 				responsibleUser.setAccount_id(rs.getString("account_id"));
 				resposiblelist.add(responsibleUser);
@@ -76,7 +76,7 @@ public class S0010 extends HttpServlet {
 			rs2 = ps2.executeQuery();
 
 			while (rs2.next()) {
-				User puroductCategoryData = new User();
+				Categories puroductCategoryData = new Categories();
 				puroductCategoryData.setCategory_name(rs2.getString("category_name"));
 				puroductCategoryData.setCategory_id(rs2.getString("category_id"));
 				puroductCategorylist.add(puroductCategoryData);
