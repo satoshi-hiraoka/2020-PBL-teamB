@@ -9,7 +9,7 @@
 	</button>
 	<div class="collaprse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/teamB/Samples">ダッシュボード</a></li>
+			<li class="nav-item"><a class="nav-link" href="/teamB/C0020">ダッシュボード</a></li>
 			<li class="nav-item"><a class="nav-link" href="/teamB/S0010">売上登録</a></li>
 			<li class="nav-item"><a class="nav-link" href="S0020.html">売上検索</a></li>
 			<li class="nav-item"><a class="nav-link" href="S0030.html">アカウント登録</a></li>

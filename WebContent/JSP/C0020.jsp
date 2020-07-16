@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -18,113 +18,94 @@
 </head>
 <title>ダッシュボード|物品売上管理システム</title>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<h3>物品売上管理システム</h3>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarNav" aria-controls="navbarNav"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" href="C0020.html">ダッシュボード</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0010.html">売上登録</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0020.html">売上検索</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0030.html">アカウント登録</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0040.html">アカウント検索</a></li>
-			</ul>
-			<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-				<li class="nav-item"><a class="nav-link" href="C0010.html">ログアウト</a></li>
-			</ul>
-		</div>
-	</nav>
+	<jsp:include page="menu.jsp" />
 	<div class="m-lg-5">
 		<h1>ダッシュボード</h1>
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-4">
-						<table border="1" >
-							<tr>
-								<th width="570" height="50" class="lead table-light">前月(5月)の売上合計</th>
-							</tr>
-							<tr>
-								<td height="70">1,000,000円</td>
-							</tr>
-						</table>
-					</div>
-					<div class="col-md-4">
-						<table border="1" >
-							<tr>
-								<th width="570" height="50" class="lead table-light">今月(6月)の売上合計</th>
-							</tr>
-							<tr>
-								<td height="70">1,200,000円</td>
-							</tr>
-						</table>
-					</div>
-					<div class="col-md-4">
-						<table border="1">
-							<tr>
-								<th width="570" height="50" class="lead table-light">前月比</th>
-							</tr>
-							<tr>
-								<td height="70">↑120.00%</td>
-							</tr>
-						</table>
-					</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4">
+					<table border="1">
+						<tr>
+							<th width="570" height="50" class="lead table-light">前月(5月)の売上合計</th>
+						</tr>
+						<tr>
+							<td height="70">1,000,000円</td>
+						</tr>
+					</table>
 				</div>
-				<br>
-				<div class="row">
-					<div class="col-md-12">
-						<table border="1" width="100%" class="table" rules="rows">
-							<tr>
-								<th colspan="7" height="60" class="lead table-light">今月のイチローさんの売上</th>
-							</tr>
-							<tr height="10">
-								<th>No</th>
-								<th>発売日</th>
-								<th>商品カテゴリ</th>
-								<th>商品名</th>
-								<th>単価</th>
-								<th>個数</th>
-								<th>小計</th>
-							</tr>
-							<tr height="10">
-								<td>1</td>
-								<td>2020/7/07</td>
-								<td>食料品</td>
-								<td>唐揚げ弁当</td>
-								<td>450</td>
-								<td>3</td>
-								<td>1,350</td>
-							</tr>
-							<tr height="20">
-								<td>2</td>
-								<td>2020/7/07</td>
-								<td>食料品</td>
-								<td>あんぱん</td>
-								<td>120</td>
-								<td>10</td>
-								<td>1,200</td>
-							</tr>
-							<tr height="20">
-								<td>3</td>
-								<td>2020/7/07</td>
-								<td>飲料</td>
-								<td>コカ・コーラ500ml</td>
-								<td>130</td>
-								<td>5</td>
-								<td>650</td>
-							</tr>
-							<tr height="20">
-								<td colspan="5"></td>
-								<td>合計</td>
-								<td>3,200</td>
-							</tr>
-						</table>
-					</div>
+				<div class="col-md-4">
+					<table border="1">
+						<tr>
+							<th width="570" height="50" class="lead table-light">今月(6月)の売上合計</th>
+						</tr>
+						<tr>
+							<td height="70">1,200,000円</td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-md-4">
+					<table border="1">
+						<tr>
+							<th width="570" height="50" class="lead table-light">前月比</th>
+						</tr>
+						<tr>
+							<td height="70">↑120.00%</td>
+						</tr>
+					</table>
 				</div>
 			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-12">
+					<table border="1" width="100%" class="table" rules="rows">
+						<tr>
+							<th colspan="7" height="60" class="lead table-light">今月のイチローさんの売上</th>
+						</tr>
+						<tr height="10">
+							<th>No</th>
+							<th>発売日</th>
+							<th>商品カテゴリ</th>
+							<th>商品名</th>
+							<th>単価</th>
+							<th>個数</th>
+							<th>小計</th>
+						</tr>
+						<tr height="10">
+							<td>1</td>
+							<td>2020/7/07</td>
+							<td>食料品</td>
+							<td>唐揚げ弁当</td>
+							<td>450</td>
+							<td>3</td>
+							<td>1,350</td>
+						</tr>
+						<tr height="20">
+							<td>2</td>
+							<td>2020/7/07</td>
+							<td>食料品</td>
+							<td>あんぱん</td>
+							<td>120</td>
+							<td>10</td>
+							<td>1,200</td>
+						</tr>
+						<tr height="20">
+							<td>3</td>
+							<td>2020/7/07</td>
+							<td>飲料</td>
+							<td>コカ・コーラ500ml</td>
+							<td>130</td>
+							<td>5</td>
+							<td>650</td>
+						</tr>
+						<tr height="20">
+							<td colspan="5"></td>
+							<td>合計</td>
+							<td>3,200</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -137,8 +118,8 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 		crossorigin="anonymous"></script>
-		<!--CSS 外部ファイル-->
-<link rel="stylesheet" href="/teamB/CSS/C0010.css" type="text/css">
+	<!--CSS 外部ファイル-->
+	<link rel="stylesheet" href="/teamB/CSS/C0010.css" type="text/css">
 
 </body>
 </html>

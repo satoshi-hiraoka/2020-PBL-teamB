@@ -14,28 +14,31 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import asms_Dateset.Account;
 import asms_Dateset.Category;
 
 /**
- * Servlet implementation class S0011
+ * Servlet implementation class S0011Cancel
  */
-@WebServlet("/S0011")
-public class S0011 extends HttpServlet {
+@WebServlet("/S0011Cancel")
+public class S0011Cancel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public S0011() {
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public S0011Cancel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -88,6 +91,8 @@ public class S0011 extends HttpServlet {
 
 			}
 
+			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
+					response);
 		} catch (Exception e) {
 			throw new ServletException(e);
 
@@ -106,28 +111,15 @@ public class S0011 extends HttpServlet {
 
 			}
 		}
-		//ここにセッションにセットする
-		HttpSession session = request.getSession();
-		session.setAttribute("saleDate", request.getParameter("saleDate"));
-		session.setAttribute("responsible", request.getParameter("responsible"));
-		session.setAttribute("puroductCategory", request.getParameter("puroductCategory"));
-		session.setAttribute("puroductName", request.getParameter("puroductName"));
-		session.setAttribute("puroductUnitPrice", request.getParameter("puroductUnitPrice"));
-		session.setAttribute("puroductNumber", request.getParameter("puroductNumber"));
-		session.setAttribute("remark", request.getParameter("remark"));
-
-		int number = Integer.valueOf(request.getParameter("puroductNumber"));
-		int praice = Integer.valueOf(request.getParameter("puroductUnitPrice"));
-		int subtotal = number * praice;
-		session.setAttribute("commaNumer", String.format("%,d", number));
-		session.setAttribute("commaPrice", String.format("%,d", praice));
-		session.setAttribute("commaSubtotal", String.format("%,d", subtotal));
-
-		this.getServletContext().getRequestDispatcher("/JSP/S0011.jsp").forward(request, response);
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ゲットだよ");
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
+
 }

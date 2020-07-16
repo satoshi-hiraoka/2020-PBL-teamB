@@ -76,6 +76,7 @@ public class S0010 extends HttpServlet {
 			sql2.append("	*");
 			sql2.append(" FROM ");
 			sql2.append("	categories ");
+			sql2.append(" WHERE active_flg=1");
 			ps2 = con2.prepareStatement(sql2.toString());
 			rs2 = ps2.executeQuery();
 

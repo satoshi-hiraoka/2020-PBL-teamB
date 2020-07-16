@@ -34,8 +34,7 @@
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><select name="responsible" class="salesFiledLength">
 						<c:if test="${not empty responsible}">
-							<c:forEach var="responsibleData"
-								items="${resposiblelist}">
+							<c:forEach var="responsibleData" items="${resposiblelist}">
 								<c:choose>
 									<c:when test="${responsibleData.account_id==responsible}">
 										<option value="${responsibleData.account_id}" selected>${responsibleData.name}</option>
