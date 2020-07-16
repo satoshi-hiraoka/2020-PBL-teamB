@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -28,13 +28,13 @@
 				<form class="login-form" action="/teamB/C0010" method="post">
 					<div class="text-center">
 						<input type="text" placeholder="メールアドレス" name="mail" /><br>
-						<span class="label label-danger">${errMsg}</span>
-						<input type="password" placeholder="パスワード" name="passWord" /><br>
-						<span class="label label-danger">${errMsg}</span>
+						<span class="label label-danger">
+						</span> <input type="password" placeholder="パスワード" name="passWord" /><br>
 						<input type="submit" class="login btn btn-primary btn-lg" value="ログイン"><br>
 						<p class="message">
 							<a href="S0045.jsp">パスワードを忘れた方はこちら</a><br>
-						<span class="label label-danger">${Err}</span>
+						<span class="label label-danger">${Err}</span><br>
+						<c:forEach var="err" items="${errMsg}">${err}</c:forEach>
 						</p>
 					</div>
 				</form>
