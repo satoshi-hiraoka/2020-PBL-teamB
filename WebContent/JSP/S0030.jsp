@@ -18,50 +18,33 @@
 <title>アカウント登録|物品売上管理システム</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<h3>物品売上管理システム</h3>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarNav" aria-controls="navbarNav"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" href="C0020.html">ダッシュボード</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0010.html">売上登録</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0020.html">売上検索</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0030.html">アカウント登録</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0040.html">アカウント検索</a></li>
+	<jsp:include page="menu.jsp" />
+	<h1 id="title">アカウント登録</h1>
+	<c:if test="${param['err'] == 1}">
+		<div class="alert alert-danger alert-dismissible" role="alert" id="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong><i class="fas fa-times"></i> エラーが発生しました！</strong><br>
+		<c:forEach var="err" items="${errMsg}">
+			<ul>
+				<li>${errMsg}</li>
 			</ul>
-			<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-				<li class="nav-item"><a class="nav-link" href="C0010.html">ログアウト</a></li>
+		</c:forEach>
+		</div>
+	</c:if>
+	<c:if test="${param['suc'] == 1}">
+		<div class="alert alert-success alert-dismissible" role="alert" id="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong><i class="fas fa-check"></i> 成功しました！</strong><br>
+			<ul>
+				<li>アカウントを登録しました。</li>
 			</ul>
 		</div>
-	</nav>
+	</c:if>
 	<form action="/teamB/S0030" method="POST" name="registerAccount">
-		<h1 id="title">アカウント登録</h1>
-		<c:if test="${param['err'] == 1}">
-			<div class="alert alert-danger alert-dismissible" role="alert" id="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<strong><i class="fas fa-times"></i> エラーが発生しました！</strong><br>
-				<ul>
-					<li>メールアドレスが既に登録されています。</li>
-				</ul>
-			</div>
-		</c:if>
-		<c:if test="${param['suc'] == 1}">
-			<div class="alert alert-success alert-dismissible" role="alert" id="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<strong><i class="fas fa-check"></i> 成功しました！</strong><br>
-				<ul>
-					<li>アカウントを登録しました。</li>
-				</ul>
-			</div>
-		</c:if>
 		<table class="tablePosition" >
 			<tr>
 				<td align="right">
