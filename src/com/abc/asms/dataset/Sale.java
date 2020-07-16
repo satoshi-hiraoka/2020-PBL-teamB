@@ -1,6 +1,6 @@
-package asms_Dateset;
+package com.abc.asms.dataset;
 
-public class Sales {
+public class Sale {
 	private String sale_id;
 	private String sale_date;
 	private String account_id;

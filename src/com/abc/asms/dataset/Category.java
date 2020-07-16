@@ -1,4 +1,4 @@
-package asms_Dateset;
+package com.abc.asms.dataset;
 
 public class Category {
 	private String category_id;

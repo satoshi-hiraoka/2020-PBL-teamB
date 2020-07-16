@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import asms_Dateset.Account;
-import asms_Dateset.Category;
+import com.abc.asms.dataset.Account;
+import com.abc.asms.dataset.Category;
 
 /**
  * Servlet implementation class S0011
