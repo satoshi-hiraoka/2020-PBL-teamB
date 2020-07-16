@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import asms_Dateset.Account;
+import asms_Dateset.Category;
+
 /**
  * Servlet implementation class S0010
  */
@@ -40,7 +43,7 @@ public class S0010 extends HttpServlet {
 		PreparedStatement ps2 = null;
 		ResultSet rs2 = null;
 		List<Account> resposiblelist = new ArrayList<>();
-		List<Categories> puroductCategorylist = new ArrayList<>();
+		List<Category> puroductCategorylist = new ArrayList<>();
 
 		try {
 			Context initContext = new InitialContext();
@@ -76,7 +79,7 @@ public class S0010 extends HttpServlet {
 			rs2 = ps2.executeQuery();
 
 			while (rs2.next()) {
-				Categories puroductCategoryData = new Categories();
+				Category puroductCategoryData = new Category();
 				puroductCategoryData.setCategory_name(rs2.getString("category_name"));
 				puroductCategoryData.setCategory_id(rs2.getString("category_id"));
 				puroductCategorylist.add(puroductCategoryData);

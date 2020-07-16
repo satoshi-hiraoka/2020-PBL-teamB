@@ -22,7 +22,7 @@
 <body>
 	<jsp:include page="menu.jsp" />
 	<h2 id="title">売上登録を登録してよろしいですか？</h2>
-	<form name="form" action="/teamB/SalesRegisterComplete" method="post">
+	<form name="form" action="/teamB/S0011SalesRegisterComplete" method="post">
 		<table class="tablePosition">
 			<tr>
 				<td class="textAlign">販売日</td>
@@ -89,7 +89,7 @@ remark" disabled>${param['remark']}</textarea></td>
 				<i class="fas fa-check"></i>OK
 			</button>
 			<button type="submit" class="btn btn-outline-dark mainButton"
-				formaction="S0010.html">キャンセル</button>
+				formaction="/teamB/S0011Cancel">キャンセル</button>
 		</div>
 	</form>
 

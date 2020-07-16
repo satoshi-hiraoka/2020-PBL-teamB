@@ -18,8 +18,8 @@ import javax.sql.DataSource;
 /**
  * Servlet implementation class salesComplete
  */
-@WebServlet("/SalesRegisterComplete")
-public class SalesRegisterComplete extends HttpServlet {
+@WebServlet("/S0011SalesRegisterComplete")
+public class S0011SalesRegisterComplete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

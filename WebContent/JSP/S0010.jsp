@@ -26,7 +26,7 @@
 			<tr>
 				<td class="textAlign">販売日<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="saleDate" size="10"></td>
+				<td><input type="text" name="saleDate" size="10" value="${param['saleDate']}"></td>
 			</tr>
 			<tr>
 				<td class="textAlign">担当<span

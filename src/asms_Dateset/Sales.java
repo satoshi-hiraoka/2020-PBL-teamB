@@ -1,4 +1,4 @@
-package com.abc.asms;
+package asms_Dateset;
 
 public class Sales {
 	private String sale_id;

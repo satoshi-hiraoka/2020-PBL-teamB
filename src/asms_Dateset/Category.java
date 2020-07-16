@@ -1,6 +1,6 @@
-package com.abc.asms;
+package asms_Dateset;
 
-public class Categories {
+public class Category {
 	private String category_id;
 	private String category_name;
 	private String active_flag;
