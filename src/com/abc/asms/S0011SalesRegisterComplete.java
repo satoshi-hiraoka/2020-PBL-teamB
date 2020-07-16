@@ -28,7 +28,7 @@ public class S0011SalesRegisterComplete extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		String saleDate = (String) session.getAttribute("saleDate");
-		String responsibleData = (String) session.getAttribute("responsibleData");
+		String responsibleData = (String) session.getAttribute("responsible");
 		String puroductCategory = (String) session.getAttribute("puroductCategory");
 		String puroductName = (String) session.getAttribute("puroductName");
 		String puroductUnitPrice = (String) session.getAttribute("puroductUnitPrice");
@@ -72,7 +72,10 @@ public class S0011SalesRegisterComplete extends HttpServlet {
 			ps.setString(6, puroductNumber);
 			ps.setString(7, remark);
 			ps.executeUpdate();
-			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request, response);
+
+			session.invalidate();
+
+			this.getServletContext().getRequestDispatcher("/S0010").forward(request, response);
 		} catch (Exception e) {
 			throw new ServletException(e);
 

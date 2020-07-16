@@ -108,7 +108,7 @@ public class S0011 extends HttpServlet {
 		//ここにセッションにセットする
 		HttpSession session = request.getSession();
 		session.setAttribute("saleDate", request.getParameter("saleDate"));
-		session.setAttribute("responsibleData", request.getParameter("responsibleData"));
+		session.setAttribute("responsible", request.getParameter("responsible"));
 		session.setAttribute("puroductCategory", request.getParameter("puroductCategory"));
 		session.setAttribute("puroductName", request.getParameter("puroductName"));
 		session.setAttribute("puroductUnitPrice", request.getParameter("puroductUnitPrice"));
@@ -118,9 +118,9 @@ public class S0011 extends HttpServlet {
 		int number = Integer.valueOf(request.getParameter("puroductNumber"));
 		int praice = Integer.valueOf(request.getParameter("puroductUnitPrice"));
 		int subtotal = number * praice;
-		request.setAttribute("commaNumer", String.format("%,d", number));
-		request.setAttribute("commaPrice", String.format("%,d", praice));
-		request.setAttribute("commaSubtotal", String.format("%,d", subtotal));
+		session.setAttribute("commaNumer", String.format("%,d", number));
+		session.setAttribute("commaPrice", String.format("%,d", praice));
+		session.setAttribute("commaSubtotal", String.format("%,d", subtotal));
 
 		this.getServletContext().getRequestDispatcher("/JSP/S0011.jsp").forward(request, response);
 	}

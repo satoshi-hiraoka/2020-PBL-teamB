@@ -26,51 +26,86 @@
 			<tr>
 				<td class="textAlign">販売日<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><input type="text" name="saleDate" size="10" value="${param['saleDate']}"></td>
+				<td><input type="text" name="saleDate" size="10"
+					value="${saleDate}"></td>
 			</tr>
 			<tr>
 				<td class="textAlign">担当<span
 					class="badge badge-pill badge-secondary">必須</span></td>
-				<td><select name="responsibleData" class="salesFiledLength">
-						<option value="" disabled selected>選択して下さい</option>
-						<c:forEach var="responsibleData" items="${resposiblelist}">
-							<option value="${responsibleData.account_id}">${responsibleData.name}</option>
-						</c:forEach>
+				<td><select name="responsible" class="salesFiledLength">
+						<c:if test="${not empty responsible}">
+							<c:forEach var="responsibleData"
+								items="${resposiblelist}">
+								<c:choose>
+									<c:when test="${responsibleData.account_id==responsible}">
+										<option value="${responsibleData.account_id}" selected>${responsibleData.name}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${responsibleData.account_id}">${responsibleData.name}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty responsible}">
+							<option value="" disabled selected>選択して下さい</option>
+							<c:forEach var="responsibleData" items="${resposiblelist}">
+								<option value="${responsibleData.account_id}">${responsibleData.name}</option>
+							</c:forEach>
+						</c:if>
+
+
+
 				</select></td>
 			</tr>
 			<tr>
 				<td class="textAlign">商品カテゴリー<span
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><select name="puroductCategory" class="salesFiledLength">
-						<option value="" disabled selected>選択して下さい</option>
-						<c:forEach var="puroductCategoryData"
-							items="${puroductCategorylist}">
-							<option value="${puroductCategoryData.category_id}">${puroductCategoryData.category_name}</option>
-						</c:forEach>
+						<c:if test="${not empty puroductCategory}">
+							<c:forEach var="puroductCategoryData"
+								items="${puroductCategorylist}">
+								<c:choose>
+									<c:when
+										test="${puroductCategoryData.category_id==puroductCategory}">
+										<option value="${puroductCategoryData.category_id}" selected>${puroductCategoryData.category_name}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${puroductCategoryData.category_id}">${puroductCategoryData.category_name}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty puroductCategory}">
+							<option value="" disabled selected>選択して下さい</option>
+							<c:forEach var="puroductCategoryData"
+								items="${puroductCategorylist}">
+								<option value="${puroductCategoryData.category_id}">${puroductCategoryData.category_name}</option>
+							</c:forEach>
+						</c:if>
 				</select></td>
 			</tr>
 			<tr>
 				<td class="textAlign">商品名<span
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><input type="text" name="puroductName" placeholder="商品名"
-					class="salesFiledLength"></td>
+					class="salesFiledLength" value="${puroductName}"></td>
 			</tr>
 			<tr>
 				<td class="textAlign">単価<span
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><input type="text" name="puroductUnitPrice" size="10"
-					class="salesInputIntText"></td>
+					class="salesInputIntText" value="${puroductUnitPrice}"></td>
 			</tr>
 			<tr>
 				<td class="textAlign">個数<span
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><input type="text" name="puroductNumber" size="10"
-					class="salesInputIntText"></td>
+					class="salesInputIntText" value="${puroductNumber}"></td>
 			</tr>
 			<tr>
 				<td class="textAlign textBoxAlignRemark" valign="top">備考</td>
 				<td><textarea rows="4" cols="40" placeholder="備考"
-						class="salesFiledLength" name="remark"></textarea></td>
+						class="salesFiledLength" name="remark">${remark}</textarea></td>
 			</tr>
 		</table>
 		<div>

@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import asms_Dateset.Account;
@@ -77,6 +78,9 @@ public class S0010 extends HttpServlet {
 			sql2.append("	categories ");
 			ps2 = con2.prepareStatement(sql2.toString());
 			rs2 = ps2.executeQuery();
+
+			HttpSession session=request.getSession();
+			session.invalidate();
 
 			while (rs2.next()) {
 				Category puroductCategoryData = new Category();
