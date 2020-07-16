@@ -3,7 +3,7 @@ package com.abc.asms;
 public class Categories {
 	private String category_id;
 	private String category_name;
-	private String activ_flag;
+	private String active_flag;
 
 	public String getCategory_id() {
 		return category_id;
@@ -21,12 +21,12 @@ public class Categories {
 		this.category_name = category_name;
 	}
 
-	public String getActiv_flag() {
-		return activ_flag;
+	public String getActive_flag() {
+		return active_flag;
 	}
 
-	public void setActiv_flag(String activ_flag) {
-		this.activ_flag = activ_flag;
+	public void setActive_flag(String active_flag) {
+		this.active_flag = active_flag;
 	}
 
 }

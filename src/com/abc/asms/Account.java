@@ -1,6 +1,6 @@
 package com.abc.asms;
 
-public class Accounts {
+public class Account {
 	private String account_id;
 	private String name;
 	private String mail;

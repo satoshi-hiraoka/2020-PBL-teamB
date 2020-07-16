@@ -5,12 +5,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 /**
  * Servlet implementation class salesComplete
@@ -22,6 +25,16 @@ public class SalesRegisterComplete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+
+		HttpSession session = request.getSession();
+		String saleDate = (String) session.getAttribute("saleDate");
+		String responsibleData = (String) session.getAttribute("responsibleData");
+		String puroductCategory = (String) session.getAttribute("puroductCategory");
+		String puroductName = (String) session.getAttribute("puroductName");
+		String puroductUnitPrice = (String) session.getAttribute("puroductUnitPrice");
+		String puroductNumber = (String) session.getAttribute("puroductNumber");
+		String remark = (String) session.getAttribute("remark");
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -51,15 +64,15 @@ public class SalesRegisterComplete extends HttpServlet {
 			sql.append("	?)");
 
 			ps = con.prepareStatement(sql.toString());
-			ps.setString(1, request.getParameter("saleDate"));
-			ps.setString(2, request.getParameter("responsibleData"));
-			ps.setString(3, request.getParameter("puroductCategory"));
-			ps.setString(4, request.getParameter("puroductName"));
-			ps.setString(5, request.getParameter("puroductUnitPrice"));
-			ps.setString(6, request.getParameter("puroductNumber"));
-			ps.setString(7, request.getParameter("remark"));
+			ps.setString(1, saleDate);
+			ps.setString(2, responsibleData);
+			ps.setString(3, puroductCategory);
+			ps.setString(4, puroductName);
+			ps.setString(5, puroductUnitPrice);
+			ps.setString(6, puroductNumber);
+			ps.setString(7, remark);
 			ps.executeUpdate();
-			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,response);
+			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request, response);
 		} catch (Exception e) {
 			throw new ServletException(e);
 

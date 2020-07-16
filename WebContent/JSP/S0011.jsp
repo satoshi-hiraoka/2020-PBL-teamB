@@ -31,9 +31,13 @@
 			</tr>
 			<tr>
 				<td class="textAlign">担当</td>
-				<td><select name="responsibleData" class="salesFiledLength">
+				<td><select name="responsibleData" class="salesFiledLength"
+					disabled>
 						<c:forEach var="responsibleData" items="${resposiblelist}">
-							<option value="${responsibleData.account_id}" selected>${responsibleData.name}</option>
+							<c:if
+								test="${responsibleData.account_id==param['responsibleData']}">
+								<option value="${responsibleData.account_id}" selected>${responsibleData.name}</option>
+							</c:if>
 						</c:forEach>
 				</select></td>
 			</tr>
@@ -41,7 +45,13 @@
 				<td class="textAlign">商品カテゴリー</td>
 				<td><select name="puroductCategory" class="salesFiledLength"
 					disabled>
-						<option value=""></option>
+						<c:forEach var="puroductCategoryData"
+							items="${puroductCategorylist}">
+							<c:if
+								test="${puroductCategoryData.category_id==param['puroductCategory']}">
+								<option value="${puroductCategoryData.category_id}" selected>${puroductCategoryData.category_name}</option>
+							</c:if>
+						</c:forEach>
 				</select></td>
 			</tr>
 			<tr>
