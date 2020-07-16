@@ -15,3 +15,17 @@
 		return this.cb.getCon();
 	}
 	以降ConnectionはgetCon()で記述
+・入力内容の長さチェックはCheckLengthを使用
+	CheckLength使用時はサーブレットに以下のソースコードを記述
+	public class クラス名 extends HttpServlet implements interfaceCheckLength {
+		private interfaceCheckLength cl;
+	}
+	public クラス名() {
+		super();
+		this.cl = new CheckLength();
+	}
+	public boolean checkLength(String value, int max){
+		return this.cl.checkLength(value, max);
+	}
+	メソッド呼び出し時
+	checkLength(長さをチェックしたい項目,バイト数の最小値（メールアドレスなら101));
