@@ -1,6 +1,8 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.Import"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!doctype html>
 <html lang="ja">
 <head>
@@ -14,6 +16,7 @@
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="/teamB/CSS/C0010.css" type="text/css">
+<!-- エラーメッセージCSS -->
 <link rel="stylesheet" href="/teamB/CSS/alert.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
@@ -21,9 +24,10 @@
 </head>
 
 <body class="p-3 mb-2 bg-light text-dark m-lg-5">
+
 	<div class="container-fluid">
 		<h2 class="text-center">物品売上管理システム</h2>
-		<c:if test="${err1=='err1'  }">
+		<c:if test="${!empty(errMsg)  }">
 			<div class="alert alert-danger alert-dismissible" role="alert"
 				id="alert">
 				<button type="button" class="close" data-dismiss="alert"
@@ -48,8 +52,6 @@
 							value="ログイン"><br>
 						<p class="message">
 							<a href="S0045.jsp">パスワードを忘れた方はこちら</a><br>
-							<!--  <span class="label label-danger">${Err}</span><br> -->
-							<!--<c:forEach var="err" items="${errMsg}">${err}</c:forEach>-->
 						</p>
 					</div>
 				</form>

@@ -18,6 +18,7 @@
 </head>
 <title>ダッシュボード|物品売上管理システム</title>
 <body>
+
 	<jsp:include page="menu.jsp" />
 	<div class="m-lg-5">
 		<h1>ダッシュボード</h1>
