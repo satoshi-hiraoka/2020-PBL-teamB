@@ -28,7 +28,6 @@ public class C0010 extends HttpServlet {
 		checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
 
 	}
-	
 //共通クラスに書く。32～41
 	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response,String transitiontTo) throws ServletException, IOException{
 		//ログインチェック
