@@ -8,7 +8,7 @@ public class CheckLength implements interfaceCheckLength {
 
 	}
 
-	public boolean checkLength(String value,int max) {
+	public boolean checkLength(String value, int max) {
 		this.value = value;
 		this.max = max;
 		int length = value.getBytes().length;
@@ -17,7 +17,18 @@ public class CheckLength implements interfaceCheckLength {
 		}
 		return false;
 	}
+
+	public boolean inputEmptyCheck(String value) {
+		this.value = value;
+		int length = value.getBytes().length;
+		if (length == 0) {
+			return true;
+		}
+		return false;
+
+	}
 }
-interface interfaceCheckLength{
-	public boolean checkLength(String value,int max);
+
+interface interfaceCheckLength {
+	public boolean checkLength(String value, int max);
 }
