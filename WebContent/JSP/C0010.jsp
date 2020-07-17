@@ -14,27 +14,42 @@
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="/teamB/CSS/C0010.css" type="text/css">
+<link rel="stylesheet" href="/teamB/CSS/alert.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <title>ログイン|物品売上管理システム</title>
 </head>
 
-<body class="p-3 mb-2 bg-light text-dark">
-	<br>
-	<br>
-	<br>
+<body class="p-3 mb-2 bg-light text-dark m-lg-5">
 	<div class="container-fluid">
 		<h2 class="text-center">物品売上管理システム</h2>
+		<c:if test="${err1=='err1'  }">
+			<div class="alert alert-danger alert-dismissible" role="alert"
+				id="alert">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong><i class="fas fa-times"></i> エラーが発生しました！</strong><br>
+				<ul>
+					<c:forEach var="err" items="${errMsg}">
+						<li>${err}</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</c:if>
 		<div class="login-page">
 			<div class="form">
 				<form class="login-form" action="/teamB/C0010" method="post">
 					<div class="text-center">
 						<input type="text" placeholder="メールアドレス" name="mail" /><br>
-						<span class="label label-danger">
-						</span> <input type="password" placeholder="パスワード" name="passWord" /><br>
-						<input type="submit" class="login btn btn-primary btn-lg" value="ログイン"><br>
+						<input type="password" placeholder="パスワード" name="passWord" /><br>
+						<input type="submit" class="login btn btn-primary btn-lg"
+							value="ログイン"><br>
 						<p class="message">
 							<a href="S0045.jsp">パスワードを忘れた方はこちら</a><br>
-						<span class="label label-danger">${Err}</span><br>
-						<c:forEach var="err" items="${errMsg}">${err}</c:forEach>
+							<!--  <span class="label label-danger">${Err}</span><br> -->
+							<!--<c:forEach var="err" items="${errMsg}">${err}</c:forEach>-->
 						</p>
 					</div>
 				</form>

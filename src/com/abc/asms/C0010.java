@@ -66,6 +66,7 @@ public class C0010 extends HttpServlet {
 		}
 	}
 
+
 	//	private boolean checkEmpty(String value) {
 	//		if (value.isEmpty())
 	//			return false;
@@ -94,6 +95,7 @@ public class C0010 extends HttpServlet {
 		//ログイン画面でerrmsgを全部出力する。
 		if (errMsg.size() > 0) {
 			request.setAttribute("errMsg", errMsg);
+			request.setAttribute("err1", "err1");
 			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
 		}
 
@@ -122,12 +124,15 @@ public class C0010 extends HttpServlet {
 			ps.setString(2, passWord); //mail PASSWORDに値を設定
 			rs = ps.executeQuery();//実行
 
-			//HttpSession session = request.getSession();
+			//HttpSession session = request.getSession() セッションにログインしたときの情報をいれる。権限が一番大事p288参考
 			if (rs.next()) {
 				response.sendRedirect("/teamB/JSP/C0020.jsp");
 				return;
 			} else {
-				request.setAttribute("Err", "メールアドレス、パスワードを正しく入力してください");
+				//request.setAttribute("Err", "メールアドレス、パスワードを正しく入力してください");
+				errMsg.add("メールアドレス、パスワードを正しく入力してください");
+				request.setAttribute("errMsg", errMsg);
+				request.setAttribute("err1", "err1");
 				RequestDispatcher dis = request.getRequestDispatcher("/JSP/C0010.jsp");
 				dis.forward(request, response);
 				return;
