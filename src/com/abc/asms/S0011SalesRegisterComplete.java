@@ -38,6 +38,9 @@ public class S0011SalesRegisterComplete extends HttpServlet {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+
+		//ログイン状態のチェック
+
 		try {
 			Context initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:/comp/env");
@@ -74,7 +77,7 @@ public class S0011SalesRegisterComplete extends HttpServlet {
 			ps.executeUpdate();
 
 			session.invalidate();
-
+			request.setAttribute("successSalesRegistration", "successSalesRegistration");
 			this.getServletContext().getRequestDispatcher("/S0010").forward(request, response);
 		} catch (Exception e) {
 			throw new ServletException(e);

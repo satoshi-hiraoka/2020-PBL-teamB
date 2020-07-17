@@ -44,7 +44,7 @@ public class S0011 extends HttpServlet {
 		ResultSet rs2 = null;
 		List<Account> resposiblelist = new ArrayList<>();
 		List<Category> puroductCategorylist = new ArrayList<>();
-
+		List<String> errMsg = new ArrayList<String>();
 		try {
 			Context initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:/comp/env");
@@ -106,6 +106,37 @@ public class S0011 extends HttpServlet {
 
 			}
 		}
+		CheckLength checklength = new CheckLength();
+		//空文字かチェック
+		if (checklength.inputEmptyCheck(request.getParameter("saleDate"))) {
+			errMsg.add("販売日を入力してください");
+		}
+		if (request.getParameter("responsible") == null) {
+			errMsg.add("担当者が未選択です。");
+		}
+		if (request.getParameter("puroductCategory") == null) {
+			errMsg.add("商品カテゴリーが未選択です。");
+		}
+		if (checklength.inputEmptyCheck(request.getParameter("puroductName"))) {
+			errMsg.add("商品名を入力してください");
+		}
+		if (checklength.inputEmptyCheck(request.getParameter("puroductUnitPrice"))) {
+			errMsg.add("単価をを入力してください");
+		}
+		if (checklength.inputEmptyCheck(request.getParameter("puroductNumber"))) {
+			errMsg.add("個数を入力してください");
+		}
+		//文字数長さチェック
+		if (checklength.checkLength(request.getParameter("puroductName"), 100)) {
+			errMsg.add("商品名が長すぎます。");
+		}
+
+		if (errMsg.size() > 0) {
+			request.setAttribute("errOccur", "errOccur");
+			request.setAttribute("errMsg", errMsg);
+			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request, response);
+		}
+
 		//ここにセッションにセットする
 		HttpSession session = request.getSession();
 		session.setAttribute("saleDate", request.getParameter("saleDate"));

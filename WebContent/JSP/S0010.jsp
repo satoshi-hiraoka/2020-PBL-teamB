@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!doctype html>
 <html lang="ja">
 <head>
@@ -16,11 +17,40 @@
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
+<link rel="stylesheet" href="/teamB/CSS/alert.css">
 <title>売上登録</title>
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
 	<h2 id="title">売上登録</h2>
+	<c:if test="${errOccur=='errOccur'}">
+		<div class="alert alert-danger alert-dismissible" role="alert"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong><i class="fas fa-times"></i> エラーが発生しました！</strong><br>
+			<ul>
+				<c:forEach var="err" items="${errMsg}">
+					<li>${err}</li>
+				</c:forEach>
+			</ul>
+		</div>
+	</c:if>
+	<c:if test="${successSalesRegistration=='successSalesRegistration'}">
+		<div class="alert alert-success alert-dismissible" role="alert"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong><i class="fas fa-check"></i>売上登録に成功しました</strong><br>
+			<ul>
+				<li>メッセージ</li>
+			</ul>
+		</div>
+	</c:if>
 	<form name="form" action="/teamB/S0011" method="post">
 		<table class="tablePosition">
 			<tr>

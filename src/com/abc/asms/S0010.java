@@ -45,71 +45,76 @@ public class S0010 extends HttpServlet {
 		ResultSet rs2 = null;
 		List<Account> resposiblelist = new ArrayList<>();
 		List<Category> puroductCategorylist = new ArrayList<>();
+		boolean loginCheck = false;
+		if (loginCheck) {
+			//未ログインの場合
+			request.setAttribute("loginErr", "loginErr");
+			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
+		} else {
 
-		try {
-			Context initContext = new InitialContext();
-			Context envContext = (Context) initContext.lookup("java:/comp/env");
-			DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
-
-			con = ds.getConnection();
-
-			StringBuilder sql = new StringBuilder();
-			sql.append(" SELECT");
-			sql.append("	*");
-			sql.append(" FROM ");
-			sql.append("	accounts");
-			ps = con.prepareStatement(sql.toString());
-			rs = ps.executeQuery();
-
-			while (rs.next()) {
-				Account responsibleUser = new Account();
-				responsibleUser.setName(rs.getString("name"));
-				responsibleUser.setAccount_id(rs.getString("account_id"));
-				resposiblelist.add(responsibleUser);
-				request.setAttribute("resposiblelist", resposiblelist);
-			}
-
-			con2 = ds.getConnection();
-
-			StringBuilder sql2 = new StringBuilder();
-			sql2.append(" SELECT ");
-			sql2.append("	*");
-			sql2.append(" FROM ");
-			sql2.append("	categories ");
-			sql2.append(" WHERE active_flg=1");
-			ps2 = con2.prepareStatement(sql2.toString());
-			rs2 = ps2.executeQuery();
-
-			HttpSession session=request.getSession();
-			session.invalidate();
-
-			while (rs2.next()) {
-				Category puroductCategoryData = new Category();
-				puroductCategoryData.setCategory_name(rs2.getString("category_name"));
-				puroductCategoryData.setCategory_id(rs2.getString("category_id"));
-				puroductCategorylist.add(puroductCategoryData);
-				request.setAttribute("puroductCategorylist", puroductCategorylist);
-
-			}
-
-			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
-					response);
-		} catch (Exception e) {
-			throw new ServletException(e);
-
-		} finally {
 			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-			} catch (Exception e) {
+				Context initContext = new InitialContext();
+				Context envContext = (Context) initContext.lookup("java:/comp/env");
+				DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
 
+				con = ds.getConnection();
+
+				StringBuilder sql = new StringBuilder();
+				sql.append(" SELECT");
+				sql.append("	*");
+				sql.append(" FROM ");
+				sql.append("	accounts");
+				ps = con.prepareStatement(sql.toString());
+				rs = ps.executeQuery();
+
+				while (rs.next()) {
+					Account responsibleUser = new Account();
+					responsibleUser.setName(rs.getString("name"));
+					responsibleUser.setAccount_id(rs.getString("account_id"));
+					resposiblelist.add(responsibleUser);
+					request.setAttribute("resposiblelist", resposiblelist);
+				}
+
+				con2 = ds.getConnection();
+
+				StringBuilder sql2 = new StringBuilder();
+				sql2.append(" SELECT ");
+				sql2.append("	*");
+				sql2.append(" FROM ");
+				sql2.append("	categories ");
+				sql2.append(" WHERE active_flg=1");
+				ps2 = con2.prepareStatement(sql2.toString());
+				rs2 = ps2.executeQuery();
+
+				while (rs2.next()) {
+					Category puroductCategoryData = new Category();
+					puroductCategoryData.setCategory_name(rs2.getString("category_name"));
+					puroductCategoryData.setCategory_id(rs2.getString("category_id"));
+					puroductCategorylist.add(puroductCategoryData);
+					request.setAttribute("puroductCategorylist", puroductCategorylist);
+
+				}
+				HttpSession session = request.getSession();
+				session.invalidate();
+				this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
+						response);
+			} catch (Exception e) {
+				throw new ServletException(e);
+
+			} finally {
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+					if (ps != null) {
+						ps.close();
+					}
+					if (con != null) {
+						con.close();
+					}
+				} catch (Exception e) {
+
+				}
 			}
 		}
 	}
