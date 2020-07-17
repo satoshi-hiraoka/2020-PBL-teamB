@@ -28,6 +28,7 @@ public class C0010 extends HttpServlet {
 		checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
 
 	}
+	
 //共通クラスに書く。32～41
 	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response,String transitiontTo) throws ServletException, IOException{
 		//ログインチェック
@@ -121,6 +122,7 @@ public class C0010 extends HttpServlet {
 			ps.setString(2, passWord); //mail PASSWORDに値を設定
 			rs = ps.executeQuery();//実行
 
+			//共通
 			HttpSession session = request.getSession(); //セッションにログインしたときの情報をいれる。権限が一番大事p288参考
 			if (rs.next()) {
 				Account account = new Account();
