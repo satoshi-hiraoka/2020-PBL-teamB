@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<!--  meta tags -->
+<!--  meta tags -->s
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,21 +23,7 @@
 <body>
 	<jsp:include page="menu.jsp" />
 	<h2 id="title">売上登録</h2>
-	<c:if test="${errOccur=='errOccur'}">
-		<div class="alert alert-danger alert-dismissible" role="alert"
-			id="alert">
-			<button type="button" class="close" data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-			<strong><i class="fas fa-times"></i> エラーが発生しました！</strong><br>
-			<ul>
-				<c:forEach var="err" items="${errMsg}">
-					<li>${err}</li>
-				</c:forEach>
-			</ul>
-		</div>
-	</c:if>
+	<jsp:include page="errOccur.jsp" />
 	<c:if test="${successSalesRegistration=='successSalesRegistration'}">
 		<div class="alert alert-success alert-dismissible" role="alert"
 			id="alert">

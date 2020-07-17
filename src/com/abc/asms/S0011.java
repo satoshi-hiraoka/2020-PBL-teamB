@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,14 @@ public class S0011 extends HttpServlet {
 		List<Account> resposiblelist = new ArrayList<>();
 		List<Category> puroductCategorylist = new ArrayList<>();
 		List<String> errMsg = new ArrayList<String>();
+
+		String saleDate = request.getParameter("saleDate");
+		String responsible = request.getParameter("responsible");
+		String puroductCategory = request.getParameter("puroductCategory");
+		String puroductName = request.getParameter("puroductName");
+		String puroductUnitPrice = request.getParameter("puroductUnitPrice");
+		String puroductNumber = request.getParameter("puroductNumber");
+		String remark = request.getParameter("remark");
 		try {
 			Context initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:/comp/env");
@@ -57,15 +67,20 @@ public class S0011 extends HttpServlet {
 			sql.append("	*");
 			sql.append(" FROM ");
 			sql.append("	accounts");
+			sql.append(" WHERE ");
+			sql.append("	account_id=?");
 			ps = con.prepareStatement(sql.toString());
+			ps.setString(1, responsible);
 			rs = ps.executeQuery();
 
-			while (rs.next()) {
+			if (rs.next()) {
 				Account responsibleUser = new Account();
 				responsibleUser.setName(rs.getString("name"));
 				responsibleUser.setAccount_id(rs.getString("account_id"));
 				resposiblelist.add(responsibleUser);
 				request.setAttribute("resposiblelist", resposiblelist);
+			} else {
+				errMsg.add("アカウントテーブルに存在しません。");
 			}
 
 			con2 = ds.getConnection();
@@ -76,16 +91,20 @@ public class S0011 extends HttpServlet {
 			sql2.append(" FROM ");
 			sql2.append("	categories ");
 			sql2.append(" WHERE active_flg=1");
+			sql.append("	category_id=?");
 			ps2 = con2.prepareStatement(sql2.toString());
+			ps.setString(1, puroductCategory);
 			rs2 = ps2.executeQuery();
 
-			while (rs2.next()) {
+			if (rs2.next()) {
 				Category puroductCategoryData = new Category();
 				puroductCategoryData.setCategory_name(rs2.getString("category_name"));
 				puroductCategoryData.setCategory_id(rs2.getString("category_id"));
 				puroductCategorylist.add(puroductCategoryData);
 				request.setAttribute("puroductCategorylist", puroductCategorylist);
 
+			} else {
+				errMsg.add("商品カテゴリーテーブルに存在しません。");
 			}
 
 		} catch (Exception e) {
@@ -105,60 +124,94 @@ public class S0011 extends HttpServlet {
 			} catch (Exception e) {
 
 			}
-		}
-		CheckLength checklength = new CheckLength();
-		//空文字かチェック
-		if (checklength.inputEmptyCheck(request.getParameter("saleDate"))) {
-			errMsg.add("販売日を入力してください");
-		}
-		if (request.getParameter("responsible") == null) {
-			errMsg.add("担当者が未選択です。");
-		}
-		if (request.getParameter("puroductCategory") == null) {
-			errMsg.add("商品カテゴリーが未選択です。");
-		}
-		if (checklength.inputEmptyCheck(request.getParameter("puroductName"))) {
-			errMsg.add("商品名を入力してください");
-		}
-		if (checklength.inputEmptyCheck(request.getParameter("puroductUnitPrice"))) {
-			errMsg.add("単価をを入力してください");
-		}
-		if (checklength.inputEmptyCheck(request.getParameter("puroductNumber"))) {
-			errMsg.add("個数を入力してください");
-		}
-		//文字数長さチェック
-		if (checklength.checkLength(request.getParameter("puroductName"), 100)) {
-			errMsg.add("商品名が長すぎます。");
-		}
 
-		if (errMsg.size() > 0) {
-			request.setAttribute("errOccur", "errOccur");
-			request.setAttribute("errMsg", errMsg);
-			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request, response);
+			CheckLength checklength = new CheckLength();
+			//未入力かチェック
+			if (checklength.inputEmptyCheck(saleDate)) {
+				errMsg.add("販売日を入力してください");
+			}
+			if (responsible == null) {
+				errMsg.add("担当者が未選択です。");
+			}
+			if (puroductCategory == null) {
+				errMsg.add("商品カテゴリーが未選択です。");
+			}
+			if (checklength.inputEmptyCheck(puroductName)) {
+				errMsg.add("商品名を入力してください");
+			}
+			if (checklength.inputEmptyCheck(puroductUnitPrice)) {
+				errMsg.add("単価をを入力してください");
+			}
+			if (checklength.inputEmptyCheck(puroductNumber)) {
+				errMsg.add("個数を入力してください");
+			}
+			//文字数長さチェック
+			if (checklength.checkLength(puroductName, 101)) {
+				errMsg.add("商品名が長すぎます。");
+			}
+			if (checklength.checkLength(puroductUnitPrice, 10)) {
+				errMsg.add("単価が長すぎます。");
+			}
+			if (checklength.checkLength(puroductNumber, 10)) {
+				errMsg.add("個数が長すぎます。");
+			}
+			if (checklength.checkLength(remark, 400)) {
+				errMsg.add("備考が長すぎます。");
+			}
+			//入力の形式チェック
+			LocalDate localdate;
+			try {
+				localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+			} catch (java.time.format.DateTimeParseException e) {
+				errMsg.add("販売日を正しく入力してください。");
+			} finally {
+
+				try {
+					if (Integer.parseInt(puroductUnitPrice) <= 1) {
+						errMsg.add("単価を正しく入力してください");
+					}
+
+				} catch (NumberFormatException e) {
+					errMsg.add("単価を正しく入力してください");
+				} finally {
+					try {
+						if (Integer.parseInt(puroductNumber) <= 1) {
+							errMsg.add("個数を正しく入力してください");
+						}
+					} catch (NumberFormatException e) {
+						errMsg.add("個価を正しく入力してください");
+					} finally {
+
+						//ここにセッションにセットする
+						HttpSession session = request.getSession();
+						session.setAttribute("saleDate", saleDate);
+						session.setAttribute("responsible", responsible);
+						session.setAttribute("puroductCategory", puroductCategory);
+						session.setAttribute("puroductName", puroductName);
+						session.setAttribute("puroductUnitPrice", puroductUnitPrice);
+						session.setAttribute("puroductNumber", puroductNumber);
+						session.setAttribute("remark", remark);
+						//errMsgに何か入っていればs0010.jspに飛ばす。
+						if (errMsg.size() > 0) {
+							request.setAttribute("errMsg", errMsg);
+							this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request, response);
+						}
+
+						int number = Integer.valueOf(puroductNumber);
+						int praice = Integer.valueOf(puroductUnitPrice);
+						int subtotal = number * praice;
+						session.setAttribute("commaNumer", String.format("%,d", number));
+						session.setAttribute("commaPrice", String.format("%,d", praice));
+						session.setAttribute("commaSubtotal", String.format("%,d", subtotal));
+
+						this.getServletContext().getRequestDispatcher("/JSP/S0011.jsp").forward(request, response);
+					}
+				}
+			}
 		}
-
-		//ここにセッションにセットする
-		HttpSession session = request.getSession();
-		session.setAttribute("saleDate", request.getParameter("saleDate"));
-		session.setAttribute("responsible", request.getParameter("responsible"));
-		session.setAttribute("puroductCategory", request.getParameter("puroductCategory"));
-		session.setAttribute("puroductName", request.getParameter("puroductName"));
-		session.setAttribute("puroductUnitPrice", request.getParameter("puroductUnitPrice"));
-		session.setAttribute("puroductNumber", request.getParameter("puroductNumber"));
-		session.setAttribute("remark", request.getParameter("remark"));
-
-		int number = Integer.valueOf(request.getParameter("puroductNumber"));
-		int praice = Integer.valueOf(request.getParameter("puroductUnitPrice"));
-		int subtotal = number * praice;
-		session.setAttribute("commaNumer", String.format("%,d", number));
-		session.setAttribute("commaPrice", String.format("%,d", praice));
-		session.setAttribute("commaSubtotal", String.format("%,d", subtotal));
-
-		this.getServletContext().getRequestDispatcher("/JSP/S0011.jsp").forward(request, response);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ゲットだよ");
 	}
 }

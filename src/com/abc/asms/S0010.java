@@ -45,75 +45,84 @@ public class S0010 extends HttpServlet {
 		ResultSet rs2 = null;
 		List<Account> resposiblelist = new ArrayList<>();
 		List<Category> puroductCategorylist = new ArrayList<>();
+		List<String> errMsg = new ArrayList<String>();
 		boolean loginCheck = false;
+		int authCheck = 1;
 		if (loginCheck) {
 			//未ログインの場合
-			request.setAttribute("loginErr", "loginErr");
+			errMsg.add("ログインしてください");
+			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
 		} else {
-
-			try {
-				Context initContext = new InitialContext();
-				Context envContext = (Context) initContext.lookup("java:/comp/env");
-				DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
-
-				con = ds.getConnection();
-
-				StringBuilder sql = new StringBuilder();
-				sql.append(" SELECT");
-				sql.append("	*");
-				sql.append(" FROM ");
-				sql.append("	accounts");
-				ps = con.prepareStatement(sql.toString());
-				rs = ps.executeQuery();
-
-				while (rs.next()) {
-					Account responsibleUser = new Account();
-					responsibleUser.setName(rs.getString("name"));
-					responsibleUser.setAccount_id(rs.getString("account_id"));
-					resposiblelist.add(responsibleUser);
-					request.setAttribute("resposiblelist", resposiblelist);
-				}
-
-				con2 = ds.getConnection();
-
-				StringBuilder sql2 = new StringBuilder();
-				sql2.append(" SELECT ");
-				sql2.append("	*");
-				sql2.append(" FROM ");
-				sql2.append("	categories ");
-				sql2.append(" WHERE active_flg=1");
-				ps2 = con2.prepareStatement(sql2.toString());
-				rs2 = ps2.executeQuery();
-
-				while (rs2.next()) {
-					Category puroductCategoryData = new Category();
-					puroductCategoryData.setCategory_name(rs2.getString("category_name"));
-					puroductCategoryData.setCategory_id(rs2.getString("category_id"));
-					puroductCategorylist.add(puroductCategoryData);
-					request.setAttribute("puroductCategorylist", puroductCategorylist);
-
-				}
-				HttpSession session = request.getSession();
-				session.invalidate();
-				this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
-						response);
-			} catch (Exception e) {
-				throw new ServletException(e);
-
-			} finally {
+			//売上登録ができるか、権限チェック
+			if (authCheck == 0) {
+				errMsg.add("不正なアクセスです。");
+				request.setAttribute("errMsg", errMsg);
+				this.getServletContext().getRequestDispatcher("/JSP/C0020.jsp").forward(request, response);
+			} else {
 				try {
-					if (rs != null) {
-						rs.close();
-					}
-					if (ps != null) {
-						ps.close();
-					}
-					if (con != null) {
-						con.close();
-					}
-				} catch (Exception e) {
+					Context initContext = new InitialContext();
+					Context envContext = (Context) initContext.lookup("java:/comp/env");
+					DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
 
+					con = ds.getConnection();
+
+					StringBuilder sql = new StringBuilder();
+					sql.append(" SELECT");
+					sql.append("	*");
+					sql.append(" FROM ");
+					sql.append("	accounts");
+					ps = con.prepareStatement(sql.toString());
+					rs = ps.executeQuery();
+
+					while (rs.next()) {
+						Account responsibleUser = new Account();
+						responsibleUser.setName(rs.getString("name"));
+						responsibleUser.setAccount_id(rs.getString("account_id"));
+						resposiblelist.add(responsibleUser);
+						request.setAttribute("resposiblelist", resposiblelist);
+					}
+
+					con2 = ds.getConnection();
+
+					StringBuilder sql2 = new StringBuilder();
+					sql2.append(" SELECT ");
+					sql2.append("	*");
+					sql2.append(" FROM ");
+					sql2.append("	categories ");
+					sql2.append(" WHERE active_flg=1");
+					ps2 = con2.prepareStatement(sql2.toString());
+					rs2 = ps2.executeQuery();
+
+					while (rs2.next()) {
+						Category puroductCategoryData = new Category();
+						puroductCategoryData.setCategory_name(rs2.getString("category_name"));
+						puroductCategoryData.setCategory_id(rs2.getString("category_id"));
+						puroductCategorylist.add(puroductCategoryData);
+						request.setAttribute("puroductCategorylist", puroductCategorylist);
+
+					}
+					HttpSession session = request.getSession();
+					session.invalidate();
+					this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
+							response);
+				} catch (Exception e) {
+					throw new ServletException(e);
+
+				} finally {
+					try {
+						if (rs != null) {
+							rs.close();
+						}
+						if (ps != null) {
+							ps.close();
+						}
+						if (con != null) {
+							con.close();
+						}
+					} catch (Exception e) {
+
+					}
 				}
 			}
 		}
