@@ -37,7 +37,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="text" name="mail" size="40" placeholder="${param['mail']}" disabled />
+					<input type="text" name="email" size="40" placeholder="${param['mail']}" disabled />
 				</td>
 			</tr>
 			<tr>

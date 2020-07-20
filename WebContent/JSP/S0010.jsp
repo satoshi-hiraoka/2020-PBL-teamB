@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<!--  meta tags -->s
+<!--  meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -43,7 +43,7 @@
 				<td class="textAlign">販売日<span
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><input type="text" name="saleDate" size="10"
-					value="${saleDate}"></td>
+					value="${sales.sale_date}"></td>
 			</tr>
 			<tr>
 				<td class="textAlign">担当<span
@@ -103,24 +103,24 @@
 				<td class="textAlign">商品名<span
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><input type="text" name="puroductName" placeholder="商品名"
-					class="salesFiledLength" value="${puroductName}"></td>
+					class="salesFiledLength" value="${sales.trade_name}"></td>
 			</tr>
 			<tr>
 				<td class="textAlign">単価<span
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><input type="text" name="puroductUnitPrice" size="10"
-					class="salesInputIntText" value="${puroductUnitPrice}"></td>
+					class="salesInputIntText" value="${sales.unit_price}"></td>
 			</tr>
 			<tr>
 				<td class="textAlign">個数<span
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><input type="text" name="puroductNumber" size="10"
-					class="salesInputIntText" value="${puroductNumber}"></td>
+					class="salesInputIntText" value="${sales.sale_number}"></td>
 			</tr>
 			<tr>
 				<td class="textAlign textBoxAlignRemark" valign="top">備考</td>
 				<td><textarea rows="4" cols="40" placeholder="備考"
-						class="salesFiledLength" name="remark">${remark}</textarea></td>
+						class="salesFiledLength" name="remark">${sales.note}</textarea></td>
 			</tr>
 		</table>
 		<div>
