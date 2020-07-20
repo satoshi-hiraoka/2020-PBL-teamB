@@ -7,7 +7,8 @@ public class CheckLength {
 	CheckLength() {
 
 	}
-public boolean checkLength(String value, int max) {
+
+	public boolean checkLength(String value, int max) {
 		this.value = value;
 		this.max = max;
 		int length = value.getBytes().length;
@@ -16,7 +17,8 @@ public boolean checkLength(String value, int max) {
 		}
 		return false;
 	}
-public boolean inputEmptyCheck(String value) {
+
+	public boolean inputEmptyCheck(String value) {
 		this.value = value;
 		int length = value.getBytes().length;
 		if (length == 0) {
