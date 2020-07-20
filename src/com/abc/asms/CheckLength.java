@@ -1,6 +1,6 @@
 package com.abc.asms;
 
-public class CheckLength implements InterfaceCheckLength {
+public class CheckLength {
 	private String value;
 	private int max;
 
