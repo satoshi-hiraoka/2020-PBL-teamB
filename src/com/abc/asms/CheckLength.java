@@ -1,14 +1,13 @@
 package com.abc.asms;
 
-public class CheckLength implements InterfaceCheckLength {
+public class CheckLength {
 	private String value;
 	private int max;
 
 	CheckLength() {
 
 	}
-@Override
-	public boolean checkLength(String value, int max) {
+public boolean checkLength(String value, int max) {
 		this.value = value;
 		this.max = max;
 		int length = value.getBytes().length;
@@ -17,8 +16,7 @@ public class CheckLength implements InterfaceCheckLength {
 		}
 		return false;
 	}
-@Override
-	public boolean inputEmptyCheck(String value) {
+public boolean inputEmptyCheck(String value) {
 		this.value = value;
 		int length = value.getBytes().length;
 		if (length == 0) {

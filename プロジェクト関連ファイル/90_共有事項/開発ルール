@@ -4,36 +4,15 @@
 ・<form>はpostで送る
 ・データベース接続はConnectionTeamBを使用
 	ConnectionTeamB使用時はサーブレットに以下のソースコードを記述
-	public class クラス名 extends HttpServlet implements InterfaceConnectionTeamB {
-	private ConnectionTeamB cb;
-	public クラス名() throws ServletException, IOException {
-		super();
-		this.cb = new ConnectionTeamB();
-	}
-	public Connection getCon() {
-		return this.cb.getCon();
-	}
-	以降ConnectionはgetCon()で記述
+	ConnectionTeamB cb = new ConnectionTeamB();
+	以降Connectionはcb.getCon()で記述
 ・入力内容の長さチェック、空白チェックはCheckLengthを使用
 	CheckLength使用時はサーブレットに以下のソースコードを記述
-	public class クラス名 extends HttpServlet implements InterfaceCheckLength {
-	private CheckLength cl;
-	public クラス名() throws ServletException, IOException {
-		super();
-		this.cl = new CheckLength();
-	}
-	//長さチェック
-	public boolean checkLength(String value, int max) {
-		return this.cl.checkLength(value, max);
-	}
-	//空白チェック
-	public boolean inputEmptyCheck(String value) {
-		return this.cl.inputEmptyCheck(value);
-	}
+	CheckLength cl = new CheckLength();
 	メソッド呼び出し時
 	//長さチェック
-	checkLength(長さをチェックしたい項目,バイト数の最小値（メールアドレスなら101));
+	cl.checkLength(長さをチェックしたい項目,バイト数の最小値（メールアドレスなら101));
 	//空白チェック
-	inputEmptyCheck(空白をチェックしたい項目);
+	cl.inputEmptyCheck(空白をチェックしたい項目);
 
 ・エラーメッセージの表示はerrOccr.jspをincludeして使う。

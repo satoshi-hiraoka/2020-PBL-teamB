@@ -1,7 +1,6 @@
 package com.abc.asms;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,10 +19,10 @@ import com.abc.asms.dataset.Account;
  * Servlet implementation class S0030
  */
 @WebServlet("/S0030")
-public class S0030 extends HttpServlet implements InterfaceConnectionTeamB, InterfaceCheckLength {
+public class S0030 extends HttpServlet {
 
-	private ConnectionTeamB cb;
-	private CheckLength cl;
+	ConnectionTeamB cb = new ConnectionTeamB();
+	CheckLength cl = new CheckLength();
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,20 +33,6 @@ public class S0030 extends HttpServlet implements InterfaceConnectionTeamB, Inte
 	 */
 	public S0030() throws ServletException, IOException {
 		super();
-		this.cb = new ConnectionTeamB();
-		this.cl = new CheckLength();
-	}
-
-	public Connection getCon() {
-		return this.cb.getCon();
-	}
-
-	public boolean checkLength(String value, int max) {
-		return this.cl.checkLength(value, max);
-	}
-
-	public boolean inputEmptyCheck(String value) {
-		return this.cl.inputEmptyCheck(value);
 	}
 
 	/**
@@ -112,7 +97,7 @@ public class S0030 extends HttpServlet implements InterfaceConnectionTeamB, Inte
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			ps = getCon().prepareStatement(sql.toString());
+			ps = cb.getCon().prepareStatement(sql.toString());
 
 			ps.setString(1, mail);
 
@@ -154,19 +139,19 @@ public class S0030 extends HttpServlet implements InterfaceConnectionTeamB, Inte
 	}
 
 	private void checkName(String name, ArrayList<String> errMsg) {
-		if (inputEmptyCheck(name)) {
+		if (cl.inputEmptyCheck(name)) {
 			errMsg.add("氏名を入力してください。");
 		}
-		if (checkLength(name, 21)) {
+		if (cl.checkLength(name, 21)) {
 			errMsg.add("氏名が長すぎます。");
 		}
 	}
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
-		if (inputEmptyCheck(mail)) {
+		if (cl.inputEmptyCheck(mail)) {
 			errMsg.add("メールアドレスを入力してください。");
 		}
-		if (checkLength(mail, 101)) {
+		if (cl.checkLength(mail, 101)) {
 			errMsg.add("メールアドレスが長すぎます。");
 		}
 		if (!(mail.matches(
@@ -176,13 +161,13 @@ public class S0030 extends HttpServlet implements InterfaceConnectionTeamB, Inte
 	}
 
 	private void checkPassword(String password, String passwordCheck, ArrayList<String> errMsg) {
-		if (inputEmptyCheck(password)) {
+		if (cl.inputEmptyCheck(password)) {
 			errMsg.add("パスワードを入力してください。");
 		}
-		if (checkLength(password, 31)) {
+		if (cl.checkLength(password, 31)) {
 			errMsg.add("パスワードが長すぎます。");
 		}
-		if (inputEmptyCheck(passwordCheck)) {
+		if (cl.inputEmptyCheck(passwordCheck)) {
 			errMsg.add("パスワード（確認）を入力してください。");
 		}
 		if (!(password.equals(passwordCheck))) {
@@ -191,7 +176,7 @@ public class S0030 extends HttpServlet implements InterfaceConnectionTeamB, Inte
 	}
 
 	private void checkAuthSales(String authSales, ArrayList<String> errMsg) {
-		if (inputEmptyCheck(authSales)) {
+		if (cl.inputEmptyCheck(authSales)) {
 			errMsg.add("売上登録権限を入力してください。");
 		}
 		if (!(authSales.equals("0") || authSales.equals("1"))) {
@@ -200,7 +185,7 @@ public class S0030 extends HttpServlet implements InterfaceConnectionTeamB, Inte
 	}
 
 	private void checkAuthAccount(String authAccount, ArrayList<String> errMsg) {
-		if (inputEmptyCheck(authAccount)) {
+		if (cl.inputEmptyCheck(authAccount)) {
 			errMsg.add("アカウント登録権限を入力してください。");
 		}
 		if (!(authAccount.equals("0") || authAccount.equals("1"))) {
