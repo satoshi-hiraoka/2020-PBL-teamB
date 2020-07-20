@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import com.abc.asms.dataset.Sale;
+
 /**
  * Servlet implementation class salesComplete
  */
@@ -25,15 +27,16 @@ public class S0011SalesRegisterComplete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
 		HttpSession session = request.getSession();
-		String saleDate = (String) session.getAttribute("saleDate");
-		String responsibleData = (String) session.getAttribute("responsible");
-		String puroductCategory = (String) session.getAttribute("puroductCategory");
-		String puroductName = (String) session.getAttribute("puroductName");
-		String puroductUnitPrice = (String) session.getAttribute("puroductUnitPrice");
-		String puroductNumber = (String) session.getAttribute("puroductNumber");
-		String remark = (String) session.getAttribute("remark");
+		Sale sale = (Sale) session.getAttribute("sales");
+
+		String saleDate = sale.getSale_date();
+		String responsibleData = sale.getAccount_id();
+		String puroductCategory = sale.getCategory_id();
+		String puroductName = sale.getTrade_name();
+		String puroductUnitPrice = sale.getUnit_price();
+		String puroductNumber = sale.getSale_number();
+		String remark = sale.getNote();
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -76,7 +79,13 @@ public class S0011SalesRegisterComplete extends HttpServlet {
 			ps.setString(7, remark);
 			ps.executeUpdate();
 
-			session.invalidate();
+			session.removeAttribute("sales");
+			session.removeAttribute("puroductCategory");
+			session.removeAttribute("responsible");
+			session.removeAttribute("commaNumer");
+			session.removeAttribute("commaPrice");
+			session.removeAttribute("commaSubtotal");
+
 			request.setAttribute("successSalesRegistration", "successSalesRegistration");
 			this.getServletContext().getRequestDispatcher("/S0010").forward(request, response);
 		} catch (Exception e) {

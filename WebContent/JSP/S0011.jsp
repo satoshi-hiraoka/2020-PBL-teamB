@@ -21,22 +21,22 @@
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
-	<h2 id="title">売上登録を登録してよろしいですか？</h2>s
+	<h2 id="title">売上登録を登録してよろしいですか？</h2>
+	s
 	<form name="form" action="/teamB/S0011SalesRegisterComplete"
 		method="post">
 		<table class="tablePosition">
 			<tr>
 				<td class="textAlign">販売日</td>
 				<td><input type="text" name="ConSaleDate" size="10"
-					value="${saleDate}" disabled></td>
+					value="${sales.sale_date}" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">担当</td>
 				<td><select name="responsible" class="salesFiledLength"
 					disabled>
 						<c:forEach var="responsibleData" items="${resposiblelist}">
-							<c:if
-								test="${responsibleData.account_id==responsible}">
+							<c:if test="${ responsibleData.account_id==responsible}">
 								<option value="${responsibleData.account_id}" selected>${responsibleData.name}</option>
 							</c:if>
 						</c:forEach>
@@ -48,9 +48,8 @@
 					disabled>
 						<c:forEach var="puroductCategoryData"
 							items="${puroductCategorylist}">
-							<c:if
-								test="${puroductCategoryData.category_id==puroductCategory}">
-								<option value="${puroductCategoryData.category_id}" selected>${puroductCategoryData.category_name}</option>
+							<c:if test="${puroductCategoryData.category_id==puroductCategory}">
+							<option value="${puroductCategoryData.category_id}">${puroductCategoryData.category_name}</option>
 							</c:if>
 						</c:forEach>
 				</select></td>
@@ -58,7 +57,7 @@
 			<tr>
 				<td class="textAlign">商品名</td>
 				<td><input type="text" name="puroductName"
-					value="${puroductName}" class="salesFiledLength" disabled></td>
+					value="${sales.trade_name}" class="salesFiledLength" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">単価</td>
@@ -80,7 +79,7 @@
 				<td class="textAlign textBoxAlignRemark">備考</td>
 				<td><textarea rows="4" cols="40" placeholder="備考"
 						class="salesFiledLength" name="
-remark" disabled>${remark}</textarea></td>
+remark" disabled>${sales.note}</textarea></td>
 			</tr>
 		</table>
 		<div>

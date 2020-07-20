@@ -8,7 +8,7 @@ import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.sql.DataSource;
 
-public class ConnectionTeamB {
+public class ConnectionTeamB implements InterfaceConnectionTeamB {
 	private Connection con;
 
 	ConnectionTeamB() throws ServletException, IOException {
@@ -23,6 +23,7 @@ public class ConnectionTeamB {
 			e.printStackTrace();
 		}
 	}
+@Override
 	public Connection getCon() {
 		return con;
 	}

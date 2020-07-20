@@ -9,23 +9,75 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class SaleService /* コネクションプールを持っているクラスを継承 */ {
+import com.abc.asms.dataset.Sale;
+
+public class SaleService implements Service<Sale> /* コネクションプールを持っているクラスを継承 */ {
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	List<String> errMsg = new ArrayList<String>();
 
 	public Sale parse(HttpServletRequest request) {
 		Sale sale = new Sale();
 		//requestから売上のデータ取り出してSale型の変数に格納
+		sale.setSale_date(request.getParameter("saleDate"));
+		sale.setAccount_id(request.getParameter("responsible"));
+		sale.setCategory_id(request.getParameter("puroductCategory"));
+		sale.setTrade_name(request.getParameter("puroductName"));
+		sale.setUnit_price(request.getParameter("puroductUnitPrice"));
+		sale.setSale_number(request.getParameter("puroductNumber"));
+		sale.setNote(request.getParameter("remark"));
+
 		return sale;
 	}
 
 	public Sale parse(ResultSet rs) throws SQLException {
 		Sale sale = new Sale();
 		//ResultSetから売上のデータ取り出してSale型の変数に格納
+
+		sale.setSale_date(rs.getString("saleDate"));
+		sale.setAccount_id(rs.getString("responsible"));
+		sale.setCategory_id(rs.getString("puroductCategory"));
+		sale.setTrade_name(rs.getString("puroductName"));
+		sale.setUnit_price(rs.getString("puroductUnitPrice"));
+		sale.setSale_number(rs.getString("puroductNumber"));
+		sale.setNote(rs.getString("remark"));
+
 		return sale;
 	}
 
 	public void registCheck(Sale key) {
 		//登録時に必要なチェック
+		CheckLength checklength = new CheckLength();
+		if (checklength.inputEmptyCheck(key.getSale_date())) {
+			errMsg.add("販売日を入力してください");
+		}
+		if (key.getAccount_id() == null) {
+			errMsg.add("担当者が未選択です。");
+		}
+		if (key.getSale_number() == null) {
+			errMsg.add("商品カテゴリーが未選択です。");
+		}
+		if (checklength.inputEmptyCheck(key.getTrade_name())) {
+			errMsg.add("商品名を入力してください");
+		}
+		if (checklength.inputEmptyCheck(key.getUnit_price())) {
+			errMsg.add("単価をを入力してください");
+		}
+		if (checklength.inputEmptyCheck(key.getSale_number())) {
+			errMsg.add("個数を入力してください");
+		}
+		//文字数長さチェック
+		if (checklength.checkLength(key.getTrade_name(), 101)) {
+			errMsg.add("商品名が長すぎます。");
+		}
+		if (checklength.checkLength(key.getUnit_price(), 10)) {
+			errMsg.add("単価が長すぎます。");
+		}
+		if (checklength.checkLength(key.getSale_number(), 10)) {
+			errMsg.add("個数が長すぎます。");
+		}
+		if (checklength.checkLength(key.getNote(), 400)) {
+			errMsg.add("備考が長すぎます。");
+		}
 	}
 
 	public void updateCheck(Sale key) {
@@ -90,7 +142,36 @@ public class SaleService /* コネクションプールを持っているクラ�
 		PreparedStatement ps = null;
 		int idx = 1;
 		try {
-			//ここでinsertする
+			//ここでinsertする よくわかってない
+
+//			StringBuilder sql = new StringBuilder();
+//			sql.append(" INSERT INTO");
+//			sql.append("	sales(sale_date,");
+//			sql.append("	account_id,");
+//			sql.append("	category_id, ");
+//			sql.append("	trade_name,");
+//			sql.append("	unit_price,");
+//			sql.append("	sale_number,");
+//			sql.append("	note)");
+//			sql.append(" VALUES");
+//			sql.append("	(?,");
+//			sql.append("	?,");
+//			sql.append("	?,");
+//			sql.append("	?,");
+//			sql.append("	?,");
+//			sql.append("	?,");
+//			sql.append("	?)");
+//
+//			ps = con.prepareStatement(sql.toString());
+//			ps.setString(1, bean.getSale_date());
+//			ps.setString(2, bean.getAccount_id());
+//			ps.setString(3, bean.getCategory_id());
+//			ps.setString(4, bean.getTrade_name());
+//			ps.setString(5, bean.getUnit_price());
+//			ps.setString(6, bean.getSale_number());
+//			ps.setString(7, bean.getNote());
+//			ps.executeUpdate();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
