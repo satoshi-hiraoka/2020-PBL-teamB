@@ -14,11 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.abc.asms.dataset.Account;
+
 /**
  * Servlet implementation class S0030
  */
 @WebServlet("/S0030")
-public class S0030 extends HttpServlet implements interfaceConnectionTeamB,interfaceCheckLength {
+public class S0030 extends HttpServlet implements interfaceConnectionTeamB, interfaceCheckLength {
 
 	private ConnectionTeamB cb;
 	private CheckLength cl;
@@ -44,12 +46,35 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB,inter
 		return this.cl.checkLength(value, max);
 	}
 
+	public boolean inputEmptyCheck(String value) {
+		return this.cl.inputEmptyCheck(value);
+	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		checkLoginAndTransition(request, response, "/JSP/C0030.jsp");
+	}
+
+	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response, String transitionTo)
+			throws ServletException, IOException {
+		ArrayList<String> errMsg = new ArrayList<String>();
+		//ログインチェック
+		Account account = (Account) request.getSession().getAttribute("accounts");
+		if (account == null) {
+			errMsg.add("ログインしてください。");
+			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
+		} else {
+			String authority = account.getAuthority();
+			if (authority.equals("10") || authority.equals("11")) {
+				this.getServletContext().getRequestDispatcher(transitionTo).forward(request, response);
+			} else {
+				errMsg.add("不正なアクセスです。");
+				this.getServletContext().getRequestDispatcher("/JSP/C0020.jsp").forward(request, response);
+			}
+		}
 	}
 
 	/**
@@ -65,50 +90,26 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB,inter
 		String passwordCheck = request.getParameter("passwordCheck");
 		String authSales = request.getParameter("authSales");
 		String authAccount = request.getParameter("authAccount");
-		String authority;
-
-		if (authSales.equals("0")) {
-			if (authAccount.equals("0")) {
-				authority = "0";
-			} else {
-				authority = "1";
-			}
-		} else {
-			if (authAccount.equals("0")) {
-				authority = "10";
-			} else {
-				authority = "11";
-			}
-		}
 
 		ArrayList<String> errMsg = new ArrayList<String>();
 
-		checkName(name, errMsg);
-		checkMail(mail, errMsg);
-		checkPassword(password, passwordCheck, errMsg);
-		checkAuthSales(authSales, errMsg);
-		checkAuthAccount(authAccount, errMsg);
-
-		if (errMsg.size() > 0) {
-			request.setAttribute("errMsg", errMsg);
-			this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp?err=1").forward(request, response);
-		}
-
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT");
-		sql.append(" 	*");
+		sql.append(" 	account_id");
 		sql.append(" FROM");
 		sql.append(" 	accounts");
 		sql.append(" WHERE");
 		sql.append(" 	mail = ?");
 
-		PreparedStatement ps;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
 			ps = getCon().prepareStatement(sql.toString());
 
 			ps.setString(1, mail);
 
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
+
 			if (rs.next()) {
 				errMsg.add("メールアドレスが既に登録されています。");
 			} else {
@@ -118,14 +119,32 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB,inter
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (getCon() == null) {
-				try {
-					getCon().close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+			try {
+				if (rs != null) {
+					rs.close();
 				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (getCon() != null) {
+					getCon().close();
+				}
+			} catch (SQLException e) {
+
 			}
 		}
+
+		checkName(name, errMsg);
+		checkMail(mail, errMsg);
+		checkPassword(password, passwordCheck, errMsg);
+		checkAuthSales(authSales, errMsg);
+		checkAuthAccount(authAccount, errMsg);
+
+		if (errMsg.size() > 0) {
+			request.setAttribute("errMsg", errMsg);
+			this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);
+		}
+
 		HttpSession session = request.getSession();
 		session.setAttribute("name", name);
 		session.setAttribute("mail", mail);
@@ -136,7 +155,7 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB,inter
 	}
 
 	private void checkName(String name, ArrayList<String> errMsg) {
-		if (name.isEmpty()) {
+		if (inputEmptyCheck(name)) {
 			errMsg.add("氏名を入力してください。");
 		}
 		if (checkLength(name, 21)) {
@@ -145,7 +164,7 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB,inter
 	}
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
-		if (mail.isEmpty()) {
+		if (inputEmptyCheck(mail)) {
 			errMsg.add("メールアドレスを入力してください。");
 		}
 		if (checkLength(mail, 101)) {
@@ -158,13 +177,13 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB,inter
 	}
 
 	private void checkPassword(String password, String passwordCheck, ArrayList<String> errMsg) {
-		if (password.isEmpty()) {
+		if (inputEmptyCheck(password)) {
 			errMsg.add("パスワードを入力してください。");
 		}
 		if (checkLength(password, 31)) {
 			errMsg.add("パスワードが長すぎます。");
 		}
-		if (passwordCheck.isEmpty()) {
+		if (inputEmptyCheck(passwordCheck)) {
 			errMsg.add("パスワード（確認）を入力してください。");
 		}
 		if (!(password.equals(passwordCheck))) {
@@ -173,19 +192,19 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB,inter
 	}
 
 	private void checkAuthSales(String authSales, ArrayList<String> errMsg) {
-		if (authSales.isEmpty()) {
+		if (inputEmptyCheck(authSales)) {
 			errMsg.add("売上登録権限を入力してください。");
 		}
-		if (authSales.equals("0") || authSales.equals("1")) {
+		if (!(authSales.equals("0") || authSales.equals("1"))) {
 			errMsg.add("売上登録権限に正しい値を入力してください。");
 		}
 	}
 
 	private void checkAuthAccount(String authAccount, ArrayList<String> errMsg) {
-		if (authAccount.isEmpty()) {
+		if (inputEmptyCheck(authAccount)) {
 			errMsg.add("アカウント登録権限を入力してください。");
 		}
-		if (authAccount.equals("0") || authAccount.equals("1")) {
+		if (!(authAccount.equals("0") || authAccount.equals("1"))) {
 			errMsg.add("アカウント登録権限に正しい値を入力してください。");
 		}
 	}

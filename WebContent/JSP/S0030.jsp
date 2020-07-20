@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -20,19 +21,7 @@
 <body>
 	<jsp:include page="menu.jsp" />
 	<h1 id="title">アカウント登録</h1>
-	<c:if test="${param['err'] == 1}">
-		<div class="alert alert-danger alert-dismissible" role="alert" id="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-			<strong><i class="fas fa-times"></i> エラーが発生しました！</strong><br>
-		<c:forEach var="err" items="${errMsg}">
-			<ul>
-				<li>${errMsg}</li>
-			</ul>
-		</c:forEach>
-		</div>
-	</c:if>
+	<jsp:include page="errOccur.jsp" />
 	<c:if test="${param['suc'] == 1}">
 		<div class="alert alert-success alert-dismissible" role="alert" id="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -51,7 +40,7 @@
 					氏名<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="text" name="name" size="40" placeholder="氏名" />
+					<input type="text" name="name" size="40" placeholder="氏名" value="${param['name']}" />
 				</td>
 			</tr>
 			<tr>
@@ -59,7 +48,7 @@
 					メールアドレス<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="text" name="mail" size="40" placeholder="メールアドレス" />
+					<input type="text" name="mail" size="40" placeholder="メールアドレス" value="${param['mail']}" />
 				</td>
 			</tr>
 			<tr>
@@ -67,7 +56,7 @@
 					パスワード<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="password" name="password" size="40" placeholder="パスワード" />
+					<input type="password" name="password" size="40" placeholder="パスワード" value="${param['password']}" />
 				</td>
 			</tr>
 			<tr>
@@ -75,7 +64,7 @@
 					パスワード（確認）<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="password" name="passwordCheck" size="40" placeholder="パスワード（確認）" />
+					<input type="password" name="passwordCheck" size="40" placeholder="パスワード（確認）" value="${param['passwordCheck']}" />
 				</td>
 			</tr>
 			<tr>
