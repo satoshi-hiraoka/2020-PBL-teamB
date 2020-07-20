@@ -20,7 +20,7 @@ import com.abc.asms.dataset.Account;
  * Servlet implementation class S0030
  */
 @WebServlet("/S0030")
-public class S0030 extends HttpServlet implements interfaceConnectionTeamB, interfaceCheckLength {
+public class S0030 extends HttpServlet implements InterfaceConnectionTeamB, InterfaceCheckLength {
 
 	private ConnectionTeamB cb;
 	private CheckLength cl;
@@ -55,7 +55,7 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB, inte
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		checkLoginAndTransition(request, response, "/JSP/C0030.jsp");
+		checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
 	}
 
 	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response, String transitionTo)
@@ -65,14 +65,14 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB, inte
 		Account account = (Account) request.getSession().getAttribute("accounts");
 		if (account == null) {
 			errMsg.add("ログインしてください。");
+			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
 		} else {
 			String authority = account.getAuthority();
-			if (authority.equals("10") || authority.equals("11")) {
-				this.getServletContext().getRequestDispatcher(transitionTo).forward(request, response);
-			} else {
+			if (authority.equals("0") || authority.equals("1")) {
 				errMsg.add("不正なアクセスです。");
-				this.getServletContext().getRequestDispatcher("/JSP/C0020.jsp").forward(request, response);
+				request.setAttribute("errMsg", errMsg);
+				this.getServletContext().getRequestDispatcher(transitionTo).forward(request, response);
 			}
 		}
 	}
@@ -84,6 +84,10 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB, inte
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
+		doGet(request, response);
+
+		ArrayList<String> errMsg = new ArrayList<String>();
+
 		String name = request.getParameter("name");
 		String mail = request.getParameter("mail");
 		String password = request.getParameter("password");
@@ -91,7 +95,11 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB, inte
 		String authSales = request.getParameter("authSales");
 		String authAccount = request.getParameter("authAccount");
 
-		ArrayList<String> errMsg = new ArrayList<String>();
+		checkName(name, errMsg);
+		checkMail(mail, errMsg);
+		checkPassword(password, passwordCheck, errMsg);
+		checkAuthSales(authSales, errMsg);
+		checkAuthAccount(authAccount, errMsg);
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT");
@@ -112,8 +120,6 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB, inte
 
 			if (rs.next()) {
 				errMsg.add("メールアドレスが既に登録されています。");
-			} else {
-				this.getServletContext().getRequestDispatcher("/JSP/S0031.jsp").forward(request, response);
 			}
 
 		} catch (SQLException e) {
@@ -126,32 +132,25 @@ public class S0030 extends HttpServlet implements interfaceConnectionTeamB, inte
 				if (ps != null) {
 					ps.close();
 				}
-				if (getCon() != null) {
-					getCon().close();
-				}
 			} catch (SQLException e) {
 
 			}
 		}
 
-		checkName(name, errMsg);
-		checkMail(mail, errMsg);
-		checkPassword(password, passwordCheck, errMsg);
-		checkAuthSales(authSales, errMsg);
-		checkAuthAccount(authAccount, errMsg);
-
 		if (errMsg.size() > 0) {
 			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);
+		} else {
+			this.getServletContext().getRequestDispatcher("/JSP/S0031.jsp").forward(request, response);
 		}
 
-		HttpSession session = request.getSession();
-		session.setAttribute("name", name);
-		session.setAttribute("mail", mail);
-		session.setAttribute("password", password);
-		session.setAttribute("passwordCheck", passwordCheck);
-		session.setAttribute("authSales", authSales);
-		session.setAttribute("authAccount", authAccount);
+		HttpSession sessionS0030 = request.getSession();
+		sessionS0030.setAttribute("name", name);
+		sessionS0030.setAttribute("mail", mail);
+		sessionS0030.setAttribute("password", password);
+		sessionS0030.setAttribute("passwordCheck", passwordCheck);
+		sessionS0030.setAttribute("authSales", authSales);
+		sessionS0030.setAttribute("authAccount", authAccount);
 	}
 
 	private void checkName(String name, ArrayList<String> errMsg) {
