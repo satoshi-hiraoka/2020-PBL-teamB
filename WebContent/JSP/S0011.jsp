@@ -28,7 +28,7 @@
 			<tr>
 				<td class="textAlign">販売日</td>
 				<td><input type="text" name="ConSaleDate" size="10"
-					value="${saleDate}" disabled></td>
+					value="${sales.sale_date}" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">担当</td>
@@ -58,7 +58,7 @@
 			<tr>
 				<td class="textAlign">商品名</td>
 				<td><input type="text" name="puroductName"
-					value="${puroductName}" class="salesFiledLength" disabled></td>
+					value="${sales.trade_name}" class="salesFiledLength" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">単価</td>
@@ -80,7 +80,7 @@
 				<td class="textAlign textBoxAlignRemark">備考</td>
 				<td><textarea rows="4" cols="40" placeholder="備考"
 						class="salesFiledLength" name="
-remark" disabled>${remark}</textarea></td>
+remark" disabled>${sales.remark}</textarea></td>
 			</tr>
 		</table>
 		<div>

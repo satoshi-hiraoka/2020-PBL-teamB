@@ -7,7 +7,7 @@ public class CheckLength implements InterfaceCheckLength {
 	CheckLength() {
 
 	}
-@Override
+
 	public boolean checkLength(String value, int max) {
 		this.value = value;
 		this.max = max;
@@ -17,7 +17,7 @@ public class CheckLength implements InterfaceCheckLength {
 		}
 		return false;
 	}
-@Override
+
 	public boolean inputEmptyCheck(String value) {
 		this.value = value;
 		int length = value.getBytes().length;
