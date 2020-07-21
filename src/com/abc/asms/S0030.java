@@ -97,8 +97,6 @@ public class S0030 extends HttpServlet {
 
 			if (rs.next()) {
 				errMsg.add("メールアドレスが既に登録されています。");
-			} else {
-				this.getServletContext().getRequestDispatcher("/JSP/S0031.jsp").forward(request, response);
 			}
 
 		} catch (SQLException e) {
