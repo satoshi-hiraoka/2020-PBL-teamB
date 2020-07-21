@@ -48,7 +48,7 @@ public class S0010 extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
 		} else {
 			String authority = account.getAuthority();
-			if (authority.equals("0") || authority.equals("1")) {
+			if (authority.equals("0") || authority.equals("10")) {
 				errMsg.add("不正なアクセスです。");
 				request.setAttribute("errMsg", errMsg);
 				this.getServletContext().getRequestDispatcher(transitiontTo).forward(request, response);
