@@ -23,10 +23,8 @@
 	<div class="container-fluid">
 		<h2 class="text-center">物品売上管理システム</h2>
 		<c:if test="${!empty(errMsg)  }">
-			<div class="alert alert-danger alert-dismissible" role="alert"
-				id="alert">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-label="Close">
+			<div class="alert alert-danger alert-dismissible" role="alert" id="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<strong><i class="fas fa-times"></i> エラーが発生しました！</strong><br>
@@ -39,10 +37,10 @@
 		</c:if>
 		<div class="login-page">
 			<div class="form">
-				<form class="login-form" action="C0010.html" method="post">
+				<form class="login-form" action="C0010.jsp" method="post">
 					<div class="text-center">
-						<input type="text" placeholder="新パスワード" /><br>
-						 <input type="password" placeholder="新パスワード確認" /><br>
+						<input type="text" name=passWord placeholder="新パスワード" /><br>
+						 <input type="password" name=passWord1 placeholder="新パスワード確認" /><br>
 						 <input type="submit" class="login btn btn-primary btn-lg" value="変更"><br>
 					</div>
 				</form>
