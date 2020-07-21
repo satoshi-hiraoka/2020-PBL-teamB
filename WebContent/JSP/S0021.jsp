@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -33,55 +34,25 @@
 			<th>個数</th>
 			<th>小計</th>
 		</tr>
-		<tr>
-			<td>
-				<form action="S0022.html" method="post">
-					<button type="submit" class="btn btn-primary">
-						<i class="fas fa-check"></i>詳細
-					</button>
-				</form>
-			</td>
-			<td class="textAlign">1</td>
-			<td>2015/1/15</td>
-			<td>本田 圭佑</td>
-			<td>その他</td>
-			<td>Yシャツ</td>
-			<td class="textAlign">1,200</td>
-			<td class="textAlign">5</td>
-			<td class="textAlign">6,000</td>
-		</tr>
-		<tr>
-			<td>
-				<form action="S0022.html" method="post">
-					<button type="submit" class="btn btn-primary">
-						<i class="fas fa-check"></i>詳細
-					</button>
-				</form>
-			</td>
-			<td class="textAlign">2</td>
-			<td>2015/1/16</td>
-			<td>池田 勇太</td>
-			<td>本・雑誌</td>
-			<td>週刊少年ジャンプ2020年10号</td>
-			<td class="textAlign">280</td>
-			<td class="textAlign">1</td>
-			<td class="textAlign">280</td>
-		</tr>
-		<tr>
-			<td><form action="S0022.html" method="post">
-					<button type="submit" class="btn btn-primary">
-						<i class="fas fa-check"></i>詳細
-					</button>
-				</form></td>
-			<td class="textAlign">3</td>
-			<td>2015/1/17</td>
-			<td>イチロー</td>
-			<td>食料品</td>
-			<td>唐揚げ弁当</td>
-			<td class="textAlign">450</td>
-			<td class="textAlign">3</td>
-			<td class="textAlign">1,350</td>
-		</tr>
+		<c:forEach var="sale" items="${saleslLst}">
+			<tr>
+				<td>
+					<form action="S0022.html" method="post">
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-check"></i>詳細
+						</button>
+					</form>
+				</td>
+				<td class="textAlign">${sale.sale_id}</td>
+				<td>${sale.sale_date}</td>
+				<td>${sale.name}</td>
+				<td>${sale.category_name}</td>
+				<td>${sale.trade_name}</td>
+				<td class="textAlign">${sale.commaPrice}</td>
+				<td class="textAlign">${ sale.commaNumer}</td>
+				<td class="textAlign">${sale.commaSubtotal }</td>
+			</tr>
+		</c:forEach>
 	</table>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
