@@ -50,13 +50,15 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		Sale sale = new Sale();
 		//ResultSetから売上のデータ取り出してSale型の変数に格納
 
-		sale.setSale_date(rs.getString("saleDate"));
-		sale.setAccount_id(rs.getString("responsible"));
-		sale.setCategory_id(rs.getString("puroductCategory"));
-		sale.setTrade_name(rs.getString("puroductName"));
-		sale.setUnit_price(rs.getString("puroductUnitPrice"));
-		sale.setSale_number(rs.getString("puroductNumber"));
-		sale.setNote(rs.getString("remark"));
+		sale.setSale_date(rs.getString("s.sale_date"));
+//		sale.setAccount_id(rs.getString("account_id"));
+		sale.setCategory_id(rs.getString("c.category_id"));
+		sale.setTrade_name(rs.getString("s.trade_name"));
+		sale.setUnit_price(rs.getString("s.unit_price"));
+		sale.setSale_number(rs.getString("s.sale_number"));
+		sale.setNote(rs.getString("s.note"));
+		sale.setCategory_name(rs.getString("c.category_name"));
+		sale.setName(rs.getString("a.name"));
 
 		return sale;
 	}
@@ -144,18 +146,19 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 			sql.append("	c.category_name,");
 			sql.append("	s.trade_name,");
 			sql.append("	s.unit_price,");
-			sql.append("	s.sale_number");
+			sql.append("	s.sale_number,");
+			sql.append("    s.note");
 			sql.append(" FROM");
 			sql.append("	sales s");
 			sql.append("	LEFT JOIN accounts a");
 			sql.append("		ON  s.account_id=a.account_id");
 			sql.append("	LEFT JOIN categories c");
 			sql.append("		ON s.category_id=c.category_id");
-			sql.append(" WHERE");
-			sql.append("	s.account_id=1");
-			sql.append("	AND s.category_id=1");
-			sql.append("	AND s.trade_name LIKE '%焼%'");
-			sql.append("	AND s.note LIKE '%a%'");
+			//			sql.append(" WHERE");
+			//			sql.append("	s.account_id=1");
+			//			sql.append("	AND s.category_id=1");
+			//			sql.append("	AND s.trade_name LIKE '%焼%'");
+			//			sql.append("	AND s.note LIKE '%a%'");
 
 			ps = cb.getCon().prepareStatement(sql.toString());
 			rs = ps.executeQuery();
