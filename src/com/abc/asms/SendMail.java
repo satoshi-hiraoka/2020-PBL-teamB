@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 
 
 public class SendMail { //クラスとメソッドインスタンス化する　メアド引数
-	public void SendMailMethod(String adress) {
+	public void SendMailMethod(String address) {
 		try {
 			// GmailのSMTPを使用する
 			Properties property = new Properties();
@@ -27,7 +27,7 @@ public class SendMail { //クラスとメソッドインスタンス化する　
 			});
 
 			// toアドレス
-			InternetAddress toAddress = new InternetAddress(adress);
+			InternetAddress toAddress = new InternetAddress(address);
 			// fromアドレス
 			InternetAddress fromAddress = new InternetAddress("tsd.sq.sie@gmail.com", "物品売上管理システム");
 

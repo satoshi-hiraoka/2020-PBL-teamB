@@ -14,7 +14,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import com.abc.asms.dataset.Account;
@@ -24,7 +23,7 @@ public class S0045 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
+		checkLoginAndTransition(request, response, "/JSP/S0045.jsp");
 	}
 
 	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response, String transitiontTo)
@@ -50,7 +49,6 @@ public class S0045 extends HttpServlet {
 				if (!mail.matches(mailFormat)) {
 					errMsg.add("メールアドレスを正しく入力してください。");
 				}
-
 			}
 		}
 	}
@@ -101,16 +99,9 @@ public class S0045 extends HttpServlet {
 			rs = ps.executeQuery();//実行
 
 			//共通
-			HttpSession session = request.getSession(); //セッションにログインしたときの情報をいれる。権限が一番大事p288参考
 			if (rs.next()) {
-				Account account = new Account();
-				account.setAccount_id(rs.getString("account_id"));
-				account.setMail(rs.getString("mail"));
-				account.setName(rs.getString("name"));
-				account.setAuthority(rs.getString("authority"));
-				session.setAttribute("accounts", account);
 				sendmail.SendMailMethod(mail);
-				this.getServletContext().getRequestDispatcher("/JSP/C0020.jsp").forward(request, response);
+				this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
 				return;
 			} else {
 				//request.setAttribute("Err", "メールアドレス、パスワードを正しく入力してください");

@@ -62,17 +62,17 @@
 			<tr>
 				<td class="textAlign">単価</td>
 				<td><input type="text" name="puroductUnitPrice"
-					value="${commaPrice}" class="salesInputIntText" size="10" disabled></td>
+					value="${sales.commaPrice}" class="salesInputIntText" size="10" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">個数</td>
 				<td><input type="text" name="puroductNumber" size="10"
-					value="${commaNumer}" class="salesInputIntText" disabled></td>
+					value="${sales.commaNumer}" class="salesInputIntText" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">小計</td>
 				<td><input type="text" name="puroductSubtotal"
-					value="${commaSubtotal}" size="10" class="salesInputIntText"
+					value="${sales.commaSubtotal}" size="10" class="salesInputIntText"
 					disabled></td>
 			</tr>
 			<tr>

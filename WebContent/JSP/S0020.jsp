@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -26,25 +27,56 @@
 		<table class="tablePosition">
 			<tr>
 				<td align="right">販売日</td>
-				<td><input type="text" name="saleDate" size="10"><span
-					id="margin-77">～</span><input type="text" name="" size="10"></td>
+				<td><input type="text" name="previousPeriod" size="10"><span
+					id="margin-77">～</span><input type="text" name="latePeriod" size="10"></td>
 			</tr>
 			<tr>
 				<td align="right">担当</td>
 				<td><select name="responsible" class="salesFiledLength">
-						<option value="" disabled selected>選択して下さい</option>
-						<option value="Ichiro">イチロー</option>
-						<option value="HondaKesuke">本田 圭佑</option>
-						<option value="IkedaYuta">池田 勇太</option>
+						<c:if test="${not empty responsible}">
+							<c:forEach var="responsibleData" items="${resposiblelist}">
+								<c:choose>
+									<c:when test="${responsibleData.account_id==responsible}">
+										<option value="${responsibleData.account_id}" selected>${responsibleData.name}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${responsibleData.account_id}">${responsibleData.name}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty responsible}">
+							<option value="" disabled selected>選択して下さい</option>
+							<c:forEach var="responsibleData" items="${resposiblelist}">
+								<option value="${responsibleData.account_id}">${responsibleData.name}</option>
+							</c:forEach>
+						</c:if>
 				</select></td>
 			</tr>
 			<tr>
 				<td align="right">商品カテゴリ</td>
 				<td><select name="puroductCategory" class="salesFiledLength">
-						<option value="" disabled selected>選択して下さい</option>
-						<option value="1">食料品</option>
-						<option value="1">本・雑誌</option>
-						<option value="1">飲料</option>
+						<c:if test="${not empty puroductCategory}">
+							<c:forEach var="puroductCategoryData"
+								items="${puroductCategorylist}">
+								<c:choose>
+									<c:when
+										test="${puroductCategoryData.category_id==puroductCategory}">
+										<option value="${puroductCategoryData.category_id}" selected>${puroductCategoryData.category_name}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${puroductCategoryData.category_id}">${puroductCategoryData.category_name}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty puroductCategory}">
+							<option value="" disabled selected>選択して下さい</option>
+							<c:forEach var="puroductCategoryData"
+								items="${puroductCategorylist}">
+								<option value="${puroductCategoryData.category_id}">${puroductCategoryData.category_name}</option>
+							</c:forEach>
+						</c:if>
 				</select></td>
 			</tr>
 			<tr>
