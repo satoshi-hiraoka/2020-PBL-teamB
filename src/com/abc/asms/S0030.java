@@ -21,7 +21,6 @@ import com.abc.asms.dataset.Account;
 @WebServlet("/S0030")
 public class S0030 extends HttpServlet {
 
-	ConnectionTeamB cb = new ConnectionTeamB();
 	CheckLength cl = new CheckLength();
 
 	private static final long serialVersionUID = 1L;
@@ -58,6 +57,8 @@ public class S0030 extends HttpServlet {
 				errMsg.add("不正なアクセスです。");
 				request.setAttribute("errMsg", errMsg);
 				this.getServletContext().getRequestDispatcher(transitionTo).forward(request, response);
+			} else {
+				this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);
 			}
 		}
 	}
@@ -68,6 +69,8 @@ public class S0030 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+
+		ConnectionTeamB cb = new ConnectionTeamB();
 
 		String name = request.getParameter("name");
 		String mail = request.getParameter("mail");

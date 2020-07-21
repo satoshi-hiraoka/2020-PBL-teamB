@@ -5,9 +5,6 @@
 ・データベース接続はConnectionTeamBを使用
 	ConnectionTeamB使用時はサーブレットに以下のソースコードを記述
 	ConnectionTeamB cb = new ConnectionTeamB();
-	public クラス名() throws ServletException, IOException {
-		super();
-	}
 	以降Connectionはcb.getCon()で記述
 ・入力内容の長さチェック、空白チェックはCheckLengthを使用
 	CheckLength使用時はサーブレットに以下のソースコードを記述
@@ -20,3 +17,8 @@
 
 ・エラーメッセージの表示はerrOccur.jspをincludeして使う。
 ・成功メッセージの表示はsucOccur.jspをincludeして使う。
+・権限は以下のように定める。（40_詳細設計 S0040_アカウント編集_v00.xls S0041より引用）
+	0 :売上登録権限→無、アカウント登録権限→無
+	1 :売上登録権限→有、アカウント登録権限→無
+	10:売上登録権限→無、アカウント登録権限→有
+	11:売上登録権限→有、アカウント登録権限→有

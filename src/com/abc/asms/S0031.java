@@ -1,23 +1,24 @@
 package com.abc.asms;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
+
+import com.abc.asms.dataset.Account;
 
 /**
  * Servlet implementation class S0031
  */
 @WebServlet("/S0031")
 public class S0031 extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -25,7 +26,6 @@ public class S0031 extends HttpServlet {
 	 */
 	public S0031() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -33,8 +33,28 @@ public class S0031 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
+	}
+
+	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response, String transitionTo)
+			throws ServletException, IOException {
+		ArrayList<String> errMsg = new ArrayList<String>();
+		//ログインチェック
+		Account account = (Account) request.getSession().getAttribute("accounts");
+		if (account == null) {
+			errMsg.add("ログインしてください。");
+			request.setAttribute("errMsg", errMsg);
+			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
+		} else {
+			String authority = account.getAuthority();
+			if (authority.equals("0") || authority.equals("1")) {
+				errMsg.add("不正なアクセスです。");
+				request.setAttribute("errMsg", errMsg);
+				this.getServletContext().getRequestDispatcher(transitionTo).forward(request, response);
+			} else {
+				this.getServletContext().getRequestDispatcher("/JSP/S0031.jsp").forward(request, response);
+			}
+		}
 	}
 
 	/**
@@ -42,50 +62,97 @@ public class S0031 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Connection con = null;
-		try {
-			Context initContext = new InitialContext();
-			Context envContext = (Context) initContext.lookup("java:/comp/env");
-			DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
-			con = ds.getConnection();
+		request.setCharacterEncoding("UTF-8");
 
-			StringBuilder sql = new StringBuilder();
-			sql.append("INSERT INTO");
-			sql.append(" 	accounts(");
-			sql.append(" 		name,");
-			sql.append(" 		mail,");
-			sql.append(" 		password,");
-			sql.append(" 		authority)");
-			sql.append(" VALUES(");
-			sql.append(" 		?,?,MD5(?),?)");
+		ConnectionTeamB cb = new ConnectionTeamB();
 
-			PreparedStatement ps = con.prepareStatement(sql.toString());
+		ArrayList<String> errMsg = new ArrayList<String>();
+		ArrayList<String> sucMsg = new ArrayList<String>();
 
-			ps.setString(1, request.getParameter("name"));
-			ps.setString(2, request.getParameter("mail"));
-			ps.setString(3, request.getParameter("password"));
-			if(request.getParameter("authSales").equals("0") && request.getParameter("authAccount").equals("0")) {
-				ps.setString(4, "0");
-			}else if(request.getParameter("authSales").equals("1") && request.getParameter("authAccount").equals("0")) {
-				ps.setString(4, "1");
-			}else if(request.getParameter("authSales").equals("0") && request.getParameter("authAccount").equals("1")) {
-				ps.setString(4, "10");
-			}else if(request.getParameter("authSales").equals("1") && request.getParameter("authAccount").equals("1")) {
-				ps.setString(4, "11");
+		Account account = new Account();
+
+		String name = (String) request.getSession().getAttribute("name");
+		String mail = (String) request.getSession().getAttribute("mail");
+		String password = (String) request.getSession().getAttribute("password");
+		String authSales = (String) request.getSession().getAttribute("authSales");
+		String authAccount = (String) request.getSession().getAttribute("authAccount");
+		String authority = null;
+		if (authSales.equals("0")) {
+			if (authAccount.equals("0")) {
+				authority = "0";
+			} else {
+				authority = "10";
 			}
+		} else {
+			if (authAccount.equals("0")) {
+				authority = "1";
+			} else {
+				authority = "11";
+			}
+		}
+
+		StringBuilder sql = new StringBuilder();
+		sql.append("INSERT INTO");
+		sql.append(" 	accounts(");
+		sql.append(" 		name,");
+		sql.append(" 		mail,");
+		sql.append(" 		password,");
+		sql.append(" 		authority)");
+		sql.append(" VALUES(");
+		sql.append(" 		?,?,MD5(?),?)");
+
+		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
+		ResultSet rs = null;
+
+		try {
+			ps = cb.getCon().prepareStatement(sql.toString());
+
+			ps.setString(1, name);
+			ps.setString(2, mail);
+			ps.setString(3, password);
+			ps.setString(4, authority);
 
 			int result = ps.executeUpdate();
+
+			StringBuilder sql2 = new StringBuilder();
+			sql2.append("SELECT");
+			sql2.append(" 	account_id");
+			sql2.append(" FROM");
+			sql2.append(" 	accounts");
+			sql2.append(" WHERE");
+			sql2.append(" 	mail = ?");
+
+			ps2 = cb.getCon().prepareStatement(sql2.toString());
+			ps2.setString(1, mail);
+
+			rs = ps2.executeQuery();
+
+			if (rs.next()) {
+				account.setAccount_id(rs.getString("account_id"));
+			}
+
 			if (result == 0) {
-				this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp?err=1").forward(request, response);
+				errMsg.add("登録に失敗しました。");
+				request.setAttribute("errMsg", errMsg);
+				this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);
 			} else {
-				this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp?suc=1").forward(request, response);
+				sucMsg.add("No" + account.getAccount_id() + "のアカウントを登録しました。");
+				request.setAttribute("sucMsg", sucMsg);
+				this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);
 			}
 		} catch (Exception e) {
-			throw new ServletException(e);
+			e.printStackTrace();
 		} finally {
 			try {
-				if (con == null) {
-					con.close();
+				if (ps != null) {
+					ps.close();
+				}
+				if (ps2 != null) {
+					ps2.close();
+				}
+				if (rs != null) {
+					rs.close();
 				}
 			} catch (Exception e) {
 			}
