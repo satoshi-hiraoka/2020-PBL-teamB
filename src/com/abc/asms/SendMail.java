@@ -41,7 +41,7 @@ public class SendMail { //クラスとメソッドインスタンス化する　
 			//本文
 			mimeMessage.setText("パスワード再設定を行います。\r\n"
 					+ "以下のURLより新パスワードの入力・変更を行ってください。\r\n"
-					+ "http://localhost:8080/teamB/JSP/S0046.jsp", "ISO-2022-JP");
+					+ "http://localhost:8080/teamB/JSP/S0046.jsp?user="+address, "ISO-2022-JP");
 
 			Transport.send(mimeMessage);
 
