@@ -101,7 +101,9 @@ public class S0045 extends HttpServlet {
 			//共通
 			if (rs.next()) {
 				sendmail.SendMailMethod(mail);
+				request.setAttribute("success", "success");//左は変数名右は中身
 				this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
+
 				return;
 			} else {
 				//request.setAttribute("Err", "メールアドレス、パスワードを正しく入力してください");
@@ -114,7 +116,13 @@ public class S0045 extends HttpServlet {
 		} catch (NamingException e) {
 			throw new ServletException(e);
 		} catch (SQLException e) {
-			throw new ServletException(e);
+			errMsg.add("予期しないエラーが発生しました");
+			request.setAttribute("errMsg", errMsg);
+			this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
+		}catch(Exception e) {
+			errMsg.add("予期しないエラーが発生しました");
+			request.setAttribute("errMsg", errMsg);
+			this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
 		} finally {
 			try {
 				if (rs != null) {

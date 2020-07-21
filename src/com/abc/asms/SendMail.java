@@ -10,11 +10,11 @@ import javax.mail.internet.MimeMessage;
 
 
 public class SendMail { //クラスとメソッドインスタンス化する　メアド引数
-	public void SendMailMethod(String address) {
+	public void SendMailMethod(String address )throws Exception {
 		try {
 			// GmailのSMTPを使用する
 			Properties property = new Properties();
-			property.put("mail.smtp.host", "smtp.gmail.com");
+			property.put("mail.smtp.host", "smtp.gmail.com");//予期しないえらーを発生させたい場合gggmailとかにする
 			property.put("mail.smtp.auth", "true");
 			property.put("mail.smtp.starttls.enable", "true");
 			property.put("mail.smtp.port", "587");
@@ -22,7 +22,7 @@ public class SendMail { //クラスとメソッドインスタンス化する　
 
 			Session session = Session.getInstance(property, new javax.mail.Authenticator() {
 				protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-					return new javax.mail.PasswordAuthentication("tsd.sq.sie@gmail.com", "u7YFemtf");
+					return new javax.mail.PasswordAuthentication("tsd.sq.sie@gmail.com", "u7YFemtf");//パスワードかえてみる
 				}
 			});
 
@@ -40,13 +40,14 @@ public class SendMail { //クラスとメソッドインスタンス化する　
 
 			//本文
 			mimeMessage.setText("パスワード再設定を行います。\r\n"
-					+ "以下のURLより新パスワードの入力・変更を行ってください。", "ISO-2022-JP");
+					+ "以下のURLより新パスワードの入力・変更を行ってください。\r\n"
+					+ "http://localhost:8080/teamB/JSP/S0046.jsp", "ISO-2022-JP");
 
 			Transport.send(mimeMessage);
 
 			System.out.println("メールを送信しました。");
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 }

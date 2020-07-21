@@ -48,10 +48,12 @@ public class C0010 extends HttpServlet {
 		} else {
 			if (!checkLength(mail, 101)) {
 				errMsg.add("文字が長すぎます。");
+			}else {
+				if (!mail.matches(mailFormat)) {
+					errMsg.add("メールアドレスを正しく入力してください。");
+				}
 			}
-			if (!mail.matches(mailFormat)) {
-				errMsg.add("メールアドレスを正しく入力してください。");
-			}
+
 		}
 	}
 

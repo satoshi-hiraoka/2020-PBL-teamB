@@ -41,9 +41,9 @@
 			<div class="form">
 				<form class="login-form" action="C0010.html" method="post">
 					<div class="text-center">
-						<input type="text" placeholder="新パスワード" /><br> <input
-							type="password" placeholder="新パスワード確認" /><br> <input
-							type="submit" class="login btn btn-primary btn-lg" value="変更"><br>
+						<input type="text" placeholder="新パスワード" /><br>
+						 <input type="password" placeholder="新パスワード確認" /><br>
+						 <input type="submit" class="login btn btn-primary btn-lg" value="変更"><br>
 					</div>
 				</form>
 			</div>

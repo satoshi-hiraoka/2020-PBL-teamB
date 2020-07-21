@@ -17,9 +17,9 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="/teamB/CSS/C0010.css" type="text/css">
 <!-- エラーメッセージCSS -->
-<link rel="stylesheet" href="/teamB/CSS/alert.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+<!--<link rel="stylesheet" href="/teamB/CSS/alert.css">  -->
+<!-- <link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css"> -->
 <title>ログイン|物品売上管理システム</title>
 </head>
 
