@@ -15,7 +15,22 @@ public class Sale {
 	private String commaSubtotal;
 	private String previousPeriod;
 	private String latePeriod;
+	private String  name;
+	private String category_name;
 
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCategory_name() {
+		return category_name;
+	}
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
 	public String getPreviousPeriod() {
 		return previousPeriod;
 	}

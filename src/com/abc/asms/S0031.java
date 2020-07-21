@@ -102,6 +102,8 @@ public class S0031 extends HttpServlet {
 		sql.append(" 		?,?,MD5(?),?)");
 
 		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
+		ResultSet rs = null;
 
 		try {
 			ps = cb.getCon().prepareStatement(sql.toString());
@@ -120,9 +122,6 @@ public class S0031 extends HttpServlet {
 			sql2.append(" 	accounts");
 			sql2.append(" WHERE");
 			sql2.append(" 	mail = ?");
-
-			PreparedStatement ps2 = null;
-			ResultSet rs = null;
 
 			ps2 = cb.getCon().prepareStatement(sql2.toString());
 			ps2.setString(1, mail);
@@ -148,6 +147,12 @@ public class S0031 extends HttpServlet {
 			try {
 				if (ps != null) {
 					ps.close();
+				}
+				if (ps2 != null) {
+					ps2.close();
+				}
+				if (rs != null) {
+					rs.close();
 				}
 			} catch (Exception e) {
 			}
