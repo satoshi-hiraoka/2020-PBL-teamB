@@ -124,6 +124,8 @@ public class S0030 extends HttpServlet {
 		if (errMsg.size() > 0) {
 			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);
+		} else {
+			this.getServletContext().getRequestDispatcher("/JSP/S0031.jsp").forward(request, response);
 		}
 
 		HttpSession session = request.getSession();
