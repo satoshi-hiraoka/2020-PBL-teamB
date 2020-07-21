@@ -11,7 +11,7 @@
 		<ul class="navbar-nav">
 			<li class="nav-item"><a class="nav-link" href="/teamB/C0020">ダッシュボード</a></li>
 			<li class="nav-item"><a class="nav-link" href="/teamB/S0010">売上登録</a></li>
-			<li class="nav-item"><a class="nav-link" href="S0020.html">売上検索</a></li>
+			<li class="nav-item"><a class="nav-link" href="/teamB/S0020">売上検索</a></li>
 			<li class="nav-item"><a class="nav-link" href="/teamB/JSP/S0030.jsp">アカウント登録</a></li>
 			<li class="nav-item"><a class="nav-link" href="S0040.html">アカウント検索</a></li>
 		</ul>

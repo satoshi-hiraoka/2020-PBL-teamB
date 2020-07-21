@@ -1,12 +1,19 @@
 package com.abc.asms;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.abc.asms.dataset.Account;
+import com.abc.asms.dataset.Sale;
+import com.mysql.cj.Session;
 
 /**
  * Servlet implementation class S0021
@@ -23,9 +30,20 @@ public class S0021 extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response, String transitiontTo)
+			throws ServletException, IOException {
+		//ログインチェック
+		List<String> errMsg = new ArrayList<String>();
+
+		Account account = (Account) request.getSession().getAttribute("accounts");
+
+		if (account == null) {
+			errMsg.add("ログインしてください");
+			request.setAttribute("errMsg", errMsg);
+			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
+		}
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -59,12 +77,16 @@ public class S0021 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
+		getSearchCondition(request);
+
 	}
 
-	private void getSearchCondition(HttpServletRequest request) {
+	private void getSearchCondition(HttpServletRequest request) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		SaleService saleservce = new SaleService();
 		//requestから検索条件を取得しsessionへ格納しておく。
+		session.setAttribute("searchCondition", saleservce.parse(request));
 	}
 
 }
