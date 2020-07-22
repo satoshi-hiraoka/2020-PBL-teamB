@@ -37,7 +37,7 @@
 		<c:forEach var="sale" items="${saleslLst}">
 			<tr>
 				<td>
-					<form action="S0022.html" method="post">
+					<form action="/teamB/S0022" method="post">
 						<button type="submit" class="btn btn-primary">
 							<i class="fas fa-check"></i>詳細
 						</button>

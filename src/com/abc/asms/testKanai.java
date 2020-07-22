@@ -31,12 +31,12 @@ public class testKanai extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ");
+		response.getWriter().append("テスト施行 ");
 		SaleService saleService = new SaleService();
 		Sale sale = new Sale();
 		//		saleService.insert(sale);
 		saleService.find(sale);
-		System.out.println(saleService.find(sale).size());
+		System.out.print(">>>>");System.out.println(saleService.find(sale).size());System.out.print("<<<<<");
 		for (int i = 0; i < saleService.find(sale).size(); i++) {
 			System.out.print(saleService.find(sale).get(i).getName());
 

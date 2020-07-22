@@ -53,9 +53,8 @@ public class S0021 extends HttpServlet {
 		SaleService service = new SaleService();
 
 		//リクエストから検索条件を取得する
-		//		getSearchCondition(request);
-		//		Sale sale = (Sale) request.getSession().getAttribute("searchCondition");
-		Sale sale = new Sale();
+				getSearchCondition(request);
+			Sale sale = (Sale) request.getSession().getAttribute("searchCondition");
 		//検索時のチェック
 		//	日付の形式(from to両方)
 		//	日付の前後関係
