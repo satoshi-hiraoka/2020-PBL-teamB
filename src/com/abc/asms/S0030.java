@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.abc.asms.dataset.Account;
-
 /**
  * Servlet implementation class S0030
  */
@@ -39,28 +37,8 @@ public class S0030 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
-	}
-
-	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response, String transitionTo)
-			throws ServletException, IOException {
-		ArrayList<String> errMsg = new ArrayList<String>();
-		//ログインチェック
-		Account account = (Account) request.getSession().getAttribute("accounts");
-		if (account == null) {
-			errMsg.add("ログインしてください。");
-			request.setAttribute("errMsg", errMsg);
-			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
-		} else {
-			String authority = account.getAuthority();
-			if (authority.equals("0") || authority.equals("1")) {
-				errMsg.add("不正なアクセスです。");
-				request.setAttribute("errMsg", errMsg);
-				this.getServletContext().getRequestDispatcher(transitionTo).forward(request, response);
-			} else {
-				this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);
-			}
-		}
+		LoginCheck login = new LoginCheck();
+		login.checkLoginAndTransition(request, response, "/JSP/S0030.jsp", "0", "1");
 	}
 
 	/**

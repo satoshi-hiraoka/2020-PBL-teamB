@@ -28,7 +28,7 @@ public class S0040 extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public S0040() throws ServletException, IOException {
+	public S0040() {
 		super();
 	}
 
@@ -37,21 +37,8 @@ public class S0040 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		checkLoginAndTransition(request, response);
-	}
-
-	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		ArrayList<String> errMsg = new ArrayList<String>();
-		//ログインチェック
-		Account account = (Account) request.getSession().getAttribute("accounts");
-		if (account == null) {
-			errMsg.add("ログインしてください。");
-			request.setAttribute("errMsg", errMsg);
-			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
-		} else {
-			this.getServletContext().getRequestDispatcher("/JSP/S0040.jsp").forward(request, response);
-		}
+		LoginCheck login = new LoginCheck();
+		login.checkLoginAndTransition(request, response, "/JSP/S0040.jsp");
 	}
 
 	/**
