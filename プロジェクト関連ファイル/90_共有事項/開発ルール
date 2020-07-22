@@ -1,11 +1,14 @@
 開発ルール
 
 ・メソッド名変数名はキャメルケースで統一。
+
 ・<form>はpostで送る
+
 ・データベース接続はConnectionTeamBを使用
 	ConnectionTeamB使用時はサーブレットに以下のソースコードを記述
 	ConnectionTeamB cb = new ConnectionTeamB();
 	以降Connectionはcb.getCon()で記述
+
 ・入力内容の長さチェック、空白チェックはCheckLengthを使用
 	CheckLength使用時はサーブレットに以下のソースコードを記述
 	CheckLength cl = new CheckLength();
@@ -16,9 +19,25 @@
 	cl.inputEmptyCheck(空白をチェックしたい項目);
 
 ・エラーメッセージの表示はerrOccur.jspをincludeして使う。
+
 ・成功メッセージの表示はsucOccur.jspをincludeして使う。
+
 ・権限は以下のように定める。（40_詳細設計 S0040_アカウント編集_v00.xls S0041より引用）
 	0 :売上登録権限→無、アカウント登録権限→無
 	1 :売上登録権限→有、アカウント登録権限→無
 	10:売上登録権限→無、アカウント登録権限→有
 	11:売上登録権限→有、アカウント登録権限→有
+
+・ログインチェックはLoginCheckを使用
+	LoginCheck使用時はサーブレットに以下のソースコードを記述
+	LoginCheck login = new LoginCheck();
+	メソッド呼び出し時
+	//権限チェックが必要ではない場合
+	login.checkLoginAndTransition(request, response, 画面遷移先（JSP）);
+	例）アカウント検索条件入力（S0040.java）
+	login.checkLoginAndTransition(request, response, "/JSP/S0040.jsp");
+	//権限チェックが必要な場合（登録画面）
+	login.checkLoginAndTransition(request, response, 画面遷移先（JSP）, 登録権限を持っていない権限, 登録権限を持っていない権限);
+	例）アカウント登録（S0030.java）
+	login.checkLoginAndTransition(request, response, "/JSP/S0030.jsp", "0", "1");
+	メソッド呼び出しはdoGetメソッド内に書くこと
