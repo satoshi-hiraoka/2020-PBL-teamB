@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class S0030
@@ -109,14 +108,6 @@ public class S0030 extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/JSP/S0031.jsp").forward(request, response);
 		}
 
-		HttpSession session = request.getSession();
-
-		session.setAttribute("name", name);
-		session.setAttribute("mail", mail);
-		session.setAttribute("password", password);
-		session.setAttribute("passwordCheck", passwordCheck);
-		session.setAttribute("authSales", authSales);
-		session.setAttribute("authAccount", authAccount);
 	}
 
 	private void checkName(String name, ArrayList<String> errMsg) {

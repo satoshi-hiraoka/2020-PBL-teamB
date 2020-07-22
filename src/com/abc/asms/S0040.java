@@ -89,8 +89,6 @@ public class S0040 extends HttpServlet {
 			}
 		}
 
-		//		HashMap<Integer, String> hash = new HashMap<Integer, String>();
-
 		ArrayList<String> errMsg = new ArrayList<String>();
 		List<Account> list = new ArrayList<Account>();
 
@@ -168,9 +166,7 @@ public class S0040 extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/JSP/S0041.jsp").forward(request, response);
 			}
 
-		} catch (
-
-		SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
