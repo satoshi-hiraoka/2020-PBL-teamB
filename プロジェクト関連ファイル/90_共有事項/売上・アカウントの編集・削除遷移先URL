@@ -1,2 +1,5 @@
 ・売上編集・削除後の遷移先URL
 http://localhost:8080/teamB/S0021
+
+・アカウント編集・削除後の遷移先URL
+http://localhost:8080/teamB/S0041
