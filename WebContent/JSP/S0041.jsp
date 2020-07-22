@@ -20,11 +20,13 @@
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
-	<form action="S0042.html" method="POST" name="searchAccountResult">
+	<form action="/teamB/S0041" method="POST" name="searchAccountResult">
 		<h1 id="title">アカウント検索結果一覧</h1>
+		<jsp:include page="errOccur.jsp" />
+		<jsp:include page="sucOccur.jsp" />
 		<table class="tablePosition">
 			<tr>
-				<c:if test="${authority == 10 || authority == 11}">
+				<c:if test="${authority == '10' || authority == '11'}">
 					<th>操作</th>
 				</c:if>
 				<th>No</th>
@@ -34,13 +36,13 @@
 			</tr>
 			<c:forEach var="item" items="${list}">
 				<tr>
-					<c:if test="${param['authority']}">
+					<c:if test="${authority == '10' || authority == '11'}">
 						<td>
 							<button type="submit" class="btn btn-primary">
 								<i class="fas fa-check"></i>編集
 							</button>
 							<button type="submit" class="btn btn-danger"
-								formaction="S0044.html">
+								formaction="/teamB/S0044">
 								<i class="fas fa-times"></i>削除
 							</button>
 						</td>
@@ -48,7 +50,14 @@
 					<td class="textAlign">${item.account_id}</td>
 					<td>${item.name}</td>
 					<td>${item.mail}</td>
-					<td>${item.authority}</td>
+					<td>
+						<c:choose>
+							<c:when test="${item.authority == 0}">権限なし</c:when>
+							<c:when test="${item.authority == 1}">売上登録</c:when>
+							<c:when test="${item.authority == 10}">アカウント登録</c:when>
+							<c:when test="${item.authority == 11}">売上登録/アカウント登録</c:when>
+						</c:choose>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

@@ -54,33 +54,42 @@ public class S0040 extends HttpServlet {
 		String mail = request.getParameter("mail");
 		String authSales = request.getParameter("authSales");
 		String authAccount = request.getParameter("authAccount");
-		String authority = null;
+		List<String> authList = new ArrayList<String>();
 
 		if (authSales.equals("all")) {
 			if (authAccount.equals("all")) {
-				authority = "0 OR 1 OR 10 OR 11";
+				authList.add("0");
+				authList.add("1");
+				authList.add("10");
+				authList.add("11");
 			} else if (authAccount.equals("0")) {
-				authority = "0 OR 1";
+				authList.add("0");
+				authList.add("1");
 			} else {
-				authority = "10 OR 11";
+				authList.add("10");
+				authList.add("11");
 			}
 		} else if (authSales.equals("0")) {
 			if (authAccount.equals("all")) {
-				authority = "0 OR 10";
+				authList.add("0");
+				authList.add("10");
 			} else if (authAccount.equals("0")) {
-				authority = "0";
+				authList.add("0");
 			} else {
-				authority = "10";
+				authList.add("10");
 			}
 		} else {
 			if (authAccount.equals("all")) {
-				authority = "1 OR 11";
+				authList.add("1");
+				authList.add("11");
 			} else if (authAccount.equals("0")) {
-				authority = "1";
+				authList.add("1");
 			} else {
-				authority = "11";
+				authList.add("11");
 			}
 		}
+
+		//		HashMap<Integer, String> hash = new HashMap<Integer, String>();
 
 		ArrayList<String> errMsg = new ArrayList<String>();
 		List<Account> list = new ArrayList<Account>();
@@ -94,9 +103,17 @@ public class S0040 extends HttpServlet {
 		sql.append(" FROM");
 		sql.append(" 	accounts");
 		sql.append(" WHERE");
-		sql.append(" 	authority = ?");
+		sql.append(" 	authority IN (");
+		sql.append(" 				?");
+		if (authList.size() >= 2) {
+			sql.append(" 			,?");
+		}
+		if (authList.size() == 4) {
+			sql.append(" 			,?,?");
+		}
+		sql.append(" 				)");
 		if (!(cl.inputEmptyCheck(name))) {
-			sql.append(" 	AND name LIKE '%?%'");
+			sql.append(" 	AND name LIKE ?");
 		}
 		if (!(cl.inputEmptyCheck(mail))) {
 			sql.append(" 	AND mail = ?");
@@ -107,16 +124,17 @@ public class S0040 extends HttpServlet {
 		try {
 			ps = cb.getCon().prepareStatement(sql.toString());
 
-			ps.setString(1, authority);
-
+			for (int i = 1; i <= authList.size(); i++) {
+				ps.setString(i, authList.get(i - 1));
+			}
 			if (!(cl.inputEmptyCheck(name))) {
-				ps.setString(2, name);
+				ps.setString(authList.size() + 1, "%" + name + "%");
 				if (!(cl.inputEmptyCheck(mail))) {
-					ps.setString(3, mail);
+					ps.setString(authList.size() + 2, mail);
 				}
 			} else {
 				if (!(cl.inputEmptyCheck(mail))) {
-					ps.setString(2, mail);
+					ps.setString(authList.size() + 1, mail);
 				}
 			}
 
@@ -150,7 +168,9 @@ public class S0040 extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/JSP/S0041.jsp").forward(request, response);
 			}
 
-		} catch (SQLException e) {
+		} catch (
+
+		SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
