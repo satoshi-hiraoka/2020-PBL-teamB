@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.abc.asms.dataset.Account;
 
@@ -119,6 +120,8 @@ public class S0031 extends HttpServlet {
 			} else {
 				sucMsg.add("No" + account.getAccount_id() + "のアカウントを登録しました。");
 				request.setAttribute("sucMsg", sucMsg);
+				HttpSession sessionS0030 = request.getSession();
+				sessionS0030.invalidate();
 				this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);
 			}
 		} catch (Exception e) {

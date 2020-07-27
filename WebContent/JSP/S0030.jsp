@@ -22,17 +22,7 @@
 	<jsp:include page="menu.jsp" />
 	<h1 id="title">アカウント登録</h1>
 	<jsp:include page="errOccur.jsp" />
-	<c:if test="${param['suc'] == 1}">
-		<div class="alert alert-success alert-dismissible" role="alert" id="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-			<strong><i class="fas fa-check"></i> 成功しました！</strong><br>
-			<ul>
-				<li>アカウントを登録しました。</li>
-			</ul>
-		</div>
-	</c:if>
+	<jsp:include page="sucOccur.jsp" />
 	<form action="/teamB/S0030" method="POST" name="registerAccount">
 		<table class="tablePosition" >
 			<tr>
@@ -40,7 +30,7 @@
 					氏名<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="text" name="name" size="40" placeholder="氏名" value="${param['name']}" />
+					<input type="text" name="name" size="40" placeholder="氏名" value="${name}" />
 				</td>
 			</tr>
 			<tr>
@@ -48,7 +38,7 @@
 					メールアドレス<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="text" name="mail" size="40" placeholder="メールアドレス" value="${param['mail']}" />
+					<input type="text" name="mail" size="40" placeholder="メールアドレス" value="${mail}" />
 				</td>
 			</tr>
 			<tr>
@@ -56,7 +46,7 @@
 					パスワード<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="password" name="password" size="40" placeholder="パスワード" value="${param['password']}" />
+					<input type="password" name="password" size="40" placeholder="パスワード" value="${password}" />
 				</td>
 			</tr>
 			<tr>
@@ -64,7 +54,7 @@
 					パスワード（確認）<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="password" name="passwordCheck" size="40" placeholder="パスワード（確認）" value="${param['passwordCheck']}" />
+					<input type="password" name="passwordCheck" size="40" placeholder="パスワード（確認）" value="${passwordCheck}" />
 				</td>
 			</tr>
 			<tr>
@@ -72,8 +62,9 @@
 					売上登録権限<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<label><input type="radio" name="authSales" value="0" checked />権限なし</label>
-					<label><input type="radio" name="authSales" value="1" />権限あり</label>
+					<input type="radio" name="authSales" value="" checked="checked" style="display:none;" />
+					<label><input type="radio" name="authSales" value="0" <c:if test="${authSales == '0'}">checked="checked"</c:if> />権限なし</label>
+					<label><input type="radio" name="authSales" value="1" <c:if test="${authSales == '1'}">checked="checked"</c:if> />権限あり</label>
 				</td>
 			</tr>
 			<tr>
@@ -81,8 +72,9 @@
 					アカウント登録権限<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<label><input type="radio" name="authAccount" value="0" checked />権限なし</label>
-					<label><input type="radio" name="authAccount" value="1" />権限あり</label>
+					<input type="radio" name="authAccount" value="" checked="checked" style="display:none;" />
+					<label><input type="radio" name="authAccount" value="0" <c:if test="${authAccount == '0'}">checked="checked"</c:if> />権限なし</label>
+					<label><input type="radio" name="authAccount" value="1" <c:if test="${authAccount == '1'}">checked="checked"</c:if> />権限あり</label>
 				</td>
 			</tr>
 		</table>

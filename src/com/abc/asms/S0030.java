@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class S0030
@@ -100,6 +101,14 @@ public class S0030 extends HttpServlet {
 		checkPassword(password, passwordCheck, errMsg);
 		checkAuthSales(authSales, errMsg);
 		checkAuthAccount(authAccount, errMsg);
+
+		HttpSession sessionS0030 = request.getSession();
+		sessionS0030.setAttribute("name", name);
+		sessionS0030.setAttribute("mail", mail);
+		sessionS0030.setAttribute("password", password);
+		sessionS0030.setAttribute("passwordCheck", passwordCheck);
+		sessionS0030.setAttribute("authSales", authSales);
+		sessionS0030.setAttribute("authAccount", authAccount);
 
 		if (errMsg.size() > 0) {
 			request.setAttribute("errMsg", errMsg);

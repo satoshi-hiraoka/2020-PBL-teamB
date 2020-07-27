@@ -27,7 +27,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="text" name="name" size="40" placeholder="${param['name']}" disabled />
+					<input type="text" name="name" size="40" placeholder="${name}" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -37,7 +37,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="text" name="mail" size="40" placeholder="${param['mail']}" disabled />
+					<input type="text" name="mail" size="40" placeholder="${mail}" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -47,7 +47,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="password" name="password" size="40" value="${param['password']}" disabled />
+					<input type="password" name="password" size="40" value="${password}" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -57,7 +57,7 @@
 					</div>
 				</td>
 				<td>
-					<input type="password" name="passwordCheck" size="40" value="${param['passwordCheck']}" disabled />
+					<input type="password" name="passwordCheck" size="40" value="${passwordCheck}" disabled />
 				</td>
 			</tr>
 			<tr>
@@ -67,8 +67,8 @@
 					</div>
 				</td>
 				<td>
-					<label><input type="radio" name="authSales" value="0" disabled <c:if test="${param['authSales'] == '0'}">checked</c:if> />権限なし</label>
-					<label><input type="radio" name="authSales" value="1" disabled <c:if test="${param['authSales'] == '1'}">checked</c:if> />権限あり</label>
+					<label><input type="radio" name="authSales" value="0" disabled <c:if test="${authSales == '0'}">checked="checked"</c:if> />権限なし</label>
+					<label><input type="radio" name="authSales" value="1" disabled <c:if test="${authSales == '1'}">checked="checked"</c:if> />権限あり</label>
 				</td>
 			</tr>
 			<tr>
@@ -78,15 +78,15 @@
 					</div>
 				</td>
 				<td>
-					<label><input type="radio" name="authAccount" value="0" disabled <c:if test="${param['authAccount'] == '0'}">checked</c:if> />権限なし</label>
-					<label><input type="radio" name="authAccount" value="1" disabled <c:if test="${param['authAccount'] == '1'}">checked</c:if> />権限あり</label>
+					<label><input type="radio" name="authAccount" value="0" disabled <c:if test="${authAccount == '0'}">checked="checked"</c:if> />権限なし</label>
+					<label><input type="radio" name="authAccount" value="1" disabled <c:if test="${authAccount == '1'}">checked="checked"</c:if> />権限あり</label>
 				</td>
 			</tr>
 		</table>
 		<button type="submit" class="btn btn-primary mainButton">
 			<i class="fas fa-check"></i>OK
 		</button>
-		<button type="button" class="btn btn-outline-dark mainButton"onclick="history.back()">
+		<button type="submit" class="btn btn-outline-dark mainButton" formaction="/teamB/S0031Cancel">
 			キャンセル
 		</button>
 	</form>
