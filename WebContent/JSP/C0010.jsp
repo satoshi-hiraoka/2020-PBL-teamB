@@ -27,6 +27,7 @@
 
 	<div class="container-fluid">
 		<h2 class="text-center">物品売上管理システム</h2>
+		<!-- エラーメッセージ -->
 		<c:if test="${!empty(errMsg)  }">
 			<div class="alert alert-danger alert-dismissible" role="alert"
 				id="alert">
@@ -42,6 +43,19 @@
 				</ul>
 			</div>
 		</c:if>
+		<!-- 成功メッセージ -->
+		<c:if test="${success=='success' }">
+		<div class="alert alert-success alert-dismissible" role="alert" id="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong><i class="fas fa-check"></i> 成功しました！</strong><br>
+			<ul>
+				<li>パスワードを再設定しました。</li>
+			</ul>
+		</div>
+		</c:if>
+
 		<div class="login-page">
 			<div class="form">
 				<form class="login-form" action="/teamB/C0010" method="post">

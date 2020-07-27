@@ -53,7 +53,6 @@ public class C0010 extends HttpServlet {
 					errMsg.add("メールアドレスを正しく入力してください。");
 				}
 			}
-
 		}
 	}
 
@@ -65,12 +64,6 @@ public class C0010 extends HttpServlet {
 			errMsg.add("パスワードが長すぎます。");
 		}
 	}
-
-	//	private boolean checkEmpty(String value) {
-	//		if (value.isEmpty())
-	//			return false;
-	//		return true;
-	//	}
 
 	private boolean checkLength(String value, int max) {
 		int length = value.getBytes().length;

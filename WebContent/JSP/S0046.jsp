@@ -21,7 +21,7 @@
 
 <body class="p-3 mb-2 bg-light text-dark m-lg-5">
 	<div class="container-fluid">
-		<h2 class="text-center">物品売上管理システム</h2>
+		<h2 class="text-center" >物品売上管理システム</h2>
 		<c:if test="${!empty(errMsg)  }">
 			<div class="alert alert-danger alert-dismissible" role="alert" id="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -37,9 +37,10 @@
 		</c:if>
 		<div class="login-page">
 			<div class="form">
-				<form class="login-form" action="C0010.jsp" method="post">
+				<form class="login-form" action="/teamB/S0046" method="post">
+				<input type="hidden" name="mail" value="${mail}">
 					<div class="text-center">
-						<input type="text" name=passWord placeholder="新パスワード" /><br>
+						<input type="password" name=passWord placeholder="新パスワード" /><br>
 						 <input type="password" name=passWord1 placeholder="新パスワード確認" /><br>
 						 <input type="submit" class="login btn btn-primary btn-lg" value="変更"><br>
 					</div>
