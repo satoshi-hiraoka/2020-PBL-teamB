@@ -52,11 +52,13 @@ public class S0031 extends HttpServlet {
 
 		Account account = new Account();
 
-		String name = (String) request.getSession().getAttribute("name");
-		String mail = (String) request.getSession().getAttribute("mail");
-		String password = (String) request.getSession().getAttribute("password");
-		String authSales = (String) request.getSession().getAttribute("authSales");
-		String authAccount = (String) request.getSession().getAttribute("authAccount");
+		HttpSession sessionS0030 = request.getSession();
+
+		String name = (String) sessionS0030.getAttribute("name");
+		String mail = (String) sessionS0030.getAttribute("mail");
+		String password = (String) sessionS0030.getAttribute("password");
+		String authSales = (String) sessionS0030.getAttribute("authSales");
+		String authAccount = (String) sessionS0030.getAttribute("authAccount");
 		String authority = null;
 		if (authSales.equals("0")) {
 			if (authAccount.equals("0")) {
@@ -120,7 +122,6 @@ public class S0031 extends HttpServlet {
 			} else {
 				sucMsg.add("No" + account.getAccount_id() + "のアカウントを登録しました。");
 				request.setAttribute("sucMsg", sucMsg);
-				HttpSession sessionS0030 = request.getSession();
 				sessionS0030.invalidate();
 				this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);
 			}
