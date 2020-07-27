@@ -15,26 +15,16 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="/teamB/CSS/C0010.css" type="text/css">
+<link rel="stylesheet" href="/teamB/CSS/logpass.css" type="text/css">
 <title>新パスワード入力|物品売上管理システム</title>
 </head>
 
 <body class="p-3 mb-2 bg-light text-dark m-lg-5">
 	<div class="container-fluid">
 		<h2 class="text-center" >物品売上管理システム</h2>
-		<c:if test="${!empty(errMsg)  }">
-			<div class="alert alert-danger alert-dismissible" role="alert" id="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<strong><i class="fas fa-times"></i> エラーが発生しました！</strong><br>
-				<ul>
-					<c:forEach var="err" items="${errMsg}">
-						<li>${err}</li>
-					</c:forEach>
-				</ul>
-			</div>
-		</c:if>
+		<!-- エラーメッセージ -->
+		<jsp:include page="errOccur.jsp" />
+		
 		<div class="login-page">
 			<div class="form">
 				<form class="login-form" action="/teamB/S0046" method="post">

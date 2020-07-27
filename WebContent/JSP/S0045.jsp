@@ -15,7 +15,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="/teamB/CSS/C0010.css" type="text/css">
+<link rel="stylesheet" href="/teamB/CSS/logpass.css" type="text/css">
 
 <title>パスワード再設定｜物品売上管理システム</title>
 </head>
@@ -25,34 +25,9 @@
 		<h2 class="text-center">物品売上管理システム</h2>
 		<h3 class="text-center">パスワード再設定</h3>
 		<!-- エラーメッセージ -->
-		<c:if test="${!empty(errMsg)  }">
-			<div class="alert alert-danger alert-dismissible" role="alert"
-				id="alert">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<strong><i class="fas fa-times"></i> エラーが発生しました！</strong><br>
-				<ul>
-					<c:forEach var="err" items="${errMsg}">
-						<li>${err}</li>
-					</c:forEach>
-				</ul>
-			</div>
-		</c:if>
-
+		<jsp:include page="errOccur.jsp" />
 		<!-- 成功メッセージ -->
-		<c:if test="${success=='success' }">
-		<div class="alert alert-success alert-dismissible" role="alert" id="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-			<strong><i class="fas fa-check"></i> 成功しました！</strong><br>
-			<ul>
-				<li>パスワード再設定メールを送信しました。</li>
-			</ul>
-		</div>
-		</c:if>
+		<jsp:include page="sucOccur.jsp" />
 
 		<div class="login-page">
 			<div class="form">

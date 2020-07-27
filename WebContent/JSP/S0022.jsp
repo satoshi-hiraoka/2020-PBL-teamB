@@ -23,27 +23,10 @@
 <title>売上詳細表示</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<h3>物品売上管理システム</h3>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarNav" aria-controls="navbarNav"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" href="C0020.jsp">ダッシュボード</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0010.html">売上登録</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0020.html">売上検索</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0030.html">アカウント登録</a></li>
-				<li class="nav-item"><a class="nav-link" href="S0040.html">アカウント検索</a></li>
-			</ul>
-			<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-				<li class="nav-item"><a class="nav-link" href="C0010.html">ログアウト</a></li>
-			</ul>
-		</div>
-	</nav>
+	<jsp:include page="menu.jsp" />
 	<h2 id="title">売上詳細表示</h2>
+	<jsp:include page="errOccur.jsp" />
+		<jsp:include page="sucOccur.jsp" />
 	<table class="tablePosition">
 		<tr>
 			<td align="right">販売日</td>
@@ -79,12 +62,11 @@
 		</tr>
 	</table>
 	<div>
-		<form action="S0023.html">
+		<form action="S0023.jsp">
 			<button type="submit" class="btn btn-primary mainButton">
 				<i class="fas fa-check"></i>編集
 			</button>
-			<button type="submit" class="btn btn-danger mainButton"
-				formaction="S0025.html">
+			<button type="submit" class="btn btn-danger mainButton" formaction="S0025.jsp">
 				<i class="fas fa-times"></i>削除
 			</button>
 			<button type="button" class="btn btn-outline-dark mainButton"

@@ -60,11 +60,10 @@ public class S0046 extends HttpServlet {
 		String passWord = request.getParameter("passWord");
 		String passWord1 = request.getParameter("passWord1");
 		String mail = request.getParameter("mail");
-		//String mail = request.getParameter("mail");
-		//System.out.println(request.getParameter("mail"));
-		//System.out.println(request.getParameter("user"));
+		
 		ArrayList<String> errMsg = new ArrayList<String>();
-
+		ArrayList<String> sucMsg = new ArrayList<String>();
+		
 		checkPassword(passWord, errMsg);
 		checkPassword1(passWord1, errMsg);
 		checkPassword2(passWord, passWord1,errMsg);
@@ -93,13 +92,11 @@ public class S0046 extends HttpServlet {
 			sql.append(" WHERE");
 			sql.append(" 	mail=?");
 
-
 			ps = db.prepareStatement(sql.toString());//StringBuilderをStringに変換して渡す。上のsqlをpsにせっと0
 			ps.setString(1, request.getParameter("mail"));
 			rs = ps.executeQuery();//実行
 
 			if (rs.next()) {
-
 				StringBuilder sql2 = new StringBuilder();
 				sql2.append(" Update");
 				sql2.append("		accounts");
@@ -107,13 +104,14 @@ public class S0046 extends HttpServlet {
 				sql2.append("		PASSWORD=MD5(?)");
 				sql2.append(" WHERE");
 				sql2.append("		mail=?");
-				
+
 				ps = db.prepareStatement(sql2.toString());
 				ps.setString(1, passWord);
 				ps.setString(2, mail);
 				int res = ps.executeUpdate();
 
-				request.setAttribute("success", "success");
+				sucMsg.add("パスワードを再設定しました");
+				request.setAttribute("sucMsg", sucMsg);
 				this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
 				return;
 			} else {

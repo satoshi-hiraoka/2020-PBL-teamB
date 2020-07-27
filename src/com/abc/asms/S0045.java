@@ -16,26 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import com.abc.asms.dataset.Account;
-
 @WebServlet("/S0045")
 public class S0045 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		checkLoginAndTransition(request, response, "/JSP/S0045.jsp");
-	}
 
-	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response, String transitiontTo)
-			throws ServletException, IOException {
-		//ログインチェック
-		Account account = (Account) request.getSession().getAttribute("accounts");
-
-		if (account == null) {
-			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
-		} else {
-			this.getServletContext().getRequestDispatcher(transitiontTo).forward(request, response);
-		}
 	}
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
@@ -63,9 +49,9 @@ public class S0045 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String mail = request.getParameter("mail");
-		SendMail sendmail=new SendMail();
+		SendMail sendmail = new SendMail();
 		ArrayList<String> errMsg = new ArrayList<String>();
-
+		ArrayList<String> sucMsg = new ArrayList<String>();
 		checkMail(mail, errMsg);
 
 		//errMsgの要素が1以上であれば何かしらの入力エラー。
@@ -101,7 +87,8 @@ public class S0045 extends HttpServlet {
 			//共通
 			if (rs.next()) {
 				sendmail.SendMailMethod(mail);
-				request.setAttribute("success", "success");//左は変数名右は中身
+				sucMsg.add("パスワード再設定メールを送信しました。");
+				request.setAttribute("sucMsg", sucMsg);//左は変数名右は中身
 				this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
 
 				return;
@@ -119,7 +106,7 @@ public class S0045 extends HttpServlet {
 			errMsg.add("予期しないエラーが発生しました");
 			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			errMsg.add("予期しないエラーが発生しました");
 			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
@@ -135,7 +122,6 @@ public class S0045 extends HttpServlet {
 					db.close();
 				}
 			} catch (SQLException e) {
-
 			}
 		}
 	}

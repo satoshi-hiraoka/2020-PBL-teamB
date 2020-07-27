@@ -14,7 +14,7 @@ public class SendMail { //クラスとメソッドインスタンス化する　
 		try {
 			// GmailのSMTPを使用する
 			Properties property = new Properties();
-			property.put("mail.smtp.host", "smtp.gmail.com");//予期しないえらーを発生させたい場合gggmailとかにする
+			property.put("mail.smtp.host", "smtp.ggmail.com");//予期しないえらーを発生させたい場合gggmailとかにする
 			property.put("mail.smtp.auth", "true");
 			property.put("mail.smtp.starttls.enable", "true");
 			property.put("mail.smtp.port", "587");

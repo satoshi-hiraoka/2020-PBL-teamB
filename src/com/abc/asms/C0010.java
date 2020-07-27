@@ -24,22 +24,9 @@ public class C0010 extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
-
+		LoginCheck login = new LoginCheck();
+		login.checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
 	}
-//共通クラスに書く。32～41
-	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response,String transitiontTo) throws ServletException, IOException{
-		//ログインチェック
-		Account account = (Account) request.getSession().getAttribute("accounts");
-
-		if (account == null) {
-			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
-		} else {
-			this.getServletContext().getRequestDispatcher(transitiontTo).forward(request, response);
-		}
-	}
-
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
 		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
@@ -78,7 +65,6 @@ public class C0010 extends HttpServlet {
 		String passWord = request.getParameter("passWord");
 
 		ArrayList<String> errMsg = new ArrayList<String>();
-
 		checkMail(mail, errMsg);
 		checkPassword(passWord, errMsg);
 
@@ -126,6 +112,7 @@ public class C0010 extends HttpServlet {
 				account.setAuthority(rs.getString("authority"));
 				session.setAttribute("accounts", account);
 				this.getServletContext().getRequestDispatcher("/JSP/C0020.jsp").forward(request, response);
+
 				return;
 			} else {
 				//request.setAttribute("Err", "メールアドレス、パスワードを正しく入力してください");
