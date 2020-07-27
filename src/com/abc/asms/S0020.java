@@ -31,7 +31,7 @@ public class S0020 extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public S0020() {
-		super();
+		//		super();
 	}
 
 	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response, String transitiontTo)
@@ -63,7 +63,6 @@ public class S0020 extends HttpServlet {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Connection con2 = null;
 		PreparedStatement ps2 = null;
 		ResultSet rs2 = null;
 		List<Account> resposiblelist = new ArrayList<>();
@@ -92,15 +91,13 @@ public class S0020 extends HttpServlet {
 				session.setAttribute("resposiblelist", resposiblelist);
 			}
 
-			con2 = ds.getConnection();
-
 			StringBuilder sql2 = new StringBuilder();
 			sql2.append(" SELECT ");
 			sql2.append("	*");
 			sql2.append(" FROM ");
 			sql2.append("	categories ");
 			sql2.append(" WHERE active_flg=1");
-			ps2 = con2.prepareStatement(sql2.toString());
+			ps2 = con.prepareStatement(sql2.toString());
 			rs2 = ps2.executeQuery();
 
 			while (rs2.next()) {
@@ -120,9 +117,11 @@ public class S0020 extends HttpServlet {
 			try {
 				if (rs != null) {
 					rs.close();
+					rs2.close();
 				}
 				if (ps != null) {
 					ps.close();
+					ps2.close();
 				}
 				if (con != null) {
 					con.close();

@@ -38,7 +38,6 @@ public class S0011 extends HttpServlet {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Connection con2 = null;
 		PreparedStatement ps2 = null;
 		ResultSet rs2 = null;
 		List<String> errMsg = new ArrayList<String>();
@@ -68,8 +67,6 @@ public class S0011 extends HttpServlet {
 				errMsg.add("アカウントテーブルに存在しません。");
 			}
 
-			con2 = ds.getConnection();
-
 			StringBuilder sql2 = new StringBuilder();
 			sql2.append(" SELECT ");
 			sql2.append("	*");
@@ -77,7 +74,7 @@ public class S0011 extends HttpServlet {
 			sql2.append("	categories ");
 			sql2.append(" WHERE active_flg=1");
 			sql.append("	category_id=?");
-			ps2 = con2.prepareStatement(sql2.toString());
+			ps2 = con.prepareStatement(sql2.toString());
 			ps.setString(1, saleservice.parse(request).getCategory_id());
 			rs2 = ps2.executeQuery();
 
@@ -92,9 +89,11 @@ public class S0011 extends HttpServlet {
 			try {
 				if (rs != null) {
 					rs.close();
+					rs2.close();
 				}
 				if (ps != null) {
 					ps.close();
+					ps2.close();
 				}
 				if (con != null) {
 					con.close();
@@ -139,8 +138,33 @@ public class S0011 extends HttpServlet {
 			//入力の形式チェック
 			LocalDate localdate;
 			try {
-				localdate = LocalDate.parse(saleservice.parse(request).getSale_date(),
-						DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+				String saleDate = saleservice.parse(request).getSale_date();
+
+				if (saleDate.length() == 8) {
+
+					localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/M/d"));
+					System.out.println(localdate);
+
+				} else if (saleDate.length() == 10) {
+					localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+					System.out.println(localdate);
+				} else {
+
+					if ((saleDate.charAt(5) == '0' && saleDate.charAt(8) == '0')) {
+						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+						System.out.println(localdate);
+					} else if (saleDate.charAt(7) == '0' || saleDate.charAt(8) == '0') {
+						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/M/dd"));
+						System.out.println(localdate);
+					} else if (saleDate.charAt(5) == '0' || saleDate.charAt(5) == '1') {
+						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/MM/d"));
+						System.out.println(localdate);
+					} else {
+						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/M/dd"));
+						System.out.println(localdate);
+
+					}
+				}
 			} catch (java.time.format.DateTimeParseException e) {
 				errMsg.add("販売日を正しく入力してください。");
 			} finally {

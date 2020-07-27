@@ -64,7 +64,7 @@ public class S0010 extends HttpServlet {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Connection con2 = null;
+//		Connection con2 = null;
 		PreparedStatement ps2 = null;
 		ResultSet rs2 = null;
 		List<Account> resposiblelist = new ArrayList<>();
@@ -91,10 +91,10 @@ public class S0010 extends HttpServlet {
 				responsibleUser.setName(rs.getString("name"));
 				responsibleUser.setAccount_id(rs.getString("account_id"));
 				resposiblelist.add(responsibleUser);
-				session.setAttribute("resposiblelist", resposiblelist);
-			}
 
-			con2 = ds.getConnection();
+			}
+			session.setAttribute("resposiblelist", resposiblelist);
+//			con = ds.getConnection();
 
 			StringBuilder sql2 = new StringBuilder();
 			sql2.append(" SELECT ");
@@ -102,7 +102,7 @@ public class S0010 extends HttpServlet {
 			sql2.append(" FROM ");
 			sql2.append("	categories ");
 			sql2.append(" WHERE active_flg=1");
-			ps2 = con2.prepareStatement(sql2.toString());
+			ps2 = con.prepareStatement(sql2.toString());
 			rs2 = ps2.executeQuery();
 
 			while (rs2.next()) {
@@ -110,9 +110,9 @@ public class S0010 extends HttpServlet {
 				puroductCategoryData.setCategory_name(rs2.getString("category_name"));
 				puroductCategoryData.setCategory_id(rs2.getString("category_id"));
 				puroductCategorylist.add(puroductCategoryData);
-				session.setAttribute("puroductCategorylist", puroductCategorylist);
 
 			}
+			session.setAttribute("puroductCategorylist", puroductCategorylist);
 			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
 					response);
 		} catch (Exception e) {
@@ -122,9 +122,11 @@ public class S0010 extends HttpServlet {
 			try {
 				if (rs != null) {
 					rs.close();
+					rs2.close();
 				}
 				if (ps != null) {
 					ps.close();
+					ps2.close();
 				}
 				if (con != null) {
 					con.close();

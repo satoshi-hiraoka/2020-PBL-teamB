@@ -89,7 +89,7 @@
 				<td align="right" valign="top">備考<span
 					class="badge badge-pill badge-secondary">部分一致</span></td>
 				<td><input type="text" placeholder="備考"
-					class="salesFiledLength"></td>
+					class="salesFiledLength" name="remark"></td>
 			</tr>
 		</table>
 		<div>

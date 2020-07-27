@@ -48,13 +48,14 @@ public class S0021 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
 		//売上関連のサービスをインスタンス化
 		SaleService service = new SaleService();
 
 		//リクエストから検索条件を取得する
-				getSearchCondition(request);
-			Sale sale = (Sale) request.getSession().getAttribute("searchCondition");
+		getSearchCondition(request);
+		Sale sale = (Sale) request.getSession().getAttribute("searchCondition");
 		//検索時のチェック
 		//	日付の形式(from to両方)
 		//	日付の前後関係

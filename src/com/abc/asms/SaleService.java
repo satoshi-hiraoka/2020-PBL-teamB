@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +35,9 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		sale.setUnit_price(request.getParameter("puroductUnitPrice"));
 		sale.setSale_number(request.getParameter("puroductNumber"));
 		sale.setNote(request.getParameter("remark"));
+		sale.setPreviousPeriod(request.getParameter("previousPeriod"));
+		sale.setLatePeriod(request.getParameter("latePeriod"));
+
 		if (!(sale.getSale_number() == null)) {
 			if (!(sale.getSale_number().equals("")) && !(sale.getUnit_price().equals(""))) {
 				int number = Integer.valueOf(sale.getSale_number());
@@ -138,10 +143,13 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 	//売上検索用メソッド
 	public List<Sale> find(Sale key) {
 		CheckLength checklength = new CheckLength();
+
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		int idx = 1;
 		List<Sale> list = new ArrayList<Sale>();
+		LinkedHashMap<String, String> lHMap = new LinkedHashMap<>();
+
 		try {
 
 			//SQLを生成する。
@@ -164,40 +172,47 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 			sql.append("	LEFT JOIN categories c");
 			sql.append("		ON s.category_id=c.category_id");
 			sql.append(" WHERE");
-			sql.append("	authority=1");
-			sql.append("	OR authority=11");
-			//日付
-			if (!(key.getPreviousPeriod() == null)) {
-				sql.append("	AND s.sale_date>=?");
+			sql.append("	 s.note LIKE ?");
+
+			//備考
+			lHMap.put("note", "%" + key.getNote() + "%");
+			System.out.println(lHMap.get("note"));
+			//from日付
+			if (!(key.getPreviousPeriod().isEmpty())) {
+				sql.append("	and s.sale_date>=?");
+				lHMap.put("previousPeriod", key.getPreviousPeriod());
 			}
-			if (!(key.getLatePeriod() == null)) {
-				sql.append("	AND s.sale_date<=?");
+			//to日付
+			if (!(key.getLatePeriod().isEmpty())) {
+				sql.append("	and s.sale_date<=?");
+				lHMap.put("latePeriod", key.getLatePeriod());
 			}
 			//担当
 			if (!(key.getAccount_id() == null)) {
-				sql.append("	AND s.account_id=?");
+				sql.append("	 and s.account_id=?");
+				lHMap.put("account_id", key.getAccount_id());
 			}
+			//商品カテゴリー
 			if (!(key.getCategory_id() == null)) {
-				sql.append("	AND s.category_id=?");
+				sql.append("	 and s.category_id=?");
+				lHMap.put("category_id", key.getCategory_id());
 			}
-
-			if (!(key.getTrade_name() == null)) {
-				sql.append("	AND s.trade_name LIKE ?");
+			//商品名
+			if (!(key.getTrade_name().isEmpty())) {
+				sql.append("	 and s.trade_name LIKE ?");
+				lHMap.put("trade_name", "%" + key.getTrade_name() + "%");
 			}
-			if (!(key.getNote() == null)) {
-				sql.append("	AND s.note LIKE ?");
-
-			}
-
-
-			//			sql.append("	s.account_id=1");
-			//			sql.append("	AND s.category_id=1");
-			//			sql.append("	AND s.trade_name LIKE '%焼%'");
-			//			sql.append("	AND s.note LIKE '%a%'");
 
 			ps = cb.getCon().prepareStatement(sql.toString());
+
+						for (Entry<String, String> entry : lHMap.entrySet()) {
+
+							ps.setString(idx, entry.getValue());
+							idx++;
+						}
+
 			rs = ps.executeQuery();
-			//プレースホルダ(?)に値を設定していく。
+			//プレースホルダ(?)に値を設定していく。a
 			//?の個数は流動的だが「?の個数=入力された検索条件であることがヒント
 			while (rs.next()) {
 				list.add(parse(rs));
