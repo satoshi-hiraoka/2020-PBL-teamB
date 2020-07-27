@@ -22,7 +22,6 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 	}
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	List<String> errMsg = new ArrayList<String>();
 
 	public Sale parse(HttpServletRequest request) {
 		Sale sale = new Sale();
@@ -34,14 +33,16 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		sale.setUnit_price(request.getParameter("puroductUnitPrice"));
 		sale.setSale_number(request.getParameter("puroductNumber"));
 		sale.setNote(request.getParameter("remark"));
-		if (!(sale.getSale_number().equals("")) && !(sale.getUnit_price().equals(""))) {
-			int number = Integer.valueOf(sale.getSale_number());
-			int praice = Integer.valueOf(sale.getUnit_price());
-			int subtotal = number * praice;
+		if (!(sale.getSale_number() == null)) {
+			if (!(sale.getSale_number().equals("")) && !(sale.getUnit_price().equals(""))) {
+				int number = Integer.valueOf(sale.getSale_number());
+				int praice = Integer.valueOf(sale.getUnit_price());
+				int subtotal = number * praice;
 
-			sale.setCommaNumer(String.format("%,d", number));
-			sale.setCommaPrice(String.format("%,d", praice));
-			sale.setCommaSubtotal(String.format("%,d", subtotal));
+				sale.setCommaNumer(String.format("%,d", number));
+				sale.setCommaPrice(String.format("%,d", praice));
+				sale.setCommaSubtotal(String.format("%,d", subtotal));
+			}
 		}
 		return sale;
 	}
@@ -50,53 +51,60 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		Sale sale = new Sale();
 		//ResultSetから売上のデータ取り出してSale型の変数に格納
 
-		sale.setSale_date(rs.getString("s.sale_date"));
-//		sale.setAccount_id(rs.getString("account_id"));
-		sale.setCategory_id(rs.getString("c.category_id"));
-		sale.setTrade_name(rs.getString("s.trade_name"));
-		sale.setUnit_price(rs.getString("s.unit_price"));
-		sale.setSale_number(rs.getString("s.sale_number"));
-		sale.setNote(rs.getString("s.note"));
-		sale.setCategory_name(rs.getString("c.category_name"));
-		sale.setName(rs.getString("a.name"));
+		sale.setSale_id(rs.getString("sale_id"));
+		sale.setSale_date(rs.getString("sale_date"));
+		sale.setName(rs.getString("name"));
+		sale.setCategory_name(rs.getString("category_name"));
+		sale.setTrade_name(rs.getString("trade_name"));
+		sale.setUnit_price(rs.getString("unit_price"));
+		sale.setSale_number(rs.getString("sale_number"));
+		sale.setNote(rs.getString("note"));
+		int number = Integer.valueOf(sale.getSale_number());
+		int praice = Integer.valueOf(sale.getUnit_price());
+		int subtotal = number * praice;
+
+		sale.setCommaNumer(String.format("%,d", number));
+		sale.setCommaPrice(String.format("%,d", praice));
+		sale.setCommaSubtotal(String.format("%,d", subtotal));
 
 		return sale;
 	}
 
 	public void registCheck(Sale key) {
+		List<String> errMsg = new ArrayList<String>();
 		//登録時に必要なチェック
 		CheckLength checklength = new CheckLength();
-		if (checklength.inputEmptyCheck(key.getSale_date())) {
-			errMsg.add("販売日を入力してください");
-		}
-		if (key.getAccount_id() == null) {
-			errMsg.add("担当者が未選択です。");
-		}
-		if (key.getSale_number() == null) {
-			errMsg.add("商品カテゴリーが未選択です。");
-		}
-		if (checklength.inputEmptyCheck(key.getTrade_name())) {
-			errMsg.add("商品名を入力してください");
-		}
-		if (checklength.inputEmptyCheck(key.getUnit_price())) {
-			errMsg.add("単価をを入力してください");
-		}
-		if (checklength.inputEmptyCheck(key.getSale_number())) {
-			errMsg.add("個数を入力してください");
-		}
-		//文字数長さチェック
-		if (checklength.checkLength(key.getTrade_name(), 101)) {
-			errMsg.add("商品名が長すぎます。");
-		}
-		if (checklength.checkLength(key.getUnit_price(), 10)) {
-			errMsg.add("単価が長すぎます。");
-		}
-		if (checklength.checkLength(key.getSale_number(), 10)) {
-			errMsg.add("個数が長すぎます。");
-		}
-		if (checklength.checkLength(key.getNote(), 400)) {
-			errMsg.add("備考が長すぎます。");
-		}
+		//		if (key.getSale_date())) {
+		//			errMsg.add("販売日を入力してください");
+		//		}
+		//		if (key.getAccount_id() == null) {
+		//			errMsg.add("担当者が未選択です。");
+		//		}
+		//		if (key.getSale_number() == null) {
+		//			errMsg.add("商品カテゴリーが未選択です。");
+		//		}
+		//		if (key.getTrade_name())) {
+		//			errMsg.add("商品名を入力してください");
+		//		}
+		//		if (key.getUnit_price())) {
+		//			errMsg.add("単価をを入力してください");
+		//		}
+		//		if (key.getSale_number())) {
+		//			errMsg.add("個数を入力してください");
+		//		}
+		//		//文字数長さチェック
+		//		if (checklength.checkLength(key.getTrade_name(), 101)) {
+		//			errMsg.add("商品名が長すぎます。");
+		//		}
+		//		if (checklength.checkLength(key.getUnit_price(), 10)) {
+		//			errMsg.add("単価が長すぎます。");
+		//		}
+		//		if (checklength.checkLength(key.getSale_number(), 10)) {
+		//			errMsg.add("個数が長すぎます。");
+		//		}
+		//		if (checklength.checkLength(key.getNote(), 400)) {
+		//			errMsg.add("備考が長すぎます。");
+		//		}
 	}
 
 	public void updateCheck(Sale key) {
@@ -129,6 +137,7 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 
 	//売上検索用メソッド
 	public List<Sale> find(Sale key) {
+		CheckLength checklength = new CheckLength();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		int idx = 1;
@@ -154,7 +163,33 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 			sql.append("		ON  s.account_id=a.account_id");
 			sql.append("	LEFT JOIN categories c");
 			sql.append("		ON s.category_id=c.category_id");
-			//			sql.append(" WHERE");
+			sql.append(" WHERE");
+			sql.append("	authority=1");
+			sql.append("	OR authority=11");
+			//日付
+			if (!(key.getPreviousPeriod() == null)) {
+				sql.append("	AND s.sale_date>=?");
+			}
+			if (!(key.getLatePeriod() == null)) {
+				sql.append("	AND s.sale_date<=?");
+			}
+			//担当
+			if (!(key.getAccount_id() == null)) {
+				sql.append("	AND s.account_id=?");
+			}
+			if (!(key.getCategory_id() == null)) {
+				sql.append("	AND s.category_id=?");
+			}
+
+			if (!(key.getTrade_name() == null)) {
+				sql.append("	AND s.trade_name LIKE ?");
+			}
+			if (!(key.getNote() == null)) {
+				sql.append("	AND s.note LIKE ?");
+
+			}
+
+
 			//			sql.append("	s.account_id=1");
 			//			sql.append("	AND s.category_id=1");
 			//			sql.append("	AND s.trade_name LIKE '%焼%'");
