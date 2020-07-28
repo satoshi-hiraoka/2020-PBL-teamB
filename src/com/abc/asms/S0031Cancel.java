@@ -37,6 +37,9 @@ public class S0031Cancel extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		LoginCheck login = new LoginCheck();
+		login.checkLoginAndTransition(request, response, "0", "1");
+
 		request.setCharacterEncoding("UTF-8");
 
 		HttpSession sessionS0030 = request.getSession();
