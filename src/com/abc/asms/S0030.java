@@ -59,17 +59,19 @@ public class S0030 extends HttpServlet {
 
 		ArrayList<String> errMsg = new ArrayList<String>();
 
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT");
-		sql.append(" 	account_id");
-		sql.append(" FROM");
-		sql.append(" 	accounts");
-		sql.append(" WHERE");
-		sql.append(" 	mail = ?");
-
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+
 		try {
+			StringBuilder sql = new StringBuilder();
+			//メールアドレスが登録済みかチェック
+			sql.append("SELECT");
+			sql.append(" 	account_id");
+			sql.append(" FROM");
+			sql.append(" 	accounts");
+			sql.append(" WHERE");
+			sql.append(" 	mail = ?");
+
 			ps = cb.getCon().prepareStatement(sql.toString());
 
 			ps.setString(1, mail);
@@ -102,6 +104,7 @@ public class S0030 extends HttpServlet {
 		checkAuthSales(authSales, errMsg);
 		checkAuthAccount(authAccount, errMsg);
 
+		//セッションを取得
 		HttpSession sessionS0030 = request.getSession();
 		sessionS0030.setAttribute("name", name);
 		sessionS0030.setAttribute("mail", mail);

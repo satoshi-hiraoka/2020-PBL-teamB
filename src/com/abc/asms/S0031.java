@@ -52,11 +52,13 @@ public class S0031 extends HttpServlet {
 
 		Account account = new Account();
 
+		//セッションを取得
 		HttpSession sessionS0030 = request.getSession();
 
 		String name = (String) sessionS0030.getAttribute("name");
 		String mail = (String) sessionS0030.getAttribute("mail");
 		String password = (String) sessionS0030.getAttribute("password");
+		sessionS0030.getAttribute("passwordCheck");
 		String authSales = (String) sessionS0030.getAttribute("authSales");
 		String authAccount = (String) sessionS0030.getAttribute("authAccount");
 		String authority = null;
@@ -74,21 +76,21 @@ public class S0031 extends HttpServlet {
 			}
 		}
 
-		StringBuilder sql = new StringBuilder();
-		sql.append("INSERT INTO");
-		sql.append(" 	accounts(");
-		sql.append(" 		name,");
-		sql.append(" 		mail,");
-		sql.append(" 		password,");
-		sql.append(" 		authority)");
-		sql.append(" VALUES(");
-		sql.append(" 		?,?,MD5(?),?)");
-
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
 		ResultSet rs = null;
 
 		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("INSERT INTO");
+			sql.append(" 	accounts(");
+			sql.append(" 		name,");
+			sql.append(" 		mail,");
+			sql.append(" 		password,");
+			sql.append(" 		authority)");
+			sql.append(" VALUES(");
+			sql.append(" 		?,?,MD5(?),?)");
+
 			ps = cb.getCon().prepareStatement(sql.toString());
 
 			ps.setString(1, name);
@@ -99,6 +101,7 @@ public class S0031 extends HttpServlet {
 			int result = ps.executeUpdate();
 
 			StringBuilder sql2 = new StringBuilder();
+			//登録したアカウントのアカウントIDを取得
 			sql2.append("SELECT");
 			sql2.append(" 	account_id");
 			sql2.append(" FROM");
@@ -122,7 +125,14 @@ public class S0031 extends HttpServlet {
 			} else {
 				sucMsg.add("No" + account.getAccount_id() + "のアカウントを登録しました。");
 				request.setAttribute("sucMsg", sucMsg);
-				sessionS0030.invalidate();
+				//セッションオブジェクトの削除
+				sessionS0030.removeAttribute("name");
+				sessionS0030.removeAttribute("mail");
+				sessionS0030.removeAttribute("password");
+				sessionS0030.removeAttribute("passwordCheck");
+				sessionS0030.removeAttribute("authSales");
+				sessionS0030.removeAttribute("authAccount");
+
 				this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);
 			}
 		} catch (Exception e) {

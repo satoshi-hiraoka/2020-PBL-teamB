@@ -57,7 +57,7 @@ public class S0040 extends HttpServlet {
 		String authSales = request.getParameter("authSales");
 		String authAccount = request.getParameter("authAccount");
 		List<String> authList = new ArrayList<String>();
-
+		//検索するauthorityの値
 		if (authSales.equals("all")) {
 			if (authAccount.equals("all")) {
 				authList.add("0");
@@ -95,43 +95,52 @@ public class S0040 extends HttpServlet {
 		List<Account> list = new ArrayList<Account>();
 		LinkedHashMap<String, String> lHMap = new LinkedHashMap<>();
 
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT");
-		sql.append(" 	account_id,");
-		sql.append(" 	name,");
-		sql.append(" 	mail,");
-		sql.append(" 	authority");
-		sql.append(" FROM");
-		sql.append(" 	accounts");
-		sql.append(" WHERE");
-		sql.append(" 	authority IN (");
-		sql.append(" 				?");
-		lHMap.put("auth1", authList.get(0));
-		if (authList.size() >= 2) {
-			sql.append(" 			,?");
-			lHMap.put("auth2", authList.get(1));
-		}
-		if (authList.size() == 4) {
-			sql.append(" 			,?,?");
-			lHMap.put("auth3", authList.get(2));
-			lHMap.put("auth4", authList.get(3));
-		}
-		sql.append(" 				)");
-		if (!(cl.inputEmptyCheck(name))) {
-			sql.append(" 	AND name LIKE ?");
-			lHMap.put("name", "%" + name + "%");
-		}
-		if (!(cl.inputEmptyCheck(mail))) {
-			sql.append(" 	AND mail = ?");
-			lHMap.put("mail", mail);
-		}
-
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		int idx = 1;
+
 		try {
+			StringBuilder sql = new StringBuilder();
+			//検索条件に合うアカウントを取得
+			sql.append("SELECT");
+			sql.append(" 	account_id,");
+			sql.append(" 	name,");
+			sql.append(" 	mail,");
+			sql.append(" 	authority");
+			sql.append(" FROM");
+			sql.append(" 	accounts");
+			sql.append(" WHERE");
+			sql.append(" 	authority IN (");
+			sql.append(" 				?");
+			//検索するauthorityの数は1つは確定
+			lHMap.put("auth1", authList.get(0));
+			//検索するauthorityの数が2つの場合
+			if (authList.size() >= 2) {
+				sql.append(" 			,?");
+				lHMap.put("auth2", authList.get(1));
+			}
+			//検索するauthorityの数が4つの場合
+			if (authList.size() == 4) {
+				sql.append(" 			,?,?");
+				lHMap.put("auth3", authList.get(2));
+				lHMap.put("auth4", authList.get(3));
+			}
+			sql.append(" 				)");
+			//氏名入力時には氏名を部分一致で検索
+			if (!(cl.inputEmptyCheck(name))) {
+				sql.append(" 	AND name LIKE ?");
+				lHMap.put("name", "%" + name + "%");
+			}
+			//メールアドレス入力時にはメールアドレスを完全一致で検索
+			if (!(cl.inputEmptyCheck(mail))) {
+				sql.append(" 	AND mail = ?");
+				lHMap.put("mail", mail);
+			}
+
+			int idx = 1;
+
 			ps = cb.getCon().prepareStatement(sql.toString());
 
+			//プレースホルダーに値を格納
 			for (Entry<String, String> entry : lHMap.entrySet()) {
 				ps.setString(idx, entry.getValue());
 				idx++;
@@ -139,6 +148,7 @@ public class S0040 extends HttpServlet {
 
 			rs = ps.executeQuery();
 
+			//取得したアカウントをlistに格納
 			while (rs.next()) {
 				Account resultAccount = new Account();
 				resultAccount.setAccount_id(rs.getString("account_id"));
@@ -162,6 +172,7 @@ public class S0040 extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/JSP/S0040.jsp").forward(request, response);
 			} else {
 				Account account = (Account) request.getSession().getAttribute("accounts");
+				//ログイン中のアカウントの権限
 				request.setAttribute("authority", account.getAuthority());
 				request.setAttribute("list", list);
 				this.getServletContext().getRequestDispatcher("/JSP/S0041.jsp").forward(request, response);

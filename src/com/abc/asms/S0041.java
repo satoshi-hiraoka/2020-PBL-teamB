@@ -59,6 +59,7 @@ public class S0041 extends HttpServlet {
 		ResultSet rs = null;
 		try {
 			ps = cb.getCon().prepareStatement(sql.toString());
+			//hiddenで送られたアカウントIDで検索
 			ps.setString(1, request.getParameter("id"));
 
 			rs = ps.executeQuery();
