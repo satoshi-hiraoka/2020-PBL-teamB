@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -91,6 +93,7 @@ public class S0040 extends HttpServlet {
 
 		ArrayList<String> errMsg = new ArrayList<String>();
 		List<Account> list = new ArrayList<Account>();
+		LinkedHashMap<String, String> lHMap = new LinkedHashMap<>();
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT");
@@ -103,37 +106,35 @@ public class S0040 extends HttpServlet {
 		sql.append(" WHERE");
 		sql.append(" 	authority IN (");
 		sql.append(" 				?");
+		lHMap.put("auth1", authList.get(0));
 		if (authList.size() >= 2) {
 			sql.append(" 			,?");
+			lHMap.put("auth2", authList.get(1));
 		}
 		if (authList.size() == 4) {
 			sql.append(" 			,?,?");
+			lHMap.put("auth3", authList.get(2));
+			lHMap.put("auth4", authList.get(3));
 		}
 		sql.append(" 				)");
 		if (!(cl.inputEmptyCheck(name))) {
 			sql.append(" 	AND name LIKE ?");
+			lHMap.put("name", "%" + name + "%");
 		}
 		if (!(cl.inputEmptyCheck(mail))) {
 			sql.append(" 	AND mail = ?");
+			lHMap.put("mail", mail);
 		}
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		int idx = 1;
 		try {
 			ps = cb.getCon().prepareStatement(sql.toString());
 
-			for (int i = 1; i <= authList.size(); i++) {
-				ps.setString(i, authList.get(i - 1));
-			}
-			if (!(cl.inputEmptyCheck(name))) {
-				ps.setString(authList.size() + 1, "%" + name + "%");
-				if (!(cl.inputEmptyCheck(mail))) {
-					ps.setString(authList.size() + 2, mail);
-				}
-			} else {
-				if (!(cl.inputEmptyCheck(mail))) {
-					ps.setString(authList.size() + 1, mail);
-				}
+			for (Entry<String, String> entry : lHMap.entrySet()) {
+				ps.setString(idx, entry.getValue());
+				idx++;
 			}
 
 			rs = ps.executeQuery();
