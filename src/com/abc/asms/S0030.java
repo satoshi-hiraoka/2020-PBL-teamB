@@ -28,7 +28,7 @@ public class S0030 extends HttpServlet {
 	 * @throws ServletException
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public S0030() throws ServletException, IOException {
+	public S0030() {
 		super();
 	}
 
