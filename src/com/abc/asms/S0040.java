@@ -48,6 +48,9 @@ public class S0040 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		LoginCheck login = new LoginCheck();
+		login.checkLoginAndTransition(request, response);
+
 		request.setCharacterEncoding("UTF-8");
 
 		ConnectionTeamB cb = new ConnectionTeamB();

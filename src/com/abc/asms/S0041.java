@@ -41,6 +41,9 @@ public class S0041 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		LoginCheck login = new LoginCheck();
+		login.checkLoginAndTransition(request, response);
+
 		request.setCharacterEncoding("UTF-8");
 
 		ConnectionTeamB cb = new ConnectionTeamB();
@@ -76,13 +79,13 @@ public class S0041 extends HttpServlet {
 				if (account.getAuthority().equals("0")) {
 					authSales = "0";
 					authAccount = "0";
-				}else if(account.getAuthority().equals("1")) {
+				} else if (account.getAuthority().equals("1")) {
 					authSales = "1";
 					authAccount = "0";
-				}else if(account.getAuthority().equals("10")) {
+				} else if (account.getAuthority().equals("10")) {
 					authSales = "0";
 					authAccount = "1";
-				}else{
+				} else {
 					authSales = "1";
 					authAccount = "1";
 				}

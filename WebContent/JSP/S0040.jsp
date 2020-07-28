@@ -19,6 +19,7 @@
 	<form action="/teamB/S0040" method="POST" name="searchAccount">
 		<h1 id="title">アカウント検索</h1>
 		<jsp:include page="errOccur.jsp" />
+		<jsp:include page="sucOccur.jsp" />
 		<table class="tablePosition">
 			<tr>
 				<td>
