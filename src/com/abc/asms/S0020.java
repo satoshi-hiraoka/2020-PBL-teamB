@@ -20,45 +20,16 @@ import javax.sql.DataSource;
 import com.abc.asms.dataset.Account;
 import com.abc.asms.dataset.Category;
 
-/**
- * Servlet implementation class S0020
- */
 @WebServlet("/S0020")
 public class S0020 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public S0020() {
 		//		super();
 	}
 
-	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response, String transitiontTo)
-			throws ServletException, IOException {
-		//ログインチェック
-		List<String> errMsg = new ArrayList<String>();
-
-		Account account = (Account) request.getSession().getAttribute("accounts");
-
-		if (account == null) {
-			errMsg.add("ログインしてください");
-			request.setAttribute("errMsg", errMsg);
-			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
-		} else {
-			String authority = account.getAuthority();
-			if (authority.equals("0") || authority.equals("1")) {
-				errMsg.add("不正なアクセスです。");
-				request.setAttribute("errMsg", errMsg);
-				this.getServletContext().getRequestDispatcher(transitiontTo).forward(request, response);
-			}
-		}
-	}
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -67,6 +38,8 @@ public class S0020 extends HttpServlet {
 		ResultSet rs2 = null;
 		List<Account> resposiblelist = new ArrayList<>();
 		List<Category> puroductCategorylist = new ArrayList<>();
+		LoginCheck logincheck = new LoginCheck();
+		logincheck.checkLoginAndTransition(request, response);
 		try {
 			Context initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:/comp/env");
@@ -126,17 +99,17 @@ public class S0020 extends HttpServlet {
 				if (con != null) {
 					con.close();
 				}
+				if (rs2 != null) {
+					rs2.close();
+				}
+				if (ps2 != null) {
+					ps2.close();
+				}
 			} catch (Exception e) {
 
 			}
 		}
-		//		//sessionでログイン状態化どうかを確認する。
-		//		if(/*ログイン状態のチェク*/) {
-		//			//未ログインであればログイン画面へ
-		//			request.getRequestDispatcher(/*ログイン画面のサーブレットのパス*/).forward(request, response);
-		//		} else {
-		//			//ログイン済みであれば検索画面へ
-		//
+
 		//			//session内から検索条件を取得し検索画面に渡す。
 		//			//	初回遷移時には意味をなさないが
 		//			//	検索ボタンクリック時、検索条件にエラーがあった場合
@@ -150,72 +123,64 @@ public class S0020 extends HttpServlet {
 		//			request.getRequestDispatcher("S0020.jsp").forward(request, response);
 		//		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
-	//担当者一覧取得用メソッド
-	//		private ArrayList<Account> getAccounts() {
-	//			ArrayList<Account> accounts = null;
-	//			//DBから担当者一覧を取得する
-	//			Connection con = null;
-	//			PreparedStatement ps = null;
-	//			ResultSet rs = null;try {
-	//				Context initContext = new InitialContext();
-	//				Context envContext = (Context) initContext.lookup("java:/comp/env");
-	//				DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
-	//				con = ds.getConnection();
-	//
-	//				StringBuilder sql = new StringBuilder();
-	//				sql.append(" SELECT");
-	//				sql.append("	*");
-	//				sql.append(" FROM ");
-	//				sql.append("	accounts");
-	//				ps = con.prepareStatement(sql.toString());
-	//				rs = ps.executeQuery();
-	//
-	//				while (rs.next()) {
-	//
-	//					Account responsibleUser = new Account();
-	//					responsibleUser.setName(rs.getString("name"));
-	//					responsibleUser.setAccount_id(rs.getString("account_id"));
-	//					accounts.add(responsibleUser);
-	//				}
-	//
-	//
-	//
-	//			} catch (Exception e) {
-	//				throw new ServletException(e);
-	//
-	//			} finally {
-	//				try {
-	//					if (rs != null) {
-	//						rs.close();
-	//					}
-	//					if (ps != null) {
-	//						ps.close();
-	//					}
-	//					if (con != null) {
-	//						con.close();
-	//					}
-	//				} catch (Exception e) {
-	//
-	//				}
-	//			return accounts;
-	//		}}
-
-	//
-	//	//商品カテゴリ取得用メソッド
-	//	private ArrayList<Categories> getCategories() {
-	//		ArrayList<Categories> categories = null;
-	//		//DBから商品カテゴリ一覧を取得する
-	//
-	//		return categories;
-	//	}
 }
+
+//担当者一覧取得用メソッド
+//	private ArrayList<Account> getAccounts() {
+//		ArrayList<Account> accounts = null;
+//		//DBから担当者一覧を取得する
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		try {
+//			Context initContext = new InitialContext();
+//			Context envContext = (Context) initContext.lookup("java:/comp/env");
+//			DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
+//			con = ds.getConnection();
+//
+//			StringBuilder sql = new StringBuilder();
+//			sql.append(" SELECT");
+//			sql.append("	*");
+//			sql.append(" FROM ");
+//			sql.append("	accounts");
+//			ps = con.prepareStatement(sql.toString());
+//			rs = ps.executeQuery();
+//
+//			while (rs.next()) {
+//
+//				Account responsibleUser = new Account();
+//				responsibleUser.setName(rs.getString("name"));
+//				responsibleUser.setAccount_id(rs.getString("account_id"));
+//				accounts.add(responsibleUser);
+//			}
+//
+//		} catch (Exception e) {
+//			throw new ServletException(e);
+//
+//		} finally {
+//			try {
+//				if (rs != null) {
+//					rs.close();
+//				}
+//				if (ps != null) {
+//					ps.close();
+//				}
+//				if (con != null) {
+//					con.close();
+//				}
+//			} catch (Exception e) {
+//
+//			}
+//			return accounts;
+//		}
+//	}
+//}
+
+//商品カテゴリ取得用メソッド
+//	private ArrayList<Categories> getCategories() {
+//			ArrayList<Categories> categories = null;
+//			//DBから商品カテゴリ一覧を取得する
+//
+//			return categories;
+//		}
+//}

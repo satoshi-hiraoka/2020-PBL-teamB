@@ -1,7 +1,6 @@
 package com.abc.asms;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -9,15 +8,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 
 /**
  * Servlet implementation class S0011
@@ -35,22 +31,16 @@ public class S0011 extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		SaleService saleservice = new SaleService();
-		Connection con = null;
+		ConnectionTeamB cb = new ConnectionTeamB();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		PreparedStatement ps2 = null;
 		ResultSet rs2 = null;
 		List<String> errMsg = new ArrayList<String>();
-
-		session.setAttribute("responsible", request.getParameter("responsible"));
-		session.setAttribute("puroductCategory", request.getParameter("puroductCategory"));
-
+		//ログインチェックと権限
+		LoginCheck logincheck = new LoginCheck();
+		logincheck.checkLoginAndTransition(request, response, "0", "10");
 		try {
-			Context initContext = new InitialContext();
-			Context envContext = (Context) initContext.lookup("java:/comp/env");
-			DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
-
-			con = ds.getConnection();
 
 			StringBuilder sql = new StringBuilder();
 			sql.append(" SELECT");
@@ -59,7 +49,7 @@ public class S0011 extends HttpServlet {
 			sql.append("	accounts");
 			sql.append(" WHERE ");
 			sql.append("	account_id=?");
-			ps = con.prepareStatement(sql.toString());
+			ps = cb.getCon().prepareStatement(sql.toString());
 			ps.setString(1, saleservice.parse(request).getAccount_id());
 			rs = ps.executeQuery();
 
@@ -74,7 +64,7 @@ public class S0011 extends HttpServlet {
 			sql2.append("	categories ");
 			sql2.append(" WHERE active_flg=1");
 			sql.append("	category_id=?");
-			ps2 = con.prepareStatement(sql2.toString());
+			ps2 = cb.getCon().prepareStatement(sql2.toString());
 			ps.setString(1, saleservice.parse(request).getCategory_id());
 			rs2 = ps2.executeQuery();
 
@@ -95,8 +85,8 @@ public class S0011 extends HttpServlet {
 					ps.close();
 					ps2.close();
 				}
-				if (con != null) {
-					con.close();
+				if (cb.getCon() != null) {
+					cb.getCon().close();
 				}
 			} catch (Exception e) {
 
@@ -143,25 +133,19 @@ public class S0011 extends HttpServlet {
 				if (saleDate.length() == 8) {
 
 					localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/M/d"));
-					System.out.println(localdate);
 
 				} else if (saleDate.length() == 10) {
 					localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-					System.out.println(localdate);
 				} else {
 
 					if ((saleDate.charAt(5) == '0' && saleDate.charAt(8) == '0')) {
 						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-						System.out.println(localdate);
 					} else if (saleDate.charAt(7) == '0' || saleDate.charAt(8) == '0') {
 						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/M/dd"));
-						System.out.println(localdate);
 					} else if (saleDate.charAt(5) == '0' || saleDate.charAt(5) == '1') {
 						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/MM/d"));
-						System.out.println(localdate);
 					} else {
 						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/M/dd"));
-						System.out.println(localdate);
 
 					}
 				}
@@ -188,9 +172,13 @@ public class S0011 extends HttpServlet {
 						//errMsgに何か入っていればs0010.jspに飛ばす。
 						if (errMsg.size() > 0) {
 							request.setAttribute("errMsg", errMsg);
+							request.setAttribute("responsible", request.getParameter("responsible"));
+							request.setAttribute("puroductCategory", request.getParameter("puroductCategory"));
+							request.setAttribute("sales", saleservice.parse(request));
 							this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request, response);
 						}
-
+						session.setAttribute("responsible", request.getParameter("responsible"));
+						session.setAttribute("puroductCategory", request.getParameter("puroductCategory"));
 						session.setAttribute("sales", saleservice.parse(request));
 						this.getServletContext().getRequestDispatcher("/JSP/S0011.jsp").forward(request, response);
 					}
@@ -199,7 +187,4 @@ public class S0011 extends HttpServlet {
 		}
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-	}
 }

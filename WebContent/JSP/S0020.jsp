@@ -18,11 +18,13 @@
 <link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
 <link rel="stylesheet" href="/teamB/CSS/S0020.css">
+<link rel="stylesheet" href="/teamB/CSS/alert.css">
 <title>売上検索条件入力</title>
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
 	<h2 id="title">売上検索条件入力</h2>
+	<jsp:include page="errOccur.jsp"/>
 	<form name="form" action="/teamB/S0021" method="post">
 		<table class="tablePosition">
 			<tr>

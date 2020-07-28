@@ -38,6 +38,7 @@
 			<tr>
 				<td>
 					<form action="/teamB/S0022" method="post">
+					<input type="hidden" name="sale_id" value="${sale.sale_id}" />
 						<button type="submit" class="btn btn-primary">
 							<i class="fas fa-check"></i>詳細
 						</button>

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/S0022")
 public class S0022 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -38,6 +38,7 @@ public class S0022 extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		ConnectionTeamB cb = new ConnectionTeamB();
+		response.getWriter().append(">>>>" + request.getParameter("sale_id")+"<<<<<<");
 	}
 
 }

@@ -1,21 +1,17 @@
 package com.abc.asms;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 
 import com.abc.asms.dataset.Account;
 import com.abc.asms.dataset.Category;
@@ -27,62 +23,34 @@ import com.abc.asms.dataset.Category;
 public class S0010 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+
 	public S0010() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public void checkLoginAndTransition(HttpServletRequest request, HttpServletResponse response, String transitiontTo)
-			throws ServletException, IOException {
-		//ログインチェック
-		List<String> errMsg = new ArrayList<String>();
-
-		Account account = (Account) request.getSession().getAttribute("accounts");
-
-		if (account == null) {
-			errMsg.add("ログインしてください");
-			request.setAttribute("errMsg", errMsg);
-			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
-		} else {
-			String authority = account.getAuthority();
-			if (authority.equals("0") || authority.equals("10")) {
-				errMsg.add("不正なアクセスです。");
-				request.setAttribute("errMsg", errMsg);
-				this.getServletContext().getRequestDispatcher(transitiontTo).forward(request, response);
-			}
-		}
-	}
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
-
-		Connection con = null;
+		ConnectionTeamB cb = new ConnectionTeamB();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-//		Connection con2 = null;
 		PreparedStatement ps2 = null;
 		ResultSet rs2 = null;
 		List<Account> resposiblelist = new ArrayList<>();
 		List<Category> puroductCategorylist = new ArrayList<>();
-
+		LoginCheck logincheck = new LoginCheck();
+		//ログインと権限チェック
+		logincheck.checkLoginAndTransition(request, response, "0", "10");
 		try {
-			Context initContext = new InitialContext();
-			Context envContext = (Context) initContext.lookup("java:/comp/env");
-			DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
 			HttpSession session = request.getSession();
-			con = ds.getConnection();
 
 			StringBuilder sql = new StringBuilder();
 			sql.append(" SELECT");
 			sql.append("	*");
 			sql.append(" FROM ");
 			sql.append("	accounts");
-			ps = con.prepareStatement(sql.toString());
+			ps = cb.getCon().prepareStatement(sql.toString());
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -94,7 +62,6 @@ public class S0010 extends HttpServlet {
 
 			}
 			session.setAttribute("resposiblelist", resposiblelist);
-//			con = ds.getConnection();
 
 			StringBuilder sql2 = new StringBuilder();
 			sql2.append(" SELECT ");
@@ -102,7 +69,7 @@ public class S0010 extends HttpServlet {
 			sql2.append(" FROM ");
 			sql2.append("	categories ");
 			sql2.append(" WHERE active_flg=1");
-			ps2 = con.prepareStatement(sql2.toString());
+			ps2 = cb.getCon().prepareStatement(sql2.toString());
 			rs2 = ps2.executeQuery();
 
 			while (rs2.next()) {
@@ -122,25 +89,23 @@ public class S0010 extends HttpServlet {
 			try {
 				if (rs != null) {
 					rs.close();
-					rs2.close();
 				}
 				if (ps != null) {
 					ps.close();
+				}
+				if (cb.getCon() != null) {
+					cb.getCon().close();
+				}
+				if (rs2 != null) {
+					rs2.close();
+				}
+				if (ps2 != null) {
 					ps2.close();
 				}
-				if (con != null) {
-					con.close();
-				}
+
 			} catch (Exception e) {
 
 			}
 		}
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

@@ -24,19 +24,7 @@
 	<jsp:include page="menu.jsp" />
 	<h2 id="title">売上登録</h2>
 	<jsp:include page="errOccur.jsp" />
-	<c:if test="${successSalesRegistration=='successSalesRegistration'}">
-		<div class="alert alert-success alert-dismissible" role="alert"
-			id="alert">
-			<button type="button" class="close" data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-			<strong><i class="fas fa-check"></i>売上登録に成功しました</strong><br>
-			<ul>
-				<li>メッセージ</li>
-			</ul>
-		</div>
-	</c:if>
+	<jsp:include page="sucOccur.jsp" />
 	<form name="form" action="/teamB/S0011" method="post">
 		<table class="tablePosition">
 			<tr>

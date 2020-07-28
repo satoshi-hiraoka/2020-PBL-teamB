@@ -176,7 +176,6 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 
 			//備考
 			lHMap.put("note", "%" + key.getNote() + "%");
-			System.out.println(lHMap.get("note"));
 			//from日付
 			if (!(key.getPreviousPeriod().isEmpty())) {
 				sql.append("	and s.sale_date>=?");
@@ -239,33 +238,33 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 
 			//ここでinsertする よくわかってない
 
-			//			StringBuilder sql = new StringBuilder();
-			//			sql.append(" INSERT INTO");
-			//			sql.append("	sales(sale_date,");
-			//			sql.append("	account_id,");
-			//			sql.append("	category_id, ");
-			//			sql.append("	trade_name,");
-			//			sql.append("	unit_price,");
-			//			sql.append("	sale_number,");
-			//			sql.append("	note)");
-			//			sql.append(" VALUES");
-			//			sql.append("	(?,");
-			//			sql.append("	?,");
-			//			sql.append("	?,");
-			//			sql.append("	?,");
-			//			sql.append("	?,");
-			//			sql.append("	?,");
-			//			sql.append("	?)");
-			//
-			//			ps = con.prepareStatement(sql.toString());
-			//			ps.setString(1, bean.getSale_date());
-			//			ps.setString(2, bean.getAccount_id());
-			//			ps.setString(3, bean.getCategory_id());
-			//			ps.setString(4, bean.getTrade_name());
-			//			ps.setString(5, bean.getUnit_price());
-			//			ps.setString(6, bean.getSale_number());
-			//			ps.setString(7, bean.getNote());
-			//			ps.executeUpdate();
+						StringBuilder sql = new StringBuilder();
+						sql.append(" INSERT INTO");
+						sql.append("	sales(sale_date,");
+						sql.append("	account_id,");
+						sql.append("	category_id, ");
+						sql.append("	trade_name,");
+						sql.append("	unit_price,");
+						sql.append("	sale_number,");
+						sql.append("	note)");
+						sql.append(" VALUES");
+						sql.append("	(?,");
+						sql.append("	?,");
+						sql.append("	?,");
+						sql.append("	?,");
+						sql.append("	?,");
+						sql.append("	?,");
+						sql.append("	?)");
+
+						ps = cb.getCon().prepareStatement(sql.toString());
+						ps.setString(1, bean.getSale_date());
+						ps.setString(2, bean.getAccount_id());
+						ps.setString(3, bean.getCategory_id());
+						ps.setString(4, bean.getTrade_name());
+						ps.setString(5, bean.getUnit_price());
+						ps.setString(6, bean.getSale_number());
+						ps.setString(7, bean.getNote());
+						ps.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
