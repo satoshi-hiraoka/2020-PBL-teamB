@@ -30,14 +30,31 @@
 
 ・ログインチェックはLoginCheckを使用
 	LoginCheck使用時はサーブレットに以下のソースコードを記述
+	doGetとdoPost、権限チェックの有無でメソッドの引数が違うので注意
+	doGetでログインチェック後に処理がある場合はdoPost用のものを使用
 	LoginCheck login = new LoginCheck();
 	メソッド呼び出し時
 	//権限チェックが必要ではない場合
+	//doGet
 	login.checkLoginAndTransition(request, response, 画面遷移先（JSP）);
+	//doPost
+	login.checkLoginAndTransition(request, response);
 	例）アカウント検索条件入力（S0040.java）
-	login.checkLoginAndTransition(request, response, "/JSP/S0040.jsp");
+	doGet(){
+		login.checkLoginAndTransition(request, response, "/JSP/S0040.jsp");
+	}
+	doPost(){
+		login.checkLoginAndTransition(request, response);
+	}
 	//権限チェックが必要な場合（登録画面）
+	//doGet
 	login.checkLoginAndTransition(request, response, 画面遷移先（JSP）, 登録権限を持っていない権限, 登録権限を持っていない権限);
+	//doPost
+	login.checkLoginAndTransition(request, response, 登録権限を持っていない権限, 登録権限を持っていない権限);
 	例）アカウント登録（S0030.java）
-	login.checkLoginAndTransition(request, response, "/JSP/S0030.jsp", "0", "1");
-	メソッド呼び出しはdoGetメソッド内に書くこと
+	doGet(){
+		login.checkLoginAndTransition(request, response, "/JSP/S0030.jsp", "0", "1");
+	}
+	doPost(){
+		login.checkLoginAndTransition(request, response, "0", "1");
+	}
