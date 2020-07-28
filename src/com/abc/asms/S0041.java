@@ -70,7 +70,23 @@ public class S0041 extends HttpServlet {
 				account.setAuthority(rs.getString("authority"));
 				request.setAttribute("name", account.getName());
 				request.setAttribute("mail", account.getMail());
-				request.setAttribute("authority", account.getAuthority());
+				String authSales = null;
+				String authAccount = null;
+				if (account.getAuthority().equals("0")) {
+					authSales = "0";
+					authAccount = "0";
+				}else if(account.getAuthority().equals("1")) {
+					authSales = "1";
+					authAccount = "0";
+				}else if(account.getAuthority().equals("10")) {
+					authSales = "0";
+					authAccount = "1";
+				}else{
+					authSales = "1";
+					authAccount = "1";
+				}
+				request.setAttribute("authSales", authSales);
+				request.setAttribute("authAccount", authAccount);
 				this.getServletContext().getRequestDispatcher("/JSP/S0042.jsp").forward(request, response);
 			}
 		} catch (SQLException e) {
