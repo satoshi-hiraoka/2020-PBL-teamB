@@ -2,6 +2,7 @@ package com.abc.asms;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,94 +22,67 @@ public class S0046 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 	}
 
-	private void checkPassword(String passWord, ArrayList<String> errMsg) {
-		if (passWord.isEmpty()) {
-			errMsg.add("パスワードを入力してください。");
+	private void checkPassword(String target, ArrayList<String> errMsg, String prefix) {
+		CheckLength cl = new CheckLength();
+		if (target.isEmpty()) {
+			errMsg.add(prefix + "パスワードを入力してください。");
 		} else {
-			if (!checkLength(passWord, 31)) {
-				errMsg.add("パスワードが長すぎます。");
+			if (!cl.checkLength(target, 30)) {
+				errMsg.add(prefix + "パスワードが長すぎます。");
 			}
 		}
 	}
 
-	private void checkPassword1(String passWord1, ArrayList<String> errMsg) {
-		if (passWord1.isEmpty()) {
-			errMsg.add("確認用パスワードを入力してください。");
-		}
-	}
-
-	private void checkPassword2(String passWord, String passWord1, ArrayList<String> errMsg) {
-		if (!passWord.matches(passWord1)) {
+	private void checkPasswordMatch(String passWord, String CheckPassWord, ArrayList<String> errMsg) {
+		if (!passWord.matches(CheckPassWord)) {
 			errMsg.add("新パスワードとパスワード(確認)が一致していません。");
 		}
 	}
 
 
-	private boolean checkLength(String value, int max) {
-		int length = value.getBytes().length;
-		if (length < max)
-			return true;
-		return false;
-	}
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String passWord = request.getParameter("passWord");
-		String passWord1 = request.getParameter("passWord1");
+		String CheckPassWord = request.getParameter("CheckPassWord");
 		String mail = request.getParameter("mail");
-		
+
 		ArrayList<String> errMsg = new ArrayList<String>();
 		ArrayList<String> sucMsg = new ArrayList<String>();
-		
-		checkPassword(passWord, errMsg);
-		checkPassword1(passWord1, errMsg);
-		checkPassword2(passWord, passWord1,errMsg);
+
+		checkPassword(passWord, errMsg, "");
+		checkPassword(CheckPassWord, errMsg, "確認用");
+		checkPasswordMatch(passWord, CheckPassWord, errMsg);
 
 		if (errMsg.size() > 0) {
 			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/S0046.jsp").forward(request, response);
 		}
 		Connection db = null;
-		java.sql.PreparedStatement ps = null;
+		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			Context initContext = new InitialContext();
-			Context envContext = (Context) initContext.lookup("java:/comp/env");
-			DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
-			db = ds.getConnection();
+			ChangePasswordService cps = new ChangePasswordService();
+			if (cps.isMailExist(mail)) {
+				Context initContext = new InitialContext();
+				Context envContext = (Context) initContext.lookup("java:/comp/env");
+				DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
+				db = ds.getConnection();
 
-			StringBuilder sql = new StringBuilder();
-			sql.append(" SELECT");
-			sql.append(" 	mail,");
-			sql.append("		account_id,");
-			sql.append("		name,");
-			sql.append("		authority");
-			sql.append(" FROM");
-			sql.append(" 	accounts");
-			sql.append(" WHERE");
-			sql.append(" 	mail=?");
+				StringBuilder anothersql = new StringBuilder();
+				anothersql.append(" UPDATE");
+				anothersql.append("		accounts");
+				anothersql.append(" SET");
+				anothersql.append("		PASSWORD=MD5(?)");
+				anothersql.append(" WHERE");
+				anothersql.append("		mail=?");
 
-			ps = db.prepareStatement(sql.toString());//StringBuilderをStringに変換して渡す。上のsqlをpsにせっと0
-			ps.setString(1, request.getParameter("mail"));
-			rs = ps.executeQuery();//実行
-
-			if (rs.next()) {
-				StringBuilder sql2 = new StringBuilder();
-				sql2.append(" Update");
-				sql2.append("		accounts");
-				sql2.append(" set");
-				sql2.append("		PASSWORD=MD5(?)");
-				sql2.append(" WHERE");
-				sql2.append("		mail=?");
-
-				ps = db.prepareStatement(sql2.toString());
+				ps = db.prepareStatement(anothersql.toString());
 				ps.setString(1, passWord);
 				ps.setString(2, mail);
-				int res = ps.executeUpdate();
+				//int res = ps.executeUpdate();
 
 				sucMsg.add("パスワードを再設定しました");
 				request.setAttribute("sucMsg", sucMsg);
@@ -123,6 +97,8 @@ public class S0046 extends HttpServlet {
 		} catch (NamingException e) {
 			throw new ServletException(e);
 		} catch (SQLException e) {
+			throw new ServletException(e);
+		} catch (Exception e) {
 			throw new ServletException(e);
 		} finally {
 			try {
