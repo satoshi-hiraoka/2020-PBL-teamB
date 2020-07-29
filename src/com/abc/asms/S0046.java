@@ -36,12 +36,10 @@ public class S0046 extends HttpServlet {
 	}
 
 	private void checkPasswordMatch(String passWord, String CheckPassWord, ArrayList<String> errMsg) {
-		if (!passWord.matches(CheckPassWord)) {
+		if (!passWord.equals(CheckPassWord)) {
 			errMsg.add("新パスワードとパスワード(確認)が一致していません。");
 		}
 	}
-
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
