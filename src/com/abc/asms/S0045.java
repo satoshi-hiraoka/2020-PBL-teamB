@@ -1,20 +1,15 @@
 package com.abc.asms;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 @WebServlet("/S0045")
 public class S0045 extends HttpServlet {
@@ -25,11 +20,12 @@ public class S0045 extends HttpServlet {
 	}
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
+		CheckLength cl = new CheckLength();
 		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
 		if (mail.isEmpty()) {
 			errMsg.add("メールアドレスを入力してください。");
 		} else {
-			if (!checkLength(mail, 101)) {
+			if (!cl.checkLength(mail, 100)) {
 				errMsg.add("メールアドレスが長すぎます。");
 			} else {
 				if (!mail.matches(mailFormat)) {
@@ -37,13 +33,6 @@ public class S0045 extends HttpServlet {
 				}
 			}
 		}
-	}
-
-	private boolean checkLength(String value, int max) {
-		int length = value.getBytes().length;
-		if (length < max)
-			return true;
-		return false;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -60,45 +49,19 @@ public class S0045 extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
 		}
 
-		Connection db = null;
-		java.sql.PreparedStatement ps = null;
-		ResultSet rs = null;
+
 		try {
-			Context initContext = new InitialContext();
-			Context envContext = (Context) initContext.lookup("java:/comp/env");
-			DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
-			db = ds.getConnection();
-
-			StringBuilder sql = new StringBuilder();
-			sql.append(" SELECT");
-			sql.append(" 	mail,");
-			sql.append("		account_id,");
-			sql.append("		name,");
-			sql.append("		authority");
-			sql.append(" FROM");
-			sql.append(" 	accounts");
-			sql.append(" WHERE");
-			sql.append(" 	mail=?");//?で可変にしている5
-
-			ps = db.prepareStatement(sql.toString());//StringBuilderをStringに変換して渡す。上のsqlをpsにせっと0
-			ps.setString(1, mail);
-			rs = ps.executeQuery();//実行
-
+			ChangePasswordService cps = new ChangePasswordService();
 			//共通
-			if (rs.next()) {
+			if (cps.isMailExist(mail)) {
 				sendmail.SendMailMethod(mail);
 				sucMsg.add("パスワード再設定メールを送信しました。");
 				request.setAttribute("sucMsg", sucMsg);//左は変数名右は中身
-				this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
-
-				return;
 			} else {
-				//request.setAttribute("Err", "メールアドレス、パスワードを正しく入力してください");
 				errMsg.add("メールアドレスを正しく入力してください");
 				request.setAttribute("errMsg", errMsg);
-				this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
-				return;
 			}
+			this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
 
 		} catch (NamingException e) {
 			throw new ServletException(e);
@@ -110,19 +73,6 @@ public class S0045 extends HttpServlet {
 			errMsg.add("予期しないエラーが発生しました");
 			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
-				if (db != null) {
-					db.close();
-				}
-			} catch (SQLException e) {
-			}
 		}
 	}
 }

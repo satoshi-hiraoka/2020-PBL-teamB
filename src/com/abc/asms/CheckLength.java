@@ -12,7 +12,7 @@ public class CheckLength {
 		this.value = value;
 		this.max = max;
 		int length = value.getBytes().length;
-		if (length >= max) {
+		if (length <= max) {
 			return true;
 		}
 		return false;

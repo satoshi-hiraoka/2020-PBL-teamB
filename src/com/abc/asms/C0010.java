@@ -30,10 +30,11 @@ public class C0010 extends HttpServlet {
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
 		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
+		CheckLength cl = new CheckLength();
 		if (mail.isEmpty()) {
 			errMsg.add("メールアドレスが入力されていません。");
 		} else {
-			if (!checkLength(mail, 101)) {
+			if (!cl.checkLength(mail, 100)) {
 				errMsg.add("文字が長すぎます。");
 			}else {
 				if (!mail.matches(mailFormat)) {
@@ -44,20 +45,16 @@ public class C0010 extends HttpServlet {
 	}
 
 	private void checkPassword(String passWord, ArrayList<String> errMsg) {
+		CheckLength cl = new CheckLength();
 		if (passWord.isEmpty()) {
 			errMsg.add("パスワードが入力されていません。");
 		}
-		if (!checkLength(passWord, 31)) {
+		if (!cl.checkLength(passWord, 30)) {
 			errMsg.add("パスワードが長すぎます。");
 		}
 	}
 
-	private boolean checkLength(String value, int max) {
-		int length = value.getBytes().length;
-		if (length < max)
-			return true;
-		return false;
-	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

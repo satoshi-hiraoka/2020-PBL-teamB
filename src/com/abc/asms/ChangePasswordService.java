@@ -14,7 +14,7 @@ public class ChangePasswordService extends ConnectionTeamB {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
-	public boolean checkMail(String mail) {
+	public boolean isMailExist(String mail) throws Exception {
 
 		boolean isMailExist = false;
 		PreparedStatement ps = null;
@@ -32,14 +32,14 @@ public class ChangePasswordService extends ConnectionTeamB {
 			sql.append(" 	accounts");
 			sql.append(" WHERE");
 			sql.append(" 	mail=?");
-			ps = cb.getCon().prepareStatement(sql.toString());//StringBuilderをStringに変換して渡す。上のsqlをpsにせっと0
+			ps = getCon().prepareStatement(sql.toString());//StringBuilderをStringに変換して渡す。上のsqlをpsにせっと0
 			ps.setString(1, mail);
 			rs = ps.executeQuery();//実行
 			if (rs.next()) {
 				isMailExist = true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (rs != null)
@@ -49,8 +49,6 @@ public class ChangePasswordService extends ConnectionTeamB {
 			} catch (Exception e) {
 			}
 		}
-
 		return isMailExist;
-
 	}
 }

@@ -24,14 +24,14 @@
 		<h2 class="text-center" >物品売上管理システム</h2>
 		<!-- エラーメッセージ -->
 		<jsp:include page="errOccur.jsp" />
-		
+
 		<div class="login-page">
 			<div class="form">
 				<form class="login-form" action="/teamB/S0046" method="post">
 				<input type="hidden" name="mail" value="${mail}">
 					<div class="text-center">
-						<input type="password" name=passWord placeholder="新パスワード" /><br>
-						 <input type="password" name=passWord1 placeholder="新パスワード確認" /><br>
+						<input type="password" name="passWord" placeholder="新パスワード" /><br>
+						 <input type="password" name="CheckPassWord" placeholder="新パスワード確認" /><br>
 						 <input type="submit" class="login btn btn-primary btn-lg" value="変更"><br>
 					</div>
 				</form>
