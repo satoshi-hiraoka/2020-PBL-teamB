@@ -36,8 +36,9 @@ public class S0011 extends HttpServlet {
 		ResultSet rs = null;
 		PreparedStatement ps2 = null;
 		ResultSet rs2 = null;
+		LocalDate localdate;
 		List<String> errMsg = new ArrayList<String>();
-		//ログインチェックと権限
+		//ログインチェックと権限チェック
 		LoginCheck logincheck = new LoginCheck();
 		logincheck.checkLoginAndTransition(request, response, "0", "10");
 		try {
@@ -126,7 +127,7 @@ public class S0011 extends HttpServlet {
 				errMsg.add("備考が長すぎます。");
 			}
 			//入力の形式チェック
-			LocalDate localdate;
+
 			try {
 				String saleDate = saleservice.parse(request).getSale_date();
 
@@ -150,7 +151,6 @@ public class S0011 extends HttpServlet {
 					}
 				}
 			} catch (java.time.format.DateTimeParseException e) {
-				errMsg.add("販売日を正しく入力してください。");
 			} finally {
 
 				try {

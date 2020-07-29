@@ -1,21 +1,17 @@
 package com.abc.asms;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 
 import com.abc.asms.dataset.Account;
 import com.abc.asms.dataset.Category;
@@ -30,8 +26,7 @@ public class S0020 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		Connection con = null;
+		ConnectionTeamB cb = new ConnectionTeamB();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		PreparedStatement ps2 = null;
@@ -39,20 +34,17 @@ public class S0020 extends HttpServlet {
 		List<Account> resposiblelist = new ArrayList<>();
 		List<Category> puroductCategorylist = new ArrayList<>();
 		LoginCheck logincheck = new LoginCheck();
+		//ログインチェック
 		logincheck.checkLoginAndTransition(request, response);
 		try {
-			Context initContext = new InitialContext();
-			Context envContext = (Context) initContext.lookup("java:/comp/env");
-			DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
 			HttpSession session = request.getSession();
-			con = ds.getConnection();
 
 			StringBuilder sql = new StringBuilder();
 			sql.append(" SELECT");
 			sql.append("	*");
 			sql.append(" FROM ");
 			sql.append("	accounts");
-			ps = con.prepareStatement(sql.toString());
+			ps = cb.getCon().prepareStatement(sql.toString());
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -70,7 +62,7 @@ public class S0020 extends HttpServlet {
 			sql2.append(" FROM ");
 			sql2.append("	categories ");
 			sql2.append(" WHERE active_flg=1");
-			ps2 = con.prepareStatement(sql2.toString());
+			ps2 = cb.getCon().prepareStatement(sql2.toString());
 			rs2 = ps2.executeQuery();
 
 			while (rs2.next()) {
@@ -90,14 +82,12 @@ public class S0020 extends HttpServlet {
 			try {
 				if (rs != null) {
 					rs.close();
-					rs2.close();
 				}
 				if (ps != null) {
 					ps.close();
-					ps2.close();
 				}
-				if (con != null) {
-					con.close();
+				if (cb.getCon() != null) {
+					cb.getCon().close();
 				}
 				if (rs2 != null) {
 					rs2.close();
@@ -129,48 +119,6 @@ public class S0020 extends HttpServlet {
 //	private ArrayList<Account> getAccounts() {
 //		ArrayList<Account> accounts = null;
 //		//DBから担当者一覧を取得する
-//		Connection con = null;
-//		PreparedStatement ps = null;
-//		ResultSet rs = null;
-//		try {
-//			Context initContext = new InitialContext();
-//			Context envContext = (Context) initContext.lookup("java:/comp/env");
-//			DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
-//			con = ds.getConnection();
-//
-//			StringBuilder sql = new StringBuilder();
-//			sql.append(" SELECT");
-//			sql.append("	*");
-//			sql.append(" FROM ");
-//			sql.append("	accounts");
-//			ps = con.prepareStatement(sql.toString());
-//			rs = ps.executeQuery();
-//
-//			while (rs.next()) {
-//
-//				Account responsibleUser = new Account();
-//				responsibleUser.setName(rs.getString("name"));
-//				responsibleUser.setAccount_id(rs.getString("account_id"));
-//				accounts.add(responsibleUser);
-//			}
-//
-//		} catch (Exception e) {
-//			throw new ServletException(e);
-//
-//		} finally {
-//			try {
-//				if (rs != null) {
-//					rs.close();
-//				}
-//				if (ps != null) {
-//					ps.close();
-//				}
-//				if (con != null) {
-//					con.close();
-//				}
-//			} catch (Exception e) {
-//
-//			}
 //			return accounts;
 //		}
 //	}
