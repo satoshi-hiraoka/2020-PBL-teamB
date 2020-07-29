@@ -58,3 +58,11 @@
 	doPost(){
 		login.checkLoginAndTransition(request, response, "0", "1");
 	}
+
+・ソースコードレビューに関して。
+	●指摘事項は
+		90.共有事項 -> レビュー指摘事項
+		に格納する事。
+		「ファイル名はyyyymmdd_(自身の苗字).txt」
+	●他者のレビュー記録も必ず読み、自身のソースコードに反映させること。
+    
