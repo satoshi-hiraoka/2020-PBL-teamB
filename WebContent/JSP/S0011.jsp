@@ -1,3 +1,4 @@
+<%@page import="com.abc.asms.dataset.Sale"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -18,12 +19,15 @@
 <link rel="stylesheet" href="/teamB/CSS/SalesTitle.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
 <title>売上登録確認画面</title>
+<%
+	Sale sale = (Sale) request.getSession().getAttribute("sales");
+%>
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
 	<h2 id="title">売上登録を登録してよろしいですか？</h2>
 	s
-	<form name="form" action="/teamB/S0011SalesRegisterComplete"
+	<form name="form" action="/teamB/S0011"
 		method="post">
 		<table class="tablePosition">
 			<tr>
@@ -35,10 +39,10 @@
 				<td class="textAlign">担当</td>
 				<td><select name="responsible" class="salesFiledLength"
 					disabled>
+						<option value="" disabled selected>選択して下さい</option>
 						<c:forEach var="responsibleData" items="${resposiblelist}">
-							<c:if test="${ responsibleData.account_id==responsible}">
-								<option value="${responsibleData.account_id}" selected>${responsibleData.name}</option>
-							</c:if>
+							<option value="${responsibleData.account_id}"
+								<c:if test="${responsibleData.account_id==responsible}">selected</c:if>>${responsibleData.name}</option>
 						</c:forEach>
 				</select></td>
 			</tr>
@@ -46,11 +50,11 @@
 				<td class="textAlign">商品カテゴリー</td>
 				<td><select name="puroductCategory" class="salesFiledLength"
 					disabled>
+						<option value="" disabled selected>選択して下さい</option>
 						<c:forEach var="puroductCategoryData"
 							items="${puroductCategorylist}">
-							<c:if test="${puroductCategoryData.category_id==puroductCategory}">
-							<option value="${puroductCategoryData.category_id}">${puroductCategoryData.category_name}</option>
-							</c:if>
+							<option value="${puroductCategoryData.category_id}"
+								<c:if test="${puroductCategoryData.category_id==puroductCategory}">selected</c:if>>${puroductCategoryData.category_name}</option>
 						</c:forEach>
 				</select></td>
 			</tr>
@@ -62,18 +66,20 @@
 			<tr>
 				<td class="textAlign">単価</td>
 				<td><input type="text" name="puroductUnitPrice"
-					value="${sales.commaPrice}" class="salesInputIntText" size="10" disabled></td>
+					value="<%=String.format("%,d", sale.getUnit_price())%>"
+					class="salesInputIntText" size="10" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">個数</td>
 				<td><input type="text" name="puroductNumber" size="10"
-					value="${sales.commaNumer}" class="salesInputIntText" disabled></td>
+					value="<%=String.format("%,d", sale.getSale_number())%>"
+					class="salesInputIntText" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">小計</td>
 				<td><input type="text" name="puroductSubtotal"
-					value="${sales.commaSubtotal}" size="10" class="salesInputIntText"
-					disabled></td>
+					value="<%=String.format("%,d", sale.getSubtotal())%>" size="10"
+					class="salesInputIntText" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign textBoxAlignRemark">備考</td>
@@ -87,7 +93,7 @@ remark" disabled>${sales.note}</textarea></td>
 				<i class="fas fa-check"></i>OK
 			</button>
 			<button type="submit" class="btn btn-outline-dark mainButton"
-				formaction="/teamB/S0011Cancel">キャンセル</button>
+				formaction="/teamB/S0011">キャンセル</button>
 		</div>
 	</form>
 

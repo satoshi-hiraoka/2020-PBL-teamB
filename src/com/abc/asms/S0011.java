@@ -3,10 +3,7 @@ package com.abc.asms;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.abc.asms.dataset.Sale;
 
 /**
  * Servlet implementation class S0011
@@ -28,51 +27,107 @@ public class S0011 extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		SaleService saleservice = new SaleService();
-		ConnectionTeamB cb = new ConnectionTeamB();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		PreparedStatement ps2 = null;
-		ResultSet rs2 = null;
-		LocalDate localdate;
-		List<String> errMsg = new ArrayList<String>();
+
 		//ログインチェックと権限チェック
 		LoginCheck logincheck = new LoginCheck();
 		logincheck.checkLoginAndTransition(request, response, "0", "10");
+
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		Sale sale = (Sale) session.getAttribute("sales");
+		ConnectionTeamB cb = new ConnectionTeamB();
+		ArrayList<String> errMsg = new ArrayList<String>();
+		ArrayList<String> sucMsg = new ArrayList<String>();
+
+		//		String saleDate = sale.getSale_date();
+		//		String responsibleData = sale.getAccount_id();
+		//		String puroductCategory = sale.getCategory_id();
+		//		String puroductName = sale.getTrade_name();
+		//		String puroductUnitPrice = sale.getUnit_price();
+		//		String puroductNumber = sale.getSale_number();
+		//		String remark = sale.getNote();
+
+		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
+		ResultSet rs = null;
+
 		try {
 
 			StringBuilder sql = new StringBuilder();
-			sql.append(" SELECT");
-			sql.append("	*");
-			sql.append(" FROM ");
-			sql.append("	accounts");
-			sql.append(" WHERE ");
-			sql.append("	account_id=?");
+			sql.append(" INSERT INTO");
+			sql.append("	sales(sale_date,");
+			sql.append("	account_id,");
+			sql.append("	category_id, ");
+			sql.append("	trade_name,");
+			sql.append("	unit_price,");
+			sql.append("	sale_number,");
+			sql.append("	note)");
+			sql.append(" VALUES");
+			sql.append("	(?,");
+			sql.append("	?,");
+			sql.append("	?,");
+			sql.append("	?,");
+			sql.append("	?,");
+			sql.append("	?,");
+			sql.append("	?)");
+
 			ps = cb.getCon().prepareStatement(sql.toString());
-			ps.setString(1, saleservice.parse(request).getAccount_id());
-			rs = ps.executeQuery();
+			ps.setString(1, sale.getSale_date());
+			ps.setInt(2, sale.getAccount_id());
+			ps.setInt(3, sale.getCategory_id());
+			ps.setString(4, sale.getTrade_name());
+			ps.setInt(5, sale.getUnit_price());
+			ps.setInt(6, sale.getSale_number());
+			ps.setString(7, sale.getNote());
+			int result = ps.executeUpdate();
 
-			if (!rs.next()) {
-				errMsg.add("アカウントテーブルに存在しません。");
+			session.removeAttribute("sales");
+			session.removeAttribute("puroductCategory");
+			//個別で持っているのはおかしい。
+			session.removeAttribute("responsible");
+			session.removeAttribute("commaNumer");
+
+			StringBuilder isertSucCheckSql = new StringBuilder();
+			isertSucCheckSql.append("SELECT");
+			isertSucCheckSql.append("	sale_id");
+			isertSucCheckSql.append(" FROM");
+			isertSucCheckSql.append(" 	sales");
+			isertSucCheckSql.append(" WHERE");
+			isertSucCheckSql.append(" 	sale_date=?");
+			isertSucCheckSql.append(" 	AND account_id=?");
+			isertSucCheckSql.append(" 	AND category_id=?");
+			isertSucCheckSql.append(" 	AND trade_name=?");
+			isertSucCheckSql.append(" 	AND unit_price=?");
+			isertSucCheckSql.append(" 	AND sale_number=?");
+			isertSucCheckSql.append(" 	AND note=?");
+
+			ps2 = cb.getCon().prepareStatement(isertSucCheckSql.toString());
+			ps2.setString(1, sale.getSale_date());
+			ps2.setInt(2, sale.getAccount_id());
+			ps2.setInt(3, sale.getCategory_id());
+			ps2.setString(4, sale.getTrade_name());
+			ps2.setInt(5, sale.getUnit_price());
+			ps2.setInt(6, sale.getSale_number());
+			ps2.setString(7, sale.getNote());
+			rs = ps2.executeQuery();
+
+			System.out.println(isertSucCheckSql);
+
+			if (rs.next()) {
+				sale.setSale_id(rs.getInt("sale_id"));
 			}
 
-			StringBuilder sql2 = new StringBuilder();
-			sql2.append(" SELECT ");
-			sql2.append("	*");
-			sql2.append(" FROM ");
-			sql2.append("	categories ");
-			sql2.append(" WHERE active_flg=1");
-			sql.append("	category_id=?");
-			ps2 = cb.getCon().prepareStatement(sql2.toString());
-			ps.setString(1, saleservice.parse(request).getCategory_id());
-			rs2 = ps2.executeQuery();
-
-			if (!rs2.next()) {
-				errMsg.add("商品カテゴリーテーブルに存在しません。");
+			if (result == 0) {
+				errMsg.add("登録に失敗しました。");
+				request.setAttribute("errMsg", errMsg);
+				this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request, response);
+			} else {
+				sucMsg.add("No" + sale.getSale_id() + "のアカウントを登録しました。");
+				request.setAttribute("sucMsg", sucMsg);
+				this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request, response);
 			}
 
+			this.getServletContext().getRequestDispatcher("/S0010").forward(request, response);
 		} catch (Exception e) {
 			throw new ServletException(e);
 
@@ -80,11 +135,9 @@ public class S0011 extends HttpServlet {
 			try {
 				if (rs != null) {
 					rs.close();
-					rs2.close();
 				}
 				if (ps != null) {
 					ps.close();
-					ps2.close();
 				}
 				if (cb.getCon() != null) {
 					cb.getCon().close();
@@ -92,99 +145,17 @@ public class S0011 extends HttpServlet {
 			} catch (Exception e) {
 
 			}
-
-			CheckLength checklength = new CheckLength();
-			//未入力かチェック
-			if (checklength.inputEmptyCheck(saleservice.parse(request).getSale_date())) {
-				errMsg.add("販売日を入力してください");
-			}
-			if (saleservice.parse(request).getAccount_id() == null) {
-				errMsg.add("担当者が未選択です。");
-			}
-			if (saleservice.parse(request).getCategory_id() == null) {
-				errMsg.add("商品カテゴリーが未選択です。");
-			}
-			if (checklength.inputEmptyCheck(saleservice.parse(request).getTrade_name())) {
-				errMsg.add("商品名を入力してください");
-			}
-			if (checklength.inputEmptyCheck(saleservice.parse(request).getUnit_price())) {
-				errMsg.add("単価をを入力してください");
-			}
-			if (checklength.inputEmptyCheck(saleservice.parse(request).getSale_number())) {
-				errMsg.add("個数を入力してください");
-			}
-			//文字数長さチェック
-			if (checklength.checkLength(saleservice.parse(request).getTrade_name(), 101)) {
-				errMsg.add("商品名が長すぎます。");
-			}
-			if (checklength.checkLength(saleservice.parse(request).getUnit_price(), 10)) {
-				errMsg.add("単価が長すぎます。");
-			}
-			if (checklength.checkLength(saleservice.parse(request).getSale_number(), 10)) {
-				errMsg.add("個数が長すぎます。");
-			}
-			if (checklength.checkLength(saleservice.parse(request).getNote(), 400)) {
-				errMsg.add("備考が長すぎます。");
-			}
-			//入力の形式チェック
-
-			try {
-				String saleDate = saleservice.parse(request).getSale_date();
-
-				if (saleDate.length() == 8) {
-
-					localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/M/d"));
-
-				} else if (saleDate.length() == 10) {
-					localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-				} else {
-
-					if ((saleDate.charAt(5) == '0' && saleDate.charAt(8) == '0')) {
-						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-					} else if (saleDate.charAt(7) == '0' || saleDate.charAt(8) == '0') {
-						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/M/dd"));
-					} else if (saleDate.charAt(5) == '0' || saleDate.charAt(5) == '1') {
-						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/MM/d"));
-					} else {
-						localdate = LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("yyyy/M/dd"));
-
-					}
-				}
-			} catch (java.time.format.DateTimeParseException e) {
-			} finally {
-
-				try {
-					if (Integer.parseInt(saleservice.parse(request).getUnit_price()) <= 1) {
-						errMsg.add("単価を正しく入力してください");
-					}
-
-				} catch (NumberFormatException e) {
-					errMsg.add("単価を正しく入力してください");
-				} finally {
-					try {
-						if (Integer.parseInt(saleservice.parse(request).getSale_number()) <= 1) {
-							errMsg.add("個数を正しく入力してください");
-						}
-					} catch (NumberFormatException e) {
-						errMsg.add("個価を正しく入力してください");
-					} finally {
-
-						//errMsgに何か入っていればs0010.jspに飛ばす。
-						if (errMsg.size() > 0) {
-							request.setAttribute("errMsg", errMsg);
-							request.setAttribute("responsible", request.getParameter("responsible"));
-							request.setAttribute("puroductCategory", request.getParameter("puroductCategory"));
-							request.setAttribute("sales", saleservice.parse(request));
-							this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request, response);
-						}
-						session.setAttribute("responsible", request.getParameter("responsible"));
-						session.setAttribute("puroductCategory", request.getParameter("puroductCategory"));
-						session.setAttribute("sales", saleservice.parse(request));
-						this.getServletContext().getRequestDispatcher("/JSP/S0011.jsp").forward(request, response);
-					}
-				}
-			}
 		}
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		SaleService saleservice = new SaleService();
+		request.setAttribute("resposiblelist", saleservice.responsibleList(""));
+		request.setAttribute("puroductCategorylist", saleservice.categoryList());
+		this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
+				response);
 	}
 
 }

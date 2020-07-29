@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.abc.asms.dataset.Account;
 import com.abc.asms.dataset.Category;
 
 @WebServlet("/S0020")
@@ -26,49 +25,31 @@ public class S0020 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//		ログインチェック
+		LoginCheck logincheck = new LoginCheck();
+		logincheck.checkLoginAndTransition(request, response);
+
 		ConnectionTeamB cb = new ConnectionTeamB();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		PreparedStatement ps2 = null;
-		ResultSet rs2 = null;
-		List<Account> resposiblelist = new ArrayList<>();
 		List<Category> puroductCategorylist = new ArrayList<>();
-		LoginCheck logincheck = new LoginCheck();
-		//ログインチェック
-		logincheck.checkLoginAndTransition(request, response);
+		SaleService saleservice = new SaleService();
+		HttpSession session = request.getSession();
+		session.setAttribute("resposiblelist", saleservice.responsibleList(null));
 		try {
-			HttpSession session = request.getSession();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append(" SELECT");
+			sql.append(" SELECT ");
 			sql.append("	*");
 			sql.append(" FROM ");
-			sql.append("	accounts");
+			sql.append("	categories ");
 			ps = cb.getCon().prepareStatement(sql.toString());
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-
-				Account responsibleUser = new Account();
-				responsibleUser.setName(rs.getString("name"));
-				responsibleUser.setAccount_id(rs.getString("account_id"));
-				resposiblelist.add(responsibleUser);
-				session.setAttribute("resposiblelist", resposiblelist);
-			}
-
-			StringBuilder sql2 = new StringBuilder();
-			sql2.append(" SELECT ");
-			sql2.append("	*");
-			sql2.append(" FROM ");
-			sql2.append("	categories ");
-			sql2.append(" WHERE active_flg=1");
-			ps2 = cb.getCon().prepareStatement(sql2.toString());
-			rs2 = ps2.executeQuery();
-
-			while (rs2.next()) {
 				Category puroductCategoryData = new Category();
-				puroductCategoryData.setCategory_name(rs2.getString("category_name"));
-				puroductCategoryData.setCategory_id(rs2.getString("category_id"));
+				puroductCategoryData.setCategory_name(rs.getString("category_name"));
+				puroductCategoryData.setCategory_id(rs.getString("category_id"));
 				puroductCategorylist.add(puroductCategoryData);
 				session.setAttribute("puroductCategorylist", puroductCategorylist);
 
@@ -80,20 +61,14 @@ public class S0020 extends HttpServlet {
 
 		} finally {
 			try {
+				if (cb.getCon() != null) {
+					cb.getCon().close();
+				}
 				if (rs != null) {
 					rs.close();
 				}
 				if (ps != null) {
 					ps.close();
-				}
-				if (cb.getCon() != null) {
-					cb.getCon().close();
-				}
-				if (rs2 != null) {
-					rs2.close();
-				}
-				if (ps2 != null) {
-					ps2.close();
 				}
 			} catch (Exception e) {
 

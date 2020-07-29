@@ -13,6 +13,8 @@ import java.util.Map.Entry;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import com.abc.asms.dataset.Account;
+import com.abc.asms.dataset.Category;
 import com.abc.asms.dataset.Sale;
 
 public class SaleService extends ConnectionTeamB implements Service<Sale> /* コネクションプールを持っているクラスを継承 */ {
@@ -29,26 +31,17 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		Sale sale = new Sale();
 		//requestから売上のデータ取り出してSale型の変数に格納
 		sale.setSale_date(request.getParameter("saleDate"));
-		sale.setAccount_id(request.getParameter("responsible"));
-		sale.setCategory_id(request.getParameter("puroductCategory"));
+		sale.setAccount_id(Integer.parseInt(request.getParameter("responsible")));
+		sale.setCategory_id(Integer.parseInt(request.getParameter("puroductCategory")));
 		sale.setTrade_name(request.getParameter("puroductName"));
-		sale.setUnit_price(request.getParameter("puroductUnitPrice"));
-		sale.setSale_number(request.getParameter("puroductNumber"));
+		sale.setUnit_price(Integer.parseInt(request.getParameter("puroductUnitPrice")));
+		sale.setSale_number(Integer.parseInt(request.getParameter("puroductNumber")));
 		sale.setNote(request.getParameter("remark"));
 		sale.setPreviousPeriod(request.getParameter("previousPeriod"));
 		sale.setLatePeriod(request.getParameter("latePeriod"));
+		sale.setSubtotal(sale.getSale_number() * sale.getUnit_price());
 
-		if (!(sale.getSale_number() == null)) {
-			if (!(sale.getSale_number().equals("")) && !(sale.getUnit_price().equals(""))) {
-				int number = Integer.valueOf(sale.getSale_number());
-				int praice = Integer.valueOf(sale.getUnit_price());
-				int subtotal = number * praice;
 
-				sale.setCommaNumer(String.format("%,d", number));
-				sale.setCommaPrice(String.format("%,d", praice));
-				sale.setCommaSubtotal(String.format("%,d", subtotal));
-			}
-		}
 		return sale;
 	}
 
@@ -56,21 +49,20 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		Sale sale = new Sale();
 		//ResultSetから売上のデータ取り出してSale型の変数に格納
 
-		sale.setSale_id(rs.getString("sale_id"));
+		sale.setSale_id(Integer.parseInt(rs.getString("sale_id")));
 		sale.setSale_date(rs.getString("sale_date"));
 		sale.setName(rs.getString("name"));
 		sale.setCategory_name(rs.getString("category_name"));
 		sale.setTrade_name(rs.getString("trade_name"));
-		sale.setUnit_price(rs.getString("unit_price"));
-		sale.setSale_number(rs.getString("sale_number"));
+		sale.setUnit_price(Integer.parseInt(rs.getString("unit_price")));
+		sale.setSale_number(Integer.parseInt(rs.getString("sale_number")));
 		sale.setNote(rs.getString("note"));
-		int number = Integer.valueOf(sale.getSale_number());
-		int praice = Integer.valueOf(sale.getUnit_price());
-		int subtotal = number * praice;
+		int number = sale.getSale_number();
+		int praice = sale.getUnit_price();
+		sale.setSubtotal(number * praice);
 
 		sale.setCommaNumer(String.format("%,d", number));
 		sale.setCommaPrice(String.format("%,d", praice));
-		sale.setCommaSubtotal(String.format("%,d", subtotal));
 
 		return sale;
 	}
@@ -187,14 +179,14 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 				lHMap.put("latePeriod", key.getLatePeriod());
 			}
 			//担当
-			if (!(key.getAccount_id() == null)) {
+			if (!(Integer.valueOf(key.getAccount_id()) == null)) {
 				sql.append("	 and s.account_id=?");
-				lHMap.put("account_id", key.getAccount_id());
+				lHMap.put("account_id", String.valueOf(key.getAccount_id()));
 			}
 			//商品カテゴリー
-			if (!(key.getCategory_id() == null)) {
+			if (!(Integer.valueOf(key.getCategory_id()) == null)) {
 				sql.append("	 and s.category_id=?");
-				lHMap.put("category_id", key.getCategory_id());
+				lHMap.put("category_id", String.valueOf(key.getCategory_id()));
 			}
 			//商品名
 			if (!(key.getTrade_name().isEmpty())) {
@@ -204,11 +196,11 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 
 			ps = cb.getCon().prepareStatement(sql.toString());
 
-						for (Entry<String, String> entry : lHMap.entrySet()) {
+			for (Entry<String, String> entry : lHMap.entrySet()) {
 
-							ps.setString(idx, entry.getValue());
-							idx++;
-						}
+				ps.setString(idx, entry.getValue());
+				idx++;
+			}
 
 			rs = ps.executeQuery();
 			//プレースホルダ(?)に値を設定していく。a
@@ -238,33 +230,33 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 
 			//ここでinsertする よくわかってない
 
-						StringBuilder sql = new StringBuilder();
-						sql.append(" INSERT INTO");
-						sql.append("	sales(sale_date,");
-						sql.append("	account_id,");
-						sql.append("	category_id, ");
-						sql.append("	trade_name,");
-						sql.append("	unit_price,");
-						sql.append("	sale_number,");
-						sql.append("	note)");
-						sql.append(" VALUES");
-						sql.append("	(?,");
-						sql.append("	?,");
-						sql.append("	?,");
-						sql.append("	?,");
-						sql.append("	?,");
-						sql.append("	?,");
-						sql.append("	?)");
+			StringBuilder sql = new StringBuilder();
+			sql.append(" INSERT INTO");
+			sql.append("	sales(sale_date,");
+			sql.append("	account_id,");
+			sql.append("	category_id, ");
+			sql.append("	trade_name,");
+			sql.append("	unit_price,");
+			sql.append("	sale_number,");
+			sql.append("	note)");
+			sql.append(" VALUES");
+			sql.append("	(?,");
+			sql.append("	?,");
+			sql.append("	?,");
+			sql.append("	?,");
+			sql.append("	?,");
+			sql.append("	?,");
+			sql.append("	?)");
 
-						ps = cb.getCon().prepareStatement(sql.toString());
-						ps.setString(1, bean.getSale_date());
-						ps.setString(2, bean.getAccount_id());
-						ps.setString(3, bean.getCategory_id());
-						ps.setString(4, bean.getTrade_name());
-						ps.setString(5, bean.getUnit_price());
-						ps.setString(6, bean.getSale_number());
-						ps.setString(7, bean.getNote());
-						ps.executeUpdate();
+			ps = cb.getCon().prepareStatement(sql.toString());
+			ps.setString(1, bean.getSale_date());
+			ps.setInt(2, bean.getAccount_id());
+			ps.setInt(3, bean.getCategory_id());
+			ps.setString(4, bean.getTrade_name());
+			ps.setInt(5, bean.getUnit_price());
+			ps.setInt(6, bean.getSale_number());
+			ps.setString(7, bean.getNote());
+			ps.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -310,6 +302,84 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 			} catch (Exception e) {
 			}
 		}
+	}
+
+	public List<Account> responsibleList(String account_id) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Account> resposiblelist = new ArrayList<>();
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append(" SELECT");
+			sql.append("	*");
+			sql.append(" FROM ");
+			sql.append("	accounts");
+			if (!(account_id.equals(""))) {
+				sql.append(" WHERE ");
+				sql.append("	account_id=?");
+			}
+			ps = cb.getCon().prepareStatement(sql.toString());
+			if (!(account_id.equals(""))) {
+				ps.setString(1, account_id);
+			}
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				Account responsibleUser = new Account();
+				responsibleUser.setName(rs.getString("name"));
+				responsibleUser.setAccount_id(rs.getString("account_id"));
+				resposiblelist.add(responsibleUser);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+
+			} catch (Exception e) {
+			}
+		}
+		return resposiblelist;
+	}
+
+	public List<Category> categoryList() {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Category> puroductCategorylist = new ArrayList<>();
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append(" SELECT ");
+			sql.append("	*");
+			sql.append(" FROM ");
+			sql.append("	categories ");
+			sql.append(" WHERE active_flg=1");
+			ps = cb.getCon().prepareStatement(sql.toString());
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				Category puroductCategoryData = new Category();
+				puroductCategoryData.setCategory_name(rs.getString("category_name"));
+				puroductCategoryData.setCategory_id(rs.getString("category_id"));
+				puroductCategorylist.add(puroductCategoryData);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+
+			} catch (Exception e) {
+			}
+		}
+		return puroductCategorylist;
 	}
 
 }

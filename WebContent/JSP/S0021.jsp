@@ -1,3 +1,4 @@
+<%@page import="com.abc.asms.dataset.Sale"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -18,6 +19,7 @@
 <link rel="stylesheet" href="/teamB/CSS/common.css">
 <link rel="stylesheet" href="/teamB/CSS/searchResultList.css">
 <title>売上検索結果次画面</title>
+<% Sale sale= (Sale) request.getAttribute("sales");%>
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
@@ -51,7 +53,7 @@
 				<td>${sale.trade_name}</td>
 				<td class="textAlign">${sale.commaPrice}</td>
 				<td class="textAlign">${ sale.commaNumer}</td>
-				<td class="textAlign">${sale.commaSubtotal }</td>
+				<td class="textAlign">${sale.commaSubtotal}</td>
 			</tr>
 		</c:forEach>
 	</table>

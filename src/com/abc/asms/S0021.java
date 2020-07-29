@@ -26,6 +26,10 @@ public class S0021 extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//ログインチェック
+		LoginCheck logincheck = new LoginCheck();
+		logincheck.checkLoginAndTransition(request, response);
+
 		request.setCharacterEncoding("UTF-8");
 
 		List<String> errMsg = new ArrayList<String>();
@@ -33,9 +37,7 @@ public class S0021 extends HttpServlet {
 		LocalDate lateLocalDate = null;
 		//売上関連のサービスをインスタンス化
 		SaleService service = new SaleService();
-		LoginCheck logincheck = new LoginCheck();
-		//ログインチェック
-		logincheck.checkLoginAndTransition(request, response);
+
 		//リクエストから検索条件を取得する
 		getSearchCondition(request);
 		Sale sale = (Sale) request.getSession().getAttribute("searchCondition");
