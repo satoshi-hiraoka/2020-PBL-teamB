@@ -14,7 +14,7 @@
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
 <!--CSS 外部ファイル-->
-<link rel="stylesheet" href="/teamB/CSS/C0010.css" type="text/css">
+<link rel="stylesheet" href="/teamB/CSS/logpass.css" type="text/css">
 </head>
 <title>ダッシュボード|物品売上管理システム</title>
 <body>
