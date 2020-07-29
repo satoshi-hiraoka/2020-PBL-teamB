@@ -69,18 +69,18 @@ public class S0046 extends HttpServlet {
 				DataSource ds = (DataSource) envContext.lookup("jdbc/mysql/asms");
 				db = ds.getConnection();
 
-				StringBuilder anotherSql = new StringBuilder();
-				anotherSql.append(" UPDATE");
-				anotherSql.append("		accounts");
-				anotherSql.append(" SET");
-				anotherSql.append("		PASSWORD=MD5(?)");
-				anotherSql.append(" WHERE");
-				anotherSql.append("		mail=?");
+				StringBuilder updateSql = new StringBuilder();
+				updateSql.append(" UPDATE");
+				updateSql.append("		accounts");
+				updateSql.append(" SET");
+				updateSql.append("		PASSWORD=MD5(?)");
+				updateSql.append(" WHERE");
+				updateSql.append("		mail=?");
 
-				ps = db.prepareStatement(anotherSql.toString());
+				ps = db.prepareStatement(updateSql.toString());
 				ps.setString(1, passWord);
 				ps.setString(2, mail);
-
+				ps.executeUpdate();
 
 				sucMsg.add("パスワードを再設定しました");
 				request.setAttribute("sucMsg", sucMsg);
