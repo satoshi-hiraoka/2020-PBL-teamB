@@ -16,7 +16,7 @@
 			<li class="nav-item"><a class="nav-link" href="/teamB/S0040">アカウント検索</a></li>
 		</ul>
 		<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-			<li class="nav-item"><a class="nav-link" href="C0010.html">ログアウト</a></li>
+			<li class="nav-item"><a class="nav-link" href="/teamB/Logout">ログアウト</a></li>
 		</ul>
 	</div>
 </nav>
