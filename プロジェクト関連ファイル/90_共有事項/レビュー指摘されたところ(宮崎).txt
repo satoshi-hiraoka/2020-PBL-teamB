@@ -1,0 +1,6 @@
+errOccurとsucOccurは一つにまとめる。
+headタグとbodyタグの重複があるので、それをなくす。
+メソッド名、変数名はだれが読んでもわかるものにする。数字などを使わない。
+checkLengthメソッドはそれぞれ書くのではなく呼び出す。
+passwordの一致確認はequalsを使う。
+SQL文(INSERT,INTO)などの文字はそろえる。

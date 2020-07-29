@@ -82,7 +82,7 @@ public class S0046 extends HttpServlet {
 				ps = db.prepareStatement(anothersql.toString());
 				ps.setString(1, passWord);
 				ps.setString(2, mail);
-				//int res = ps.executeUpdate();
+
 
 				sucMsg.add("パスワードを再設定しました");
 				request.setAttribute("sucMsg", sucMsg);
