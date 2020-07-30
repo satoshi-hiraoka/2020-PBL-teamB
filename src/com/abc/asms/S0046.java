@@ -102,19 +102,22 @@ public class S0046 extends HttpServlet {
 	}
 
 	private void checkPassword(String target, ArrayList<String> errMsg, String prefix) {
-		CheckLength cl = new CheckLength();
+		new CheckInputValues();
+		//CheckLength cl = new CheckLength();
 		if (target.isEmpty()) {
 			errMsg.add(prefix + "パスワードを入力してください。");
 		} else {
-			if (!cl.checkLength(target, 30)) {
+			if (!CheckInputValues.checkLength(target, 30)) {
 				errMsg.add(prefix + "パスワードが長すぎます。");
 			}
 		}
 	}
 
 	private void checkPasswordMatch(String passWord, String CheckPassWord, ArrayList<String> errMsg) {
-		if (!passWord.equals(CheckPassWord)) {
-			errMsg.add("新パスワードとパスワード(確認)が一致していません。");
-		}
+		CheckInputValues.passwordCheck(passWord,passWord);
+		errMsg.add("新パスワードとパスワード(確認)が一致していません。");
+		//	if (!passWord.equals(CheckPassWord)) {
+	//		errMsg.add("新パスワードとパスワード(確認)が一致していません。");
+	//	}
 	}
 }

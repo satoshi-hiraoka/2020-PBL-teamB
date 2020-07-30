@@ -60,19 +60,19 @@ public class S0045 extends HttpServlet {
 	}
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
-		CheckLength cl = new CheckLength();
-		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
+		new CheckInputValues();
+		//		CheckLength cl = new CheckLength();
+//		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
 		if (mail.isEmpty()) {
 			errMsg.add("メールアドレスを入力してください。");
 		} else {
-			if (!cl.checkLength(mail, 100)) {
+			if (!CheckInputValues.checkLength(mail, 100)) {
 				errMsg.add("メールアドレスが長すぎます。");
 			} else {
-				if (!mail.matches(mailFormat)) {
+				if (!CheckInputValues.mailFormatCheck(mail)) {
 					errMsg.add("メールアドレスを正しく入力してください。");
 				}
 			}
 		}
 	}
-
 }
