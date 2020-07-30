@@ -22,8 +22,8 @@
 <body class="p-3 mb-2 bg-light text-dark m-lg-5">
 	<div class="container-fluid">
 		<h2 class="text-center" >物品売上管理システム</h2>
-		<!-- エラーメッセージ -->
-		<jsp:include page="errOccur.jsp" />
+		<!-- エラー、成功メッセージ -->
+		<jsp:include page="Popup.jsp" />
 
 		<div class="login-page">
 			<div class="form">

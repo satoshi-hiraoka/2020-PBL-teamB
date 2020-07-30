@@ -44,3 +44,12 @@ td, th {
 .textBoxAlignRemark {
 	vertical-align: top;
 }
+
+label + input[type="radio"],
+label + label {
+	margin-left: 5px;
+}
+
+.none {
+	display:none;
+}

@@ -27,10 +27,8 @@
 
 	<div class="container-fluid">
 		<h2 class="text-center">物品売上管理システム</h2>
-		<!-- エラーメッセージ -->
-		<jsp:include page="errOccur.jsp" />
-		<!-- 成功メッセージ -->
-		<jsp:include page="sucOccur.jsp" />
+		<!-- エラー、成功メッセージ -->
+		<jsp:include page="Popup.jsp" />
 
 		<div class="login-page">
 			<div class="form">
@@ -41,7 +39,7 @@
 						<input type="submit" class="login btn btn-primary btn-lg"
 							value="ログイン"><br>
 						<p class="message">
-							<a href="S0045.jsp">パスワードを忘れた方はこちら</a><br>
+							<a href="/teamB/JSP/S0045.jsp">パスワードを忘れた方はこちら</a><br>
 						</p>
 					</div>
 				</form>

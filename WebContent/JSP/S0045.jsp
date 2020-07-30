@@ -24,11 +24,9 @@
 	<div class="container-fluid">
 		<h2 class="text-center">物品売上管理システム</h2>
 		<h3 class="text-center">パスワード再設定</h3>
-		<!-- エラーメッセージ -->
-		<jsp:include page="errOccur.jsp" />
-		<!-- 成功メッセージ -->
-		<jsp:include page="sucOccur.jsp" />
-
+		<!-- エラー、成功メッセージ -->
+		<jsp:include page="Popup.jsp" />
+	
 		<div class="login-page">
 			<div class="form">
 				<form class="login-form" action="/teamB/S0045" method="post">

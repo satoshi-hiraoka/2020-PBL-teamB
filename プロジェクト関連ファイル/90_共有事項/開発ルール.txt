@@ -9,15 +9,6 @@
 	ConnectionTeamB cb = new ConnectionTeamB();
 	以降Connectionはcb.getCon()で記述
 
-・入力内容の長さチェック、空白チェックはCheckLengthを使用
-	CheckLength使用時はサーブレットに以下のソースコードを記述
-	CheckLength cl = new CheckLength();
-	メソッド呼び出し時
-	//長さチェック
-	cl.checkLength(長さをチェックしたい項目,バイト数の最小値（メールアドレスなら101));
-	//空白チェック
-	cl.inputEmptyCheck(空白をチェックしたい項目);
-
 ・エラーメッセージの表示はerrOccur.jspをincludeして使う。
 
 ・成功メッセージの表示はsucOccur.jspをincludeして使う。
@@ -28,41 +19,41 @@
 	10:売上登録権限→無、アカウント登録権限→有
 	11:売上登録権限→有、アカウント登録権限→有
 
-・ログインチェックはLoginCheckを使用
-	LoginCheck使用時はサーブレットに以下のソースコードを記述
-	doGetとdoPost、権限チェックの有無でメソッドの引数が違うので注意
-	doGetでログインチェック後に処理がある場合はdoPost用のものを使用
-	LoginCheck login = new LoginCheck();
-	メソッド呼び出し時
-	//権限チェックが必要ではない場合
-	//doGet
-	login.checkLoginAndTransition(request, response, 画面遷移先（JSP）);
-	//doPost
-	login.checkLoginAndTransition(request, response);
-	例）アカウント検索条件入力（S0040.java）
-	doGet(){
-		login.checkLoginAndTransition(request, response, "/JSP/S0040.jsp");
-	}
-	doPost(){
-		login.checkLoginAndTransition(request, response);
-	}
-	//権限チェックが必要な場合（登録画面）
-	//doGet
-	login.checkLoginAndTransition(request, response, 画面遷移先（JSP）, 登録権限を持っていない権限, 登録権限を持っていない権限);
-	//doPost
-	login.checkLoginAndTransition(request, response, 登録権限を持っていない権限, 登録権限を持っていない権限);
-	例）アカウント登録（S0030.java）
-	doGet(){
-		login.checkLoginAndTransition(request, response, "/JSP/S0030.jsp", "0", "1");
-	}
-	doPost(){
-		login.checkLoginAndTransition(request, response, "0", "1");
-	}
-
 ・ソースコードレビューに関して。
 	●指摘事項は
 		90.共有事項 -> レビュー指摘事項
 		に格納する事。
 		「ファイル名はyyyymmdd_(自身の苗字).txt」
 	●他者のレビュー記録も必ず読み、自身のソースコードに反映させること。
-    
+
+☆2020/7/30変更点
+・入力内容の長さチェック、空白チェックはCheckLengthを使用
+	→入力内容の長さチェック、空白チェック、メールの形式チェック、
+	  パスワードとパスワード（確認）の一致チェック、ラジオボタンの値チェックは
+	  CheckInputValuesを使用（CheckLength.javaは使用しない）
+	CheckInputValues使用時はサーブレットに以下のソースコードを記述
+	//長さチェック
+	CheckInputValues.checkLength(長さをチェックしたい項目,バイト数の最小値（メールアドレスなら101));
+	//空白チェック
+	CheckInputValues.inputEmptyCheck(空白をチェックしたい項目);
+	//メールの形式チェック
+	CheckInputValues.mailFormatCheck(メールアドレス);
+	//パスワード一致チェック
+	CheckInputValues.passwordCheck(パスワード, パスワード（確認）);
+	//ラジオボタンチェック
+	CheckInputValues.radioButtonCheck(値をチェックしたいラジオボタンの項目);
+
+・ログインチェックはLoginCheckを使用
+	→ログインチェックはLoginCheckを使用、
+	  権限チェックはAuthCheckとPermitUseFunctionを使用
+	LoginCheck使用時はサーブレットに以下のソースコードを記述
+	LoginCheck.checkLoginAndTransition(request, response);
+	AuthCheckとPermitUseFunction使用時はサーブレットに以下のソースコードを記述
+	PermitUseFunction puf = new PermitUseFunction();
+	AuthCheck.checkAuthandTransition(request, response, 画面遷移先（JSP）,
+				puf.getPermitList(※必要な権限));
+	画面遷移先はdoPostでのログインチェック時はnullにする
+	※必要な権限
+	アカウント登録 →"account"
+	売上登録       →"sales"
+	権限が不要     →"all"

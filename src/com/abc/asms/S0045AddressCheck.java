@@ -11,24 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class S0045AddressCheck
- */
 @WebServlet("/S0045AddressCheck")
 public class S0045AddressCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public S0045AddressCheck() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -48,14 +39,11 @@ public class S0045AddressCheck extends HttpServlet {
 			throw new ServletException(e);
 		} catch (SQLException e) {
 			throw new ServletException(e);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw new ServletException(e);
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
