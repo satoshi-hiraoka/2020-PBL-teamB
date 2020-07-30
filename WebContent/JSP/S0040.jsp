@@ -11,19 +11,18 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
-<link rel="stylesheet" href="/teamB/CSS/radioButton.css">
+<link rel="stylesheet" href="/teamB/CSS/alert.css">
 <title>アカウント検索|物品売上管理システム</title>
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
 	<form action="/teamB/S0040" method="POST" name="searchAccount">
 		<h1 id="title">アカウント検索</h1>
-		<jsp:include page="errOccur.jsp" />
-		<jsp:include page="sucOccur.jsp" />
+		<jsp:include page="Popup.jsp" />
 		<table class="tablePosition">
 			<tr>
 				<td>
-					<div class="text-right">
+					<div class="textAlign">
 						氏名<span class="badge badge-pill badge-secondary">部分一致</span>
 					</div>
 				</td>
@@ -33,7 +32,7 @@
 			</tr>
 			<tr>
 				<td>
-					<div class="text-right">メールアドレス</div>
+					<div class="textAlign">メールアドレス</div>
 				</td>
 				<td>
 					<input type="text" name="mail" size="40" placeholder="メールアドレス" />
@@ -41,7 +40,7 @@
 			</tr>
 			<tr>
 				<td>
-					<div class="text-right">売上登録権限</div>
+					<div class="textAlign">売上登録権限</div>
 				</td>
 				<td>
 					<label><input type="radio" name="authSales" value="all" checked />全て</label>
@@ -51,7 +50,7 @@
 			</tr>
 			<tr>
 				<td>
-					<div class="text-right">アカウント登録権限</div>
+					<div class="textAlign">アカウント登録権限</div>
 				</td>
 				<td>
 					<label><input type="radio" name="authAccount" value="all" checked />全て</label>

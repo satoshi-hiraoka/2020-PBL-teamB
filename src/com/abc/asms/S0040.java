@@ -39,8 +39,10 @@ public class S0040 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		LoginCheck login = new LoginCheck();
-		login.checkLoginAndTransition(request, response, "/JSP/S0040.jsp");
+		PermitUseFunction puf = new PermitUseFunction();
+		LoginCheck.checkLoginAndTransition(request, response);
+		AuthCheck.checkAuthandTransition(request, response, "/JSP/S0040.jsp",
+				puf.getPermitList("all"));
 	}
 
 	/**
@@ -48,8 +50,10 @@ public class S0040 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		LoginCheck login = new LoginCheck();
-		login.checkLoginAndTransition(request, response);
+		PermitUseFunction puf = new PermitUseFunction();
+		LoginCheck.checkLoginAndTransition(request, response);
+		AuthCheck.checkAuthandTransition(request, response, null,
+				puf.getPermitList("all"));
 
 		request.setCharacterEncoding("UTF-8");
 
@@ -59,38 +63,33 @@ public class S0040 extends HttpServlet {
 		String mail = request.getParameter("mail");
 		String authSales = request.getParameter("authSales");
 		String authAccount = request.getParameter("authAccount");
-		List<String> authList = new ArrayList<String>();
+
+		SearchAuthorityFunction saf = new SearchAuthorityFunction();
+		ArrayList<String> authList = new ArrayList<String>();
 		//検索するauthorityの値
 		if (authSales.equals("all")) {
 			if (authAccount.equals("all")) {
-				authList.add("0");
-				authList.add("1");
-				authList.add("10");
-				authList.add("11");
+				authList.addAll(saf.getAuthList("all"));
 			} else if (authAccount.equals("0")) {
-				authList.add("0");
-				authList.add("1");
+				authList.addAll(saf.getAuthList("noAccount"));
 			} else {
-				authList.add("10");
-				authList.add("11");
+				authList.addAll(saf.getAuthList("account"));
 			}
 		} else if (authSales.equals("0")) {
 			if (authAccount.equals("all")) {
-				authList.add("0");
-				authList.add("10");
+				authList.addAll(saf.getAuthList("noSales"));
 			} else if (authAccount.equals("0")) {
-				authList.add("0");
+				authList.addAll(saf.getAuthList("noAuth"));
 			} else {
-				authList.add("10");
+				authList.addAll(saf.getAuthList("onlyAccount"));
 			}
 		} else {
 			if (authAccount.equals("all")) {
-				authList.add("1");
-				authList.add("11");
+				authList.addAll(saf.getAuthList("sales"));
 			} else if (authAccount.equals("0")) {
-				authList.add("1");
+				authList.addAll(saf.getAuthList("onlySales"));
 			} else {
-				authList.add("11");
+				authList.addAll(saf.getAuthList("salesAndAccount"));
 			}
 		}
 

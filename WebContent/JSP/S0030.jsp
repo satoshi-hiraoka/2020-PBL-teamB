@@ -28,7 +28,7 @@
 					氏名<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="text" name="name" size="40" placeholder="氏名" value="${name}" />
+					<input type="text" name="name" size="40" placeholder="氏名" value="${user.name}" />
 				</td>
 			</tr>
 			<tr>
@@ -36,7 +36,7 @@
 					メールアドレス<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="text" name="mail" size="40" placeholder="メールアドレス" value="${mail}" />
+					<input type="text" name="mail" size="40" placeholder="メールアドレス" value="${user.mail}" />
 				</td>
 			</tr>
 			<tr>
@@ -44,7 +44,7 @@
 					パスワード<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="password" name="password" size="40" placeholder="パスワード" value="${password}" />
+					<input type="password" name="password" size="40" placeholder="パスワード" value="${user.password}" />
 				</td>
 			</tr>
 			<tr>
@@ -52,7 +52,7 @@
 					パスワード（確認）<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="password" name="passwordCheck" size="40" placeholder="パスワード（確認）" value="${passwordCheck}" />
+					<input type="password" name="passwordCheck" size="40" placeholder="パスワード（確認）" value="${user.passwordCheck}" />
 				</td>
 			</tr>
 			<tr>
@@ -61,8 +61,8 @@
 				</td>
 				<td>
 					<input type="radio" name="authSales" value="" checked="checked" class="none" />
-					<label><input type="radio" name="authSales" value="0" <c:if test="${authSales == '0'}">checked="checked"</c:if> />権限なし</label>
-					<label><input type="radio" name="authSales" value="1" <c:if test="${authSales == '1'}">checked="checked"</c:if> />権限あり</label>
+					<label><input type="radio" name="authSales" value="0" <c:if test="${user.authSales == '0'}">checked="checked"</c:if> />権限なし</label>
+					<label><input type="radio" name="authSales" value="1" <c:if test="${user.authSales == '1'}">checked="checked"</c:if> />権限あり</label>
 				</td>
 			</tr>
 			<tr>
@@ -71,8 +71,8 @@
 				</td>
 				<td>
 					<input type="radio" name="authAccount" value="" checked="checked" class="none" />
-					<label><input type="radio" name="authAccount" value="0" <c:if test="${authAccount == '0'}">checked="checked"</c:if> />権限なし</label>
-					<label><input type="radio" name="authAccount" value="1" <c:if test="${authAccount == '1'}">checked="checked"</c:if> />権限あり</label>
+					<label><input type="radio" name="authAccount" value="0" <c:if test="${user.authAccount == '0'}">checked="checked"</c:if> />権限なし</label>
+					<label><input type="radio" name="authAccount" value="1" <c:if test="${user.authAccount == '1'}">checked="checked"</c:if> />権限あり</label>
 				</td>
 			</tr>
 		</table>
