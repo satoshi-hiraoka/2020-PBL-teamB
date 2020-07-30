@@ -94,7 +94,7 @@ public class S0040 extends HttpServlet {
 		}
 
 		ArrayList<String> errMsg = new ArrayList<String>();
-		List<Account> list = new ArrayList<Account>();
+		List<Account> accountList = new ArrayList<Account>();
 		LinkedHashMap<String, String> lHMap = new LinkedHashMap<>();
 
 		PreparedStatement ps = null;
@@ -150,16 +150,7 @@ public class S0040 extends HttpServlet {
 
 			rs = ps.executeQuery();
 
-			//取得したアカウントをlistに格納
-			while (rs.next()) {
-				Account resultAccount = new Account();
-				resultAccount.setAccount_id(rs.getString("account_id"));
-				resultAccount.setName(rs.getString("name"));
-				resultAccount.setMail(rs.getString("mail"));
-				resultAccount.setAuthority(rs.getString("authority"));
-				list.add(resultAccount);
-			}
-			if (list.size() == 0) {
+			if (accountList.size() == 0) {
 				errMsg.add("検索結果はありません。");
 			}
 			if (!(cl.inputEmptyCheck(name))) {
@@ -167,6 +158,15 @@ public class S0040 extends HttpServlet {
 			}
 			if (!(cl.inputEmptyCheck(mail))) {
 				checkMail(mail, errMsg);
+			}
+			//取得したアカウントをlistに格納
+			while (rs.next()) {
+				Account resultAccount = new Account();
+				resultAccount.setAccount_id(rs.getString("account_id"));
+				resultAccount.setName(rs.getString("name"));
+				resultAccount.setMail(rs.getString("mail"));
+				resultAccount.setAuthority(rs.getString("authority"));
+				accountList.add(resultAccount);
 			}
 
 			if (errMsg.size() > 0) {
@@ -176,7 +176,7 @@ public class S0040 extends HttpServlet {
 				Account account = (Account) request.getSession().getAttribute("accounts");
 				//ログイン中のアカウントの権限
 				request.setAttribute("authority", account.getAuthority());
-				request.setAttribute("list", list);
+				request.setAttribute("accountList", accountList);
 				this.getServletContext().getRequestDispatcher("/JSP/S0041.jsp").forward(request, response);
 			}
 

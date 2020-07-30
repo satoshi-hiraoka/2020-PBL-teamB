@@ -33,12 +33,12 @@
 			<th>メールアドレス</th>
 			<th>権限</th>
 		</tr>
-		<c:forEach var="item" items="${list}">
+		<c:forEach var="account" items="${accountList}">
 			<tr>
 				<c:if test="${authority == '10' || authority == '11'}">
 					<td>
 						<form action="/teamB/S0041" method="POST" name="searchAccountResult">
-							<input type="hidden" name="id" value="${item.account_id}" />
+							<input type="hidden" name="id" value="${account.account_id}" />
 							<button type="submit" class="btn btn-primary">
 								<i class="fas fa-check"></i>編集
 							</button>
@@ -48,15 +48,15 @@
 						</form>
 					</td>
 				</c:if>
-				<td class="textAlign">${item.account_id}</td>
-				<td>${item.name}</td>
-				<td>${item.mail}</td>
+				<td class="textAlign">${account.account_id}</td>
+				<td>${account.name}</td>
+				<td>${account.mail}</td>
 				<td>
 					<c:choose>
-						<c:when test="${item.authority == 0}">権限なし</c:when>
-						<c:when test="${item.authority == 1}">売上登録</c:when>
-						<c:when test="${item.authority == 10}">アカウント登録</c:when>
-						<c:when test="${item.authority == 11}">売上登録/アカウント登録</c:when>
+						<c:when test="${account.authority == 0}">権限なし</c:when>
+						<c:when test="${account.authority == 1}">売上登録</c:when>
+						<c:when test="${account.authority == 10}">アカウント登録</c:when>
+						<c:when test="${account.authority == 11}">売上登録/アカウント登録</c:when>
 					</c:choose>
 				</td>
 			</tr>
