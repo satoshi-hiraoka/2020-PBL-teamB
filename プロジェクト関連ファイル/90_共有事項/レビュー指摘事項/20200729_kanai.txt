@@ -12,4 +12,4 @@
 ・responnsibleとPuroductCutegoryはsalesが持っていないといけない。
 ・商品カテゴリーと担当者を持ってくるSQLは別メソッドにする。
 ・S0020.jspのalignはCSSに書く。
-・開始日
+・開始日しか入れていないのに、終了日も
