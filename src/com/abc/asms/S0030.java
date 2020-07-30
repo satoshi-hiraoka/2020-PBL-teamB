@@ -11,15 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class S0030
  */
 @WebServlet("/S0030")
 public class S0030 extends HttpServlet {
-
-	CheckLength cl = new CheckLength();
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,8 +34,10 @@ public class S0030 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		LoginCheck login = new LoginCheck();
-		login.checkLoginAndTransition(request, response, "/JSP/S0030.jsp", "0", "1");
+		PermitUseFunction puf = new PermitUseFunction();
+		LoginCheck.checkLoginAndTransition(request, response);
+		AuthCheck.checkAuthandTransition(request, response, "/JSP/S0030.jsp",
+				puf.getPermitList("account"));
 	}
 
 	/**
@@ -46,8 +45,9 @@ public class S0030 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		LoginCheck login = new LoginCheck();
-		login.checkLoginAndTransition(request, response, "0", "1");
+		PermitUseFunction puf = new PermitUseFunction();
+		LoginCheck.checkLoginAndTransition(request, response);
+		AuthCheck.checkAuthandTransition(request, response, null, puf.getPermitList("account"));
 
 		request.setCharacterEncoding("UTF-8");
 
@@ -107,15 +107,6 @@ public class S0030 extends HttpServlet {
 		checkAuthSales(authSales, errMsg);
 		checkAuthAccount(authAccount, errMsg);
 
-		//セッションを取得
-		HttpSession sessionS0030 = request.getSession();
-		sessionS0030.setAttribute("name", name);
-		sessionS0030.setAttribute("mail", mail);
-		sessionS0030.setAttribute("password", password);
-		sessionS0030.setAttribute("passwordCheck", passwordCheck);
-		sessionS0030.setAttribute("authSales", authSales);
-		sessionS0030.setAttribute("authAccount", authAccount);
-
 		if (errMsg.size() > 0) {
 			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);
@@ -126,56 +117,56 @@ public class S0030 extends HttpServlet {
 	}
 
 	private void checkName(String name, ArrayList<String> errMsg) {
-		if (cl.inputEmptyCheck(name)) {
+		if (CheckInputValues.inputEmptyCheck(name)) {
 			errMsg.add("氏名を入力してください。");
 		}
-		if (cl.checkLength(name, 21)) {
+		if (CheckInputValues.checkLength(name, 21)) {
 			errMsg.add("氏名が長すぎます。");
 		}
 	}
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
-		if (cl.inputEmptyCheck(mail)) {
+		if (CheckInputValues.inputEmptyCheck(mail)) {
 			errMsg.add("メールアドレスを入力してください。");
-		}
-		if (cl.checkLength(mail, 101)) {
-			errMsg.add("メールアドレスが長すぎます。");
-		}
-		if (!(mail.matches(
-				"^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$"))) {
+		} else if (CheckInputValues.mailFormatCheck(mail)) {
 			errMsg.add("メールアドレスを正しく入力してください。");
 		}
+		if (CheckInputValues.checkLength(mail, 101)) {
+			errMsg.add("メールアドレスが長すぎます。");
+		}
+
 	}
 
 	private void checkPassword(String password, String passwordCheck, ArrayList<String> errMsg) {
-		if (cl.inputEmptyCheck(password)) {
+		if (CheckInputValues.inputEmptyCheck(password)) {
 			errMsg.add("パスワードを入力してください。");
 		}
-		if (cl.checkLength(password, 31)) {
+		if (CheckInputValues.checkLength(password, 31)) {
 			errMsg.add("パスワードが長すぎます。");
 		}
-		if (cl.inputEmptyCheck(passwordCheck)) {
+		if (CheckInputValues.inputEmptyCheck(passwordCheck)) {
 			errMsg.add("パスワード（確認）を入力してください。");
 		}
-		if (!(password.equals(passwordCheck))) {
+		if (CheckInputValues.checkLength(passwordCheck, 31)) {
+			errMsg.add("パスワード（確認）が長すぎます。");
+		}
+		if (CheckInputValues.passwordCheck(password, passwordCheck)) {
 			errMsg.add("パスワードとパスワード（確認）が一致していません。");
 		}
 	}
 
 	private void checkAuthSales(String authSales, ArrayList<String> errMsg) {
-		if (cl.inputEmptyCheck(authSales)) {
+		if (CheckInputValues.inputEmptyCheck(authSales)) {
 			errMsg.add("売上登録権限を入力してください。");
-		}
-		if (!(authSales.equals("0") || authSales.equals("1"))) {
+		} else if (CheckInputValues.radioButtonCheck(authSales)) {
 			errMsg.add("売上登録権限に正しい値を入力してください。");
 		}
 	}
 
 	private void checkAuthAccount(String authAccount, ArrayList<String> errMsg) {
-		if (cl.inputEmptyCheck(authAccount)) {
+		if (CheckInputValues.inputEmptyCheck(authAccount)) {
 			errMsg.add("アカウント登録権限を入力してください。");
-		}
-		if (!(authAccount.equals("0") || authAccount.equals("1"))) {
+		} else if (CheckInputValues.radioButtonCheck(authAccount)) {
 			errMsg.add("アカウント登録権限に正しい値を入力してください。");
 		}
 	}

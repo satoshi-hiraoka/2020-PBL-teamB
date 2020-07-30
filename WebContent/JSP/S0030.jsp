@@ -14,19 +14,17 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
-<link rel="stylesheet" href="/teamB/CSS/radioButton.css">
 <link rel="stylesheet" href="/teamB/CSS/alert.css">
 <title>アカウント登録|物品売上管理システム</title>
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
 	<h1 id="title">アカウント登録</h1>
-	<jsp:include page="errOccur.jsp" />
-	<jsp:include page="sucOccur.jsp" />
+	<jsp:include page="Popup.jsp" />
 	<form action="/teamB/S0030" method="POST" name="registerAccount">
 		<table class="tablePosition" >
 			<tr>
-				<td align="right">
+				<td class="textAlign">
 					氏名<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
@@ -34,7 +32,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
+				<td class="textAlign">
 					メールアドレス<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
@@ -42,7 +40,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
+				<td class="textAlign">
 					パスワード<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
@@ -50,7 +48,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
+				<td class="textAlign">
 					パスワード（確認）<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
@@ -58,21 +56,21 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
+				<td class="textAlign">
 					売上登録権限<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="radio" name="authSales" value="" checked="checked" style="display:none;" />
+					<input type="radio" name="authSales" value="" checked="checked" class="none" />
 					<label><input type="radio" name="authSales" value="0" <c:if test="${authSales == '0'}">checked="checked"</c:if> />権限なし</label>
 					<label><input type="radio" name="authSales" value="1" <c:if test="${authSales == '1'}">checked="checked"</c:if> />権限あり</label>
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
+				<td class="textAlign">
 					アカウント登録権限<span class="badge badge-pill badge-secondary">必須</span>
 				</td>
 				<td>
-					<input type="radio" name="authAccount" value="" checked="checked" style="display:none;" />
+					<input type="radio" name="authAccount" value="" checked="checked" class="none" />
 					<label><input type="radio" name="authAccount" value="0" <c:if test="${authAccount == '0'}">checked="checked"</c:if> />権限なし</label>
 					<label><input type="radio" name="authAccount" value="1" <c:if test="${authAccount == '1'}">checked="checked"</c:if> />権限あり</label>
 				</td>
