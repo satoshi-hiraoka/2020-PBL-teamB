@@ -1,12 +1,9 @@
 package com.abc.asms;
 
+//このクラスは使用しない（開発ルール.txtの2020/7/30変更点参照）
 public class CheckLength {
 	private String value;
 	private int max;
-
-	CheckLength() {
-
-	}
 
 	public boolean checkLength(String value, int max) {
 		this.value = value;
@@ -25,6 +22,5 @@ public class CheckLength {
 			return true;
 		}
 		return false;
-
 	}
 }
