@@ -66,13 +66,15 @@
 				<td class="textAlign">単価<span
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><input type="text" name="puroductUnitPrice" size="10"
-					class="salesInputIntText" value="${sales.unit_price}"></td>
+					class="salesInputIntText"
+					value="<c:if test="${!(sales.unit_price==0)}">${sales.unit_price}</c:if>">
+				</td>
 			</tr>
 			<tr>
 				<td class="textAlign">個数<span
 					class="badge badge-pill badge-secondary">必須</span></td>
 				<td><input type="text" name="puroductNumber" size="10"
-					class="salesInputIntText" value="${sales.sale_number}"></td>
+					class="salesInputIntText" value="<c:if test="${!(sales.sale_number==0)}">${sales.sale_number}</c:if>"></td>
 			</tr>
 			<tr>
 				<td class="textAlign textBoxAlignRemark" valign="top">備考</td>

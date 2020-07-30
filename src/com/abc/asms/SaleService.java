@@ -31,17 +31,30 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		Sale sale = new Sale();
 		//requestから売上のデータ取り出してSale型の変数に格納
 		sale.setSale_date(request.getParameter("saleDate"));
-		sale.setAccount_id(Integer.parseInt(request.getParameter("responsible")));
-		sale.setCategory_id(Integer.parseInt(request.getParameter("puroductCategory")));
+		if (!(request.getParameter("responsible") == null)) {
+			sale.setAccount_id(Integer.parseInt(request.getParameter("responsible")));
+		} else {
+			sale.setAccount_id(0);
+		}
+		if (!(request.getParameter("puroductCategory") == null)) {
+			sale.setCategory_id(Integer.parseInt(request.getParameter("puroductCategory")));
+		}else {
+			sale.setCategory_id(0);
+		}
+
+		if ( !(request.getParameter("puroductUnitPrice").isEmpty())) {
+			sale.setUnit_price(Integer.parseInt(request.getParameter("puroductUnitPrice")));
+		}
+		if (!(request.getParameter("puroductNumber").isEmpty())) {
+			sale.setSale_number(Integer.parseInt(request.getParameter("puroductNumber")));
+		}
 		sale.setTrade_name(request.getParameter("puroductName"));
-		sale.setUnit_price(Integer.parseInt(request.getParameter("puroductUnitPrice")));
-		sale.setSale_number(Integer.parseInt(request.getParameter("puroductNumber")));
 		sale.setNote(request.getParameter("remark"));
 		sale.setPreviousPeriod(request.getParameter("previousPeriod"));
 		sale.setLatePeriod(request.getParameter("latePeriod"));
+		if(false){
 		sale.setSubtotal(sale.getSale_number() * sale.getUnit_price());
-
-
+		}
 		return sale;
 	}
 

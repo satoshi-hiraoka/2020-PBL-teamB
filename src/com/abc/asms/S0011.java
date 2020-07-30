@@ -31,6 +31,14 @@ public class S0011 extends HttpServlet {
 		//ログインチェックと権限チェック
 		LoginCheck logincheck = new LoginCheck();
 		logincheck.checkLoginAndTransition(request, response, "0", "10");
+		//キャンセルボタンを押したとき
+		if (!(request.getParameter("cancel")==null)) {
+			SaleService saleservice = new SaleService();
+			request.setAttribute("resposiblelist", saleservice.responsibleList(""));
+			request.setAttribute("puroductCategorylist", saleservice.categoryList());
+			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
+					response);
+		}
 
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
@@ -38,17 +46,9 @@ public class S0011 extends HttpServlet {
 		ConnectionTeamB cb = new ConnectionTeamB();
 		ArrayList<String> errMsg = new ArrayList<String>();
 		ArrayList<String> sucMsg = new ArrayList<String>();
-
-		//		String saleDate = sale.getSale_date();
-		//		String responsibleData = sale.getAccount_id();
-		//		String puroductCategory = sale.getCategory_id();
-		//		String puroductName = sale.getTrade_name();
-		//		String puroductUnitPrice = sale.getUnit_price();
-		//		String puroductNumber = sale.getSale_number();
-		//		String remark = sale.getNote();
-
+		int result;
 		PreparedStatement ps = null;
-		PreparedStatement ps2 = null;
+		PreparedStatement isertSucCheckPs = null;
 		ResultSet rs = null;
 
 		try {
@@ -79,7 +79,7 @@ public class S0011 extends HttpServlet {
 			ps.setInt(5, sale.getUnit_price());
 			ps.setInt(6, sale.getSale_number());
 			ps.setString(7, sale.getNote());
-			int result = ps.executeUpdate();
+			result = ps.executeUpdate();
 
 			session.removeAttribute("sales");
 			session.removeAttribute("puroductCategory");
@@ -101,17 +101,15 @@ public class S0011 extends HttpServlet {
 			isertSucCheckSql.append(" 	AND sale_number=?");
 			isertSucCheckSql.append(" 	AND note=?");
 
-			ps2 = cb.getCon().prepareStatement(isertSucCheckSql.toString());
-			ps2.setString(1, sale.getSale_date());
-			ps2.setInt(2, sale.getAccount_id());
-			ps2.setInt(3, sale.getCategory_id());
-			ps2.setString(4, sale.getTrade_name());
-			ps2.setInt(5, sale.getUnit_price());
-			ps2.setInt(6, sale.getSale_number());
-			ps2.setString(7, sale.getNote());
-			rs = ps2.executeQuery();
-
-			System.out.println(isertSucCheckSql);
+			isertSucCheckPs = cb.getCon().prepareStatement(isertSucCheckSql.toString());
+			isertSucCheckPs.setString(1, sale.getSale_date());
+			isertSucCheckPs.setInt(2, sale.getAccount_id());
+			isertSucCheckPs.setInt(3, sale.getCategory_id());
+			isertSucCheckPs.setString(4, sale.getTrade_name());
+			isertSucCheckPs.setInt(5, sale.getUnit_price());
+			isertSucCheckPs.setInt(6, sale.getSale_number());
+			isertSucCheckPs.setString(7, sale.getNote());
+			rs = isertSucCheckPs.executeQuery();
 
 			if (rs.next()) {
 				sale.setSale_id(rs.getInt("sale_id"));
@@ -142,20 +140,13 @@ public class S0011 extends HttpServlet {
 				if (cb.getCon() != null) {
 					cb.getCon().close();
 				}
+				if (isertSucCheckPs != null) {
+					isertSucCheckPs.close();
+				}
 			} catch (Exception e) {
 
 			}
 		}
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		SaleService saleservice = new SaleService();
-		request.setAttribute("resposiblelist", saleservice.responsibleList(""));
-		request.setAttribute("puroductCategorylist", saleservice.categoryList());
-		this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
-				response);
 	}
 
 }

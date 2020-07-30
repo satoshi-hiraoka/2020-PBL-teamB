@@ -15,16 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class S0010
- */
 @WebServlet("/S0010")
 public class S0010 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public S0010() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -60,34 +56,33 @@ public class S0010 extends HttpServlet {
 		ResultSet rs2 = null;
 		LocalDate localdate;
 		List<String> errMsg = new ArrayList<String>();
-
 		CheckLength checklength = new CheckLength();
-		//未入力かチェック
-
-		if (checklength.inputEmptyCheck(saleservice.parse(request).getSale_date())) {
+		//未入力かチェックpuroductUnitPrice
+		System.out.println(saleservice.parse(request).getAccount_id());
+		if (saleservice.parse(request).getSale_date().isEmpty()) {
 			errMsg.add("販売日を入力してください");
 		}
-		if (Integer.valueOf(saleservice.parse(request).getAccount_id()) == null) {
+		if (Integer.valueOf(saleservice.parse(request).getAccount_id()) == 0) {
 			errMsg.add("担当者が未選択です。");
 		}
-		if (Integer.valueOf(saleservice.parse(request).getCategory_id()) == null) {
+		if (Integer.valueOf(saleservice.parse(request).getCategory_id()) == 0) {
 			errMsg.add("商品カテゴリーが未選択です。");
 		}
-		if (checklength.inputEmptyCheck(String.valueOf(saleservice.parse(request).getTrade_name()))) {
+		if (checklength.inputEmptyCheck(saleservice.parse(request).getTrade_name())) {
 			errMsg.add("商品名を入力してください");
 		}
-		if (checklength.inputEmptyCheck(String.valueOf(saleservice.parse(request).getUnit_price()))) {
+		if (saleservice.parse(request).getUnit_price() == 0) {
 			errMsg.add("単価をを入力してください");
 		}
-		if (checklength.inputEmptyCheck(String.valueOf(saleservice.parse(request).getSale_number()))) {
+		if (saleservice.parse(request).getSale_number() == 0) {
 			errMsg.add("個数を入力してください");
 		}
 		//文字数長さチェック
 		if (errMsg.size() < 0) {
 
-			//			if (checklength.checkLength(saleservice.parse(request).getTrade_name(), 101)) {
-			//				errMsg.add("商品名が長すぎます。");
-			//			}
+						if (!(checklength.checkLength(saleservice.parse(request).getTrade_name(), 101))) {
+							errMsg.add("商品名が長すぎます。");
+						}
 			//			if (checklength.checkLength(saleservice.parse(request).getUnit_price(), 10)) {
 			//				errMsg.add("単価が長すぎます。");
 			//			}
@@ -128,17 +123,19 @@ public class S0010 extends HttpServlet {
 		}
 
 		try {
-			if (saleservice.parse(request).getUnit_price() <= 1) {
-				errMsg.add("単価を正しく入力してください");
+				if (saleservice.parse(request).getUnit_price() <= 1&&!(saleservice.parse(request).getUnit_price()==0)) {
+					errMsg.add("単価を正しく入力してください");
 			}
 
 		} catch (NumberFormatException e) {
 			errMsg.add("単価を正しく入力してください");
 		} finally {
 			try {
-				if (saleservice.parse(request).getSale_number() <= 1) {
-					errMsg.add("個数を正しく入力してください");
-				}
+
+					if (saleservice.parse(request).getSale_number() <= 1&&!(saleservice.parse(request).getUnit_price() == 0)) {
+						errMsg.add("個数を正しく入力してください");
+					}
+
 			} catch (NumberFormatException e) {
 				errMsg.add("個価を正しく入力してください");
 			} finally {

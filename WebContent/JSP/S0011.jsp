@@ -92,8 +92,8 @@ remark" disabled>${sales.note}</textarea></td>
 			<button type="submit" class="btn btn-primary mainButton">
 				<i class="fas fa-check"></i>OK
 			</button>
-			<button type="submit" class="btn btn-outline-dark mainButton"
-				formaction="/teamB/S0011">キャンセル</button>
+			<button type="submit" name="cancel" class="btn btn-outline-dark mainButton"
+				formaction="/teamB/S0011" value="cancel">キャンセル</button>
 		</div>
 	</form>
 

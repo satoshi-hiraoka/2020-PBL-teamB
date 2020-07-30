@@ -24,7 +24,7 @@
 <body>
 	<jsp:include page="menu.jsp" />
 	<h2 id="title">売上検索結果表示</h2>
-	<table class="tablePosition">
+	<table class="searchResultTablePosition">
 		<tr>
 			<th>操作</th>
 			<th>No</th>

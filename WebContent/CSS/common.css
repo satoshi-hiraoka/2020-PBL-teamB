@@ -26,6 +26,12 @@
 	left: 300px;
 	border-collapse: collapse;
 }
+.searchResultTablePosition {
+	position: relative;
+	top: 60px;
+	left: 150px;
+	border-collapse: collapse;
+}
 
 td, th {
 	padding: 10px;
