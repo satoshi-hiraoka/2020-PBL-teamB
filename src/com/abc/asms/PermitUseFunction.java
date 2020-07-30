@@ -19,6 +19,7 @@ public class PermitUseFunction {
 		ArrayList<String> allList = new ArrayList<>();
 		allList.addAll(accountList);
 		allList.addAll(salesList);
+		allList.add("0");
 
 		permitList.put("account", accountList);
 		permitList.put("sales", salesList);
@@ -28,10 +29,5 @@ public class PermitUseFunction {
 
 	public ArrayList<String> getPermitList(String targetFunctionName) {
 		return permitList.get(targetFunctionName);
-	}
-
-	public static void main(String[] args) {
-		PermitUseFunction puf = new PermitUseFunction();
-		System.out.println(puf.getPermitList("all"));
 	}
 }

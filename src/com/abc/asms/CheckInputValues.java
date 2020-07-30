@@ -11,9 +11,11 @@ public class CheckInputValues {
 	}
 
 	public static boolean inputEmptyCheck(String value) {
-		int length = value.getBytes().length;
-		if (length == 0) {
-			return true;
+		if (value != null) {
+			int length = value.getBytes().length;
+			if (length == 0) {
+				return true;
+			}
 		}
 		return false;
 	}

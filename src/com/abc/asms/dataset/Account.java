@@ -6,6 +6,8 @@ public class Account {
 	private String mail;
 	private String password;
 	private String passwordCheck;
+	private String authSales;
+	private String authAccount;
 	private String authority;
 
 	public String getAccount_id() {
@@ -46,6 +48,22 @@ public class Account {
 
 	public void setPasswordCheck(String passwordCheck) {
 		this.passwordCheck = passwordCheck;
+	}
+
+	public String getAuthSales() {
+		return authSales;
+	}
+
+	public void setAuthSales(String authSales) {
+		this.authSales = authSales;
+	}
+
+	public String getAuthAccount() {
+		return authAccount;
+	}
+
+	public void setAuthAccount(String authAccount) {
+		this.authAccount = authAccount;
 	}
 
 	public String getAuthority() {
