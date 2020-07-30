@@ -11,7 +11,6 @@ public class ChangePasswordService extends ConnectionTeamB {
 
 	ChangePasswordService() throws ServletException, IOException {
 		super();
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	public boolean isMailExist(String mail) throws Exception {

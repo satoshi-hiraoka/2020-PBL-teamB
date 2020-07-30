@@ -19,22 +19,6 @@ public class S0045 extends HttpServlet {
 
 	}
 
-	private void checkMail(String mail, ArrayList<String> errMsg) {
-		CheckLength cl = new CheckLength();
-		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
-		if (mail.isEmpty()) {
-			errMsg.add("メールアドレスを入力してください。");
-		} else {
-			if (!cl.checkLength(mail, 100)) {
-				errMsg.add("メールアドレスが長すぎます。");
-			} else {
-				if (!mail.matches(mailFormat)) {
-					errMsg.add("メールアドレスを正しく入力してください。");
-				}
-			}
-		}
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String mail = request.getParameter("mail");
@@ -48,7 +32,6 @@ public class S0045 extends HttpServlet {
 			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
 		}
-
 
 		try {
 			ChangePasswordService cps = new ChangePasswordService();
@@ -75,4 +58,21 @@ public class S0045 extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
 		}
 	}
+
+	private void checkMail(String mail, ArrayList<String> errMsg) {
+		CheckLength cl = new CheckLength();
+		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
+		if (mail.isEmpty()) {
+			errMsg.add("メールアドレスを入力してください。");
+		} else {
+			if (!cl.checkLength(mail, 100)) {
+				errMsg.add("メールアドレスが長すぎます。");
+			} else {
+				if (!mail.matches(mailFormat)) {
+					errMsg.add("メールアドレスを正しく入力してください。");
+				}
+			}
+		}
+	}
+
 }

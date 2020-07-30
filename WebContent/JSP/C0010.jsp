@@ -24,7 +24,6 @@
 </head>
 
 <body class="p-3 mb-2 bg-light text-dark m-lg-5">
-
 	<div class="container-fluid">
 		<h2 class="text-center">物品売上管理システム</h2>
 		<!-- エラー、成功メッセージ -->

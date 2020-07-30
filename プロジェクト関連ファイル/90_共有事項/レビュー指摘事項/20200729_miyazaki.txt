@@ -1,0 +1,3 @@
+doGetとdoPostメソッドが一番重要。それ以外のメソッドは下に書くこと。
+checkLengthのメソッドの呼び出し方かわるのであとでなおす。
+request.getSessionの後の()にはtrueいらない。

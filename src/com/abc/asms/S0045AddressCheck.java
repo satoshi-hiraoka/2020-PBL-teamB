@@ -27,7 +27,7 @@ public class S0045AddressCheck extends HttpServlet {
 		String mail = request.getParameter("mail");
 		try {
 			ChangePasswordService cps = new ChangePasswordService();
-			//共通
+
 			if (!cps.isMailExist(mail)) {
 				errMsg.add("アクセスしたURLが間違っています。");
 				request.setAttribute("errMsg", errMsg);

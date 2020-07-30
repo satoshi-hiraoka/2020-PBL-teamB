@@ -2,6 +2,7 @@ package com.abc.asms;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,34 +29,6 @@ public class C0010 extends HttpServlet {
 		login.checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
 	}
 
-	private void checkMail(String mail, ArrayList<String> errMsg) {
-		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
-		CheckLength cl = new CheckLength();
-		if (mail.isEmpty()) {
-			errMsg.add("メールアドレスが入力されていません。");
-		} else {
-			if (!cl.checkLength(mail, 100)) {
-				errMsg.add("文字が長すぎます。");
-			}else {
-				if (!mail.matches(mailFormat)) {
-					errMsg.add("メールアドレスを正しく入力してください。");
-				}
-			}
-		}
-	}
-
-	private void checkPassword(String passWord, ArrayList<String> errMsg) {
-		CheckLength cl = new CheckLength();
-		if (passWord.isEmpty()) {
-			errMsg.add("パスワードが入力されていません。");
-		}
-		if (!cl.checkLength(passWord, 30)) {
-			errMsg.add("パスワードが長すぎます。");
-		}
-	}
-
-
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String mail = request.getParameter("mail");
@@ -74,7 +47,7 @@ public class C0010 extends HttpServlet {
 		}
 
 		Connection db = null;
-		java.sql.PreparedStatement ps = null;
+		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			Context initContext = new InitialContext();
@@ -91,8 +64,8 @@ public class C0010 extends HttpServlet {
 			sql.append(" FROM");
 			sql.append(" 	accounts");
 			sql.append(" WHERE");
-			sql.append(" 	mail=?");//?で可変にしている5
-			sql.append(" 	AND PASSWORD=MD5(?)");
+			sql.append(" 	mail=?");//?で可変にしている
+			sql.append(" 	AND password=MD5(?)");
 
 			ps = db.prepareStatement(sql.toString());//StringBuilderをStringに変換して渡す。上のsqlをpsにせっと0
 			ps.setString(1, mail);
@@ -139,5 +112,33 @@ public class C0010 extends HttpServlet {
 			}
 		}
 	}
+
+	private void checkMail(String mail, ArrayList<String> errMsg) {
+		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
+		CheckLength cl = new CheckLength();
+		if (mail.isEmpty()) {
+			errMsg.add("メールアドレスが入力されていません。");
+		} else {
+			if (!cl.checkLength(mail, 100)) {
+				errMsg.add("文字が長すぎます。");
+			}else {
+				if (!mail.matches(mailFormat)) {
+					errMsg.add("メールアドレスを正しく入力してください。");
+				}
+			}
+		}
+	}
+
+	private void checkPassword(String passWord, ArrayList<String> errMsg) {
+		CheckLength cl = new CheckLength();
+		if (passWord.isEmpty()) {
+			errMsg.add("パスワードが入力されていません。");
+		}
+		if (!cl.checkLength(passWord, 30)) {
+			errMsg.add("パスワードが長すぎます。");
+		}
+	}
+
+
 
 }
