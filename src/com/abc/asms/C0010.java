@@ -25,8 +25,7 @@ public class C0010 extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		LoginCheck login = new LoginCheck();
-		login.checkLoginAndTransition(request, response, "/JSP/C0020.jsp");
+		LoginCheck.checkLoginAndTransition(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -85,7 +84,6 @@ public class C0010 extends HttpServlet {
 
 				return;
 			} else {
-				//request.setAttribute("Err", "メールアドレス、パスワードを正しく入力してください");
 				errMsg.add("メールアドレス、パスワードを正しく入力してください");
 				request.setAttribute("errMsg", errMsg);
 				this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
@@ -114,15 +112,16 @@ public class C0010 extends HttpServlet {
 	}
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
-		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
-		CheckLength cl = new CheckLength();
+		new CheckInputValues();
+//		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
+//		CheckLength cl = new CheckLength();
 		if (mail.isEmpty()) {
 			errMsg.add("メールアドレスが入力されていません。");
 		} else {
-			if (!cl.checkLength(mail, 100)) {
+			if (!CheckInputValues.checkLength(mail, 100)) {
 				errMsg.add("文字が長すぎます。");
 			}else {
-				if (!mail.matches(mailFormat)) {
+				if (!CheckInputValues.mailFormatCheck(mail)) {
 					errMsg.add("メールアドレスを正しく入力してください。");
 				}
 			}
@@ -138,7 +137,4 @@ public class C0010 extends HttpServlet {
 			errMsg.add("パスワードが長すぎます。");
 		}
 	}
-
-
-
 }
