@@ -24,23 +24,6 @@ public class S0046 extends HttpServlet {
 			throws ServletException, IOException {
 	}
 
-	private void checkPassword(String target, ArrayList<String> errMsg, String prefix) {
-		CheckLength cl = new CheckLength();
-		if (target.isEmpty()) {
-			errMsg.add(prefix + "パスワードを入力してください。");
-		} else {
-			if (!cl.checkLength(target, 30)) {
-				errMsg.add(prefix + "パスワードが長すぎます。");
-			}
-		}
-	}
-
-	private void checkPasswordMatch(String passWord, String CheckPassWord, ArrayList<String> errMsg) {
-		if (!passWord.equals(CheckPassWord)) {
-			errMsg.add("新パスワードとパスワード(確認)が一致していません。");
-		}
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String passWord = request.getParameter("passWord");
@@ -50,7 +33,7 @@ public class S0046 extends HttpServlet {
 		ArrayList<String> errMsg = new ArrayList<String>();
 		ArrayList<String> sucMsg = new ArrayList<String>();
 
-		checkPassword(passWord, errMsg, "");
+		checkPassword(passWord, errMsg);
 		checkPassword(CheckPassWord, errMsg, "確認用");
 		checkPasswordMatch(passWord, CheckPassWord, errMsg);
 
@@ -73,7 +56,7 @@ public class S0046 extends HttpServlet {
 				updateSql.append(" UPDATE");
 				updateSql.append("		accounts");
 				updateSql.append(" SET");
-				updateSql.append("		PASSWORD=MD5(?)");
+				updateSql.append("		password=MD5(?)");
 				updateSql.append(" WHERE");
 				updateSql.append("		mail=?");
 
@@ -111,6 +94,27 @@ public class S0046 extends HttpServlet {
 				}
 			} catch (SQLException e) {
 			}
+		}
+	}
+
+	private void checkPassword(String target, ArrayList<String> errMsg) {
+		checkPassword(target, errMsg, "");
+	}
+
+	private void checkPassword(String target, ArrayList<String> errMsg, String prefix) {
+		CheckLength cl = new CheckLength();
+		if (target.isEmpty()) {
+			errMsg.add(prefix + "パスワードを入力してください。");
+		} else {
+			if (!cl.checkLength(target, 30)) {
+				errMsg.add(prefix + "パスワードが長すぎます。");
+			}
+		}
+	}
+
+	private void checkPasswordMatch(String passWord, String CheckPassWord, ArrayList<String> errMsg) {
+		if (!passWord.equals(CheckPassWord)) {
+			errMsg.add("新パスワードとパスワード(確認)が一致していません。");
 		}
 	}
 }
