@@ -120,7 +120,7 @@ public class S0030 extends HttpServlet {
 		if (CheckInputValues.inputEmptyCheck(name)) {
 			errMsg.add("氏名を入力してください。");
 		}
-		if (CheckInputValues.checkLength(name, 21)) {
+		if (CheckInputValues.checkLength(name, 20)) {
 			errMsg.add("氏名が長すぎます。");
 		}
 	}
@@ -131,7 +131,7 @@ public class S0030 extends HttpServlet {
 		} else if (CheckInputValues.mailFormatCheck(mail)) {
 			errMsg.add("メールアドレスを正しく入力してください。");
 		}
-		if (CheckInputValues.checkLength(mail, 101)) {
+		if (CheckInputValues.checkLength(mail, 100)) {
 			errMsg.add("メールアドレスが長すぎます。");
 		}
 
@@ -141,13 +141,13 @@ public class S0030 extends HttpServlet {
 		if (CheckInputValues.inputEmptyCheck(password)) {
 			errMsg.add("パスワードを入力してください。");
 		}
-		if (CheckInputValues.checkLength(password, 31)) {
+		if (CheckInputValues.checkLength(password, 30)) {
 			errMsg.add("パスワードが長すぎます。");
 		}
 		if (CheckInputValues.inputEmptyCheck(passwordCheck)) {
 			errMsg.add("パスワード（確認）を入力してください。");
 		}
-		if (CheckInputValues.checkLength(passwordCheck, 31)) {
+		if (CheckInputValues.checkLength(passwordCheck, 30)) {
 			errMsg.add("パスワード（確認）が長すぎます。");
 		}
 		if (CheckInputValues.passwordCheck(password, passwordCheck)) {

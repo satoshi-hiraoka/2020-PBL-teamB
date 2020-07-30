@@ -33,7 +33,7 @@
 	  CheckInputValuesを使用（CheckLength.javaは使用しない）
 	CheckInputValues使用時はサーブレットに以下のソースコードを記述
 	//長さチェック
-	CheckInputValues.checkLength(長さをチェックしたい項目,バイト数の最小値（メールアドレスなら101));
+	CheckInputValues.checkLength(長さをチェックしたい項目,バイト数の最大値（メールアドレスなら100));
 	//空白チェック
 	CheckInputValues.inputEmptyCheck(空白をチェックしたい項目);
 	//メールの形式チェック

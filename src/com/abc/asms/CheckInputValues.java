@@ -4,7 +4,7 @@ public class CheckInputValues {
 
 	public static boolean checkLength(String value, int max) {
 		int length = value.getBytes().length;
-		if (length <= max) {
+		if (length > max) {
 			return true;
 		}
 		return false;
