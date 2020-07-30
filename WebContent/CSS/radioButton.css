@@ -1,5 +1,0 @@
-@charset "UTF-8";
-label + input[type="radio"],
-label + label {
-	margin-left: 5px;
-}
