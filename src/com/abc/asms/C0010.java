@@ -116,12 +116,12 @@ public class C0010 extends HttpServlet {
 //		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
 //		CheckLength cl = new CheckLength();
 		if (mail.isEmpty()) {
-			errMsg.add("メールアドレスが入力されていません。");
+			errMsg.add("メールアドレスを入力してください。");
 		} else {
-			if (!CheckInputValues.checkLength(mail, 100)) {
-				errMsg.add("文字が長すぎます。");
+			if (CheckInputValues.checkLength(mail, 100)) {
+				errMsg.add("メールアドレスが長すぎます。");
 			}else {
-				if (!CheckInputValues.mailFormatCheck(mail)) {
+				if (CheckInputValues.mailFormatCheck(mail)) {
 					errMsg.add("メールアドレスを正しく入力してください。");
 				}
 			}

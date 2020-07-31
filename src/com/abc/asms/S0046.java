@@ -107,7 +107,7 @@ public class S0046 extends HttpServlet {
 		if (target.isEmpty()) {
 			errMsg.add(prefix + "パスワードを入力してください。");
 		} else {
-			if (!CheckInputValues.checkLength(target, 30)) {
+			if (!CheckInputValues.checkLength(target, 31)) {
 				errMsg.add(prefix + "パスワードが長すぎます。");
 			}
 		}
