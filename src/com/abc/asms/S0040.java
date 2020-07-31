@@ -206,7 +206,7 @@ public class S0040 extends HttpServlet {
 			errMsg.add("メールアドレスが長すぎます。");
 		}
 		if (CheckInputValues.mailFormatCheck(mail)) {
-			errMsg.add("メールアドレスの形式が誤っています。");
+			errMsg.add("メールアドレスを正しく入力してください。");
 		}
 	}
 }
