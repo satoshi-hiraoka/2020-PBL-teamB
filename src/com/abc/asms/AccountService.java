@@ -30,36 +30,76 @@ public class AccountService implements Service<Account> /* コネクションプ
 		account.setMail(request.getParameter("mail"));
 		account.setPassword(request.getParameter("password"));
 		account.setPasswordCheck(request.getParameter("passwordCheck"));
-		String authSales = request.getParameter("authSales");
-		String authAccount = request.getParameter("authAccount");
-		String authority = null;
-		if (authSales.equals("0")) {
-			if (authAccount.equals("0")) {
-				authority = "0";
-			} else {
-				authority = "10";
+		if (request.getParameter("authority") == null) {
+			String authSales = request.getParameter("authSales");
+			String authAccount = request.getParameter("authAccount");
+			if (authSales.equals("0")) {
+				if (authAccount.equals("0")) {
+					account.setAuthority("0");
+				} else if (authAccount.equals("1")) {
+					account.setAuthority("10");
+				}
+			} else if (authSales.equals("1")) {
+				if (authAccount.equals("0")) {
+					account.setAuthority("1");
+				} else if (authAccount.equals("1")) {
+					account.setAuthority("11");
+				}
 			}
 		} else {
-			if (authAccount.equals("0")) {
-				authority = "1";
-			} else {
-				authority = "11";
+			if (request.getParameter("authority").equals("0")) {
+				account.setAuthSales("0");
+				account.setAuthAccount("0");
+			} else if (request.getParameter("authority").equals("1")) {
+				account.setAuthSales("1");
+				account.setAuthAccount("0");
+			} else if (request.getParameter("authority").equals("10")) {
+				account.setAuthSales("0");
+				account.setAuthAccount("1");
+			} else if (request.getParameter("authority").equals("11")) {
+				account.setAuthSales("1");
+				account.setAuthAccount("1");
 			}
 		}
-		account.setAuthority(authority);
 
 		return account;
 	}
 
 	public Account parse(ResultSet rs) throws SQLException {
 		Account account = new Account();
-		//ResultSetからアカウントのデータ取り出してAccount型の変数に格納
-		account.setAccount_id(rs.getString("account_id"));
 		account.setName(rs.getString("name"));
 		account.setMail(rs.getString("mail"));
-		account.setPassword(rs.getString("password"));
-		account.setAuthority(rs.getString("authority"));
-
+		if (rs.getString("authority") == null) {
+			String authSales = rs.getString("authSales");
+			String authAccount = rs.getString("authAccount");
+			if (authSales.equals("0")) {
+				if (authAccount.equals("0")) {
+					account.setAuthority("0");
+				} else if (authAccount.equals("1")) {
+					account.setAuthority("10");
+				}
+			} else if (authSales.equals("1")) {
+				if (authAccount.equals("0")) {
+					account.setAuthority("1");
+				} else if (authAccount.equals("1")) {
+					account.setAuthority("11");
+				}
+			}
+		} else {
+			if (rs.getString("authority").equals("0")) {
+				account.setAuthSales("0");
+				account.setAuthAccount("0");
+			} else if (rs.getString("authority").equals("1")) {
+				account.setAuthSales("1");
+				account.setAuthAccount("0");
+			} else if (rs.getString("authority").equals("10")) {
+				account.setAuthSales("0");
+				account.setAuthAccount("1");
+			} else if (rs.getString("authority").equals("11")) {
+				account.setAuthSales("1");
+				account.setAuthAccount("1");
+			}
+		}
 		return account;
 	}
 

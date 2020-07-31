@@ -23,8 +23,6 @@ import com.abc.asms.dataset.Account;
 @WebServlet("/S0040")
 public class S0040 extends HttpServlet {
 
-	CheckLength cl = new CheckLength();
-
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -128,12 +126,12 @@ public class S0040 extends HttpServlet {
 			}
 			sql.append(" 				)");
 			//氏名入力時には氏名を部分一致で検索
-			if (!(cl.inputEmptyCheck(name))) {
+			if (!(CheckInputValues.inputEmptyCheck(name))) {
 				sql.append(" 	AND name LIKE ?");
 				lHMap.put("name", "%" + name + "%");
 			}
 			//メールアドレス入力時にはメールアドレスを完全一致で検索
-			if (!(cl.inputEmptyCheck(mail))) {
+			if (!(CheckInputValues.inputEmptyCheck(mail))) {
 				sql.append(" 	AND mail = ?");
 				lHMap.put("mail", mail);
 			}
@@ -150,13 +148,10 @@ public class S0040 extends HttpServlet {
 
 			rs = ps.executeQuery();
 
-			if (accountList.size() == 0) {
-				errMsg.add("検索結果はありません。");
-			}
-			if (!(cl.inputEmptyCheck(name))) {
+			if (!(CheckInputValues.inputEmptyCheck(name))) {
 				checkName(name, errMsg);
 			}
-			if (!(cl.inputEmptyCheck(mail))) {
+			if (!(CheckInputValues.inputEmptyCheck(mail))) {
 				checkMail(mail, errMsg);
 			}
 			//取得したアカウントをlistに格納
@@ -167,6 +162,9 @@ public class S0040 extends HttpServlet {
 				resultAccount.setMail(rs.getString("mail"));
 				resultAccount.setAuthority(rs.getString("authority"));
 				accountList.add(resultAccount);
+			}
+			if (accountList.size() == 0) {
+				errMsg.add("検索結果はありません。");
 			}
 
 			if (errMsg.size() > 0) {
@@ -198,17 +196,16 @@ public class S0040 extends HttpServlet {
 	}
 
 	private void checkName(String name, ArrayList<String> errMsg) {
-		if (cl.checkLength(name, 21)) {
+		if (CheckInputValues.checkLength(name, 20)) {
 			errMsg.add("氏名が長すぎます。");
 		}
 	}
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
-		if (cl.checkLength(mail, 101)) {
+		if (CheckInputValues.checkLength(mail, 100)) {
 			errMsg.add("メールアドレスが長すぎます。");
 		}
-		if (!(mail.matches(
-				"^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$"))) {
+		if (CheckInputValues.mailFormatCheck(mail)) {
 			errMsg.add("メールアドレスの形式が誤っています。");
 		}
 	}

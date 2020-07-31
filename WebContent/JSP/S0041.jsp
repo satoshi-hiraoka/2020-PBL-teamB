@@ -39,10 +39,10 @@
 					<td>
 						<form action="/teamB/S0041" method="POST" name="searchAccountResult">
 							<input type="hidden" name="id" value="${account.account_id}" />
-							<button type="submit" class="btn btn-primary">
+							<button type="submit" name="edit" value="edit" class="btn btn-primary">
 								<i class="fas fa-check"></i>編集
 							</button>
-							<button type="submit" class="btn btn-danger" formaction="/teamB/S0044">
+							<button type="submit" name="delete" value="delete" class="btn btn-danger">
 								<i class="fas fa-times"></i>削除
 							</button>
 						</form>

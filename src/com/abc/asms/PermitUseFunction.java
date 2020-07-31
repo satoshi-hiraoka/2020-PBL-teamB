@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PermitUseFunction {
-	HashMap<String, ArrayList<String>> permitList = new HashMap<String, ArrayList<String>>();
 
-	PermitUseFunction() {
-
+	public ArrayList<String> getPermitList(String targetFunctionName) {
+		HashMap<String, ArrayList<String>> permitList = new HashMap<String, ArrayList<String>>();
 		ArrayList<String> accountList = new ArrayList<>();
 		accountList.add("10");
 		accountList.add("11");
@@ -25,9 +24,7 @@ public class PermitUseFunction {
 		permitList.put("sales", salesList);
 		permitList.put("all", allList);
 
-	}
-
-	public ArrayList<String> getPermitList(String targetFunctionName) {
 		return permitList.get(targetFunctionName);
 	}
+
 }

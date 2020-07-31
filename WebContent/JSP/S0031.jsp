@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 <link rel="stylesheet" href="/teamB/CSS/common.css">
-<link rel="stylesheet" href="/teamB/CSS/radioButton.css">
 <title>アカウント登録確認|物品売上管理システム</title>
 </head>
 <body>
@@ -22,71 +21,71 @@
 		<table class="tablePosition">
 			<tr>
 				<td>
-					<div class="text-right">
+					<div class="textAlign">
 						氏名<span class="badge badge-pill badge-secondary">必須</span>
 					</div>
 				</td>
 				<td>
-					<input type="text" name="name" size="40" placeholder="${name}" disabled />
+					<input type="text" name="name" size="40" value="${user.name}" disabled />
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<div class="text-right">
+					<div class="textAlign">
 						メールアドレス<span class="badge badge-pill badge-secondary">必須</span>
 					</div>
 				</td>
 				<td>
-					<input type="text" name="mail" size="40" placeholder="${mail}" disabled />
+					<input type="text" name="mail" size="40" value="${user.mail}" disabled />
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<div class="text-right">
+					<div class="textAlign">
 						パスワード<span class="badge badge-pill badge-secondary">必須</span>
 					</div>
 				</td>
 				<td>
-					<input type="password" name="password" size="40" value="${password}" disabled />
+					<input type="password" name="password" size="40" value="${user.password}" disabled />
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<div class="text-right">
+					<div class="textAlign">
 						パスワード（確認）<span class="badge badge-pill badge-secondary">必須</span>
 					</div>
 				</td>
 				<td>
-					<input type="password" name="passwordCheck" size="40" value="${passwordCheck}" disabled />
+					<input type="password" name="passwordCheck" size="40" value="${user.passwordCheck}" disabled />
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<div class="text-right">
+					<div class="textAlign">
 						売上登録権限<span class="badge badge-pill badge-secondary">必須</span>
 					</div>
 				</td>
 				<td>
-					<label><input type="radio" name="authSales" value="0" disabled <c:if test="${authSales == '0'}">checked="checked"</c:if> />権限なし</label>
-					<label><input type="radio" name="authSales" value="1" disabled <c:if test="${authSales == '1'}">checked="checked"</c:if> />権限あり</label>
+					<label><input type="radio" name="authSales" value="0" disabled <c:if test="${user.authSales == '0'}">checked="checked"</c:if> />権限なし</label>
+					<label><input type="radio" name="authSales" value="1" disabled <c:if test="${user.authSales == '1'}">checked="checked"</c:if> />権限あり</label>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<div class="text-right">
+					<div class="textAlign">
 						アカウント登録権限<span class="badge badge-pill badge-secondary">必須</span>
 					</div>
 				</td>
 				<td>
-					<label><input type="radio" name="authAccount" value="0" disabled <c:if test="${authAccount == '0'}">checked="checked"</c:if> />権限なし</label>
-					<label><input type="radio" name="authAccount" value="1" disabled <c:if test="${authAccount == '1'}">checked="checked"</c:if> />権限あり</label>
+					<label><input type="radio" name="authAccount" value="0" disabled <c:if test="${user.authAccount == '0'}">checked="checked"</c:if> />権限なし</label>
+					<label><input type="radio" name="authAccount" value="1" disabled <c:if test="${user.authAccount == '1'}">checked="checked"</c:if> />権限あり</label>
 				</td>
 			</tr>
 		</table>
-		<button type="submit" class="btn btn-primary mainButton">
+		<button type="submit" name="OK" value="OK" class="btn btn-primary mainButton">
 			<i class="fas fa-check"></i>OK
 		</button>
-		<button type="submit" class="btn btn-outline-dark mainButton" formaction="/teamB/S0031Cancel">
+		<button type="submit" name="cancel" value="cancel" class="btn btn-outline-dark mainButton" >
 			キャンセル
 		</button>
 	</form>

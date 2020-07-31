@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.abc.asms.dataset.Account;
 
@@ -32,8 +33,10 @@ public class S0041 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		LoginCheck login = new LoginCheck();
-		login.checkLoginAndTransition(request, response, "/JSP/S0041.jsp");
+		PermitUseFunction puf = new PermitUseFunction();
+		LoginCheck.checkLoginAndTransition(request, response);
+		AuthCheck.checkAuthandTransition(request, response, "/JSP/S0040.jsp",
+				puf.getPermitList("all"));
 	}
 
 	/**
@@ -41,8 +44,10 @@ public class S0041 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		LoginCheck login = new LoginCheck();
-		login.checkLoginAndTransition(request, response);
+		PermitUseFunction puf = new PermitUseFunction();
+		LoginCheck.checkLoginAndTransition(request, response);
+		AuthCheck.checkAuthandTransition(request, response, null,
+				puf.getPermitList("all"));
 
 		request.setCharacterEncoding("UTF-8");
 
@@ -68,30 +73,33 @@ public class S0041 extends HttpServlet {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				Account account = new Account();
-				account.setName(rs.getString("name"));
-				account.setMail(rs.getString("mail"));
-				account.setAuthority(rs.getString("authority"));
-				request.setAttribute("name", account.getName());
-				request.setAttribute("mail", account.getMail());
-				String authSales = null;
-				String authAccount = null;
-				if (account.getAuthority().equals("0")) {
-					authSales = "0";
-					authAccount = "0";
-				} else if (account.getAuthority().equals("1")) {
-					authSales = "1";
-					authAccount = "0";
-				} else if (account.getAuthority().equals("10")) {
-					authSales = "0";
-					authAccount = "1";
+
+				HttpSession sessionS0041 = request.getSession();
+				AccountService as = new AccountService();
+				Account user = as.parse(rs);
+				user.setName(rs.getString("name"));
+				user.setMail(rs.getString("mail"));
+				if (rs.getString("authority").equals("0")) {
+					user.setAuthSales("0");
+					user.setAuthAccount("0");
+				} else if (rs.getString("authority").equals("1")) {
+					user.setAuthSales("1");
+					user.setAuthAccount("0");
+				} else if (rs.getString("authority").equals("10")) {
+					user.setAuthSales("0");
+					user.setAuthAccount("1");
 				} else {
-					authSales = "1";
-					authAccount = "1";
+					user.setAuthSales("1");
+					user.setAuthAccount("1");
 				}
-				request.setAttribute("authSales", authSales);
-				request.setAttribute("authAccount", authAccount);
-				this.getServletContext().getRequestDispatcher("/JSP/S0042.jsp").forward(request, response);
+				user.setAuthority(rs.getString("authority"));
+				sessionS0041.setAttribute("user", user);
+				request.setAttribute("user", sessionS0041.getAttribute("user"));
+				if (request.getParameter("edit") != null) {
+					this.getServletContext().getRequestDispatcher("/JSP/S0042.jsp").forward(request, response);
+				} else if (request.getParameter("delete") != null) {
+					this.getServletContext().getRequestDispatcher("/JSP/S0044.jsp").forward(request, response);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
