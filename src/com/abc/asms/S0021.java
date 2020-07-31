@@ -27,13 +27,14 @@ public class S0021 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//ログインチェック
-		LoginCheck.checkLoginAndTransition(request, response);
+		//		LoginCheck.checkLoginAndTransition(request, response);
 
 		request.setCharacterEncoding("UTF-8");
 
 		List<String> errMsg = new ArrayList<String>();
 		LocalDate previousLocalDate = null;
 		LocalDate lateLocalDate = null;
+		HttpSession session = request.getSession();
 		//売上関連のサービスをインスタンス化
 		SaleService service = new SaleService();
 
@@ -47,24 +48,27 @@ public class S0021 extends HttpServlet {
 		//	sessionに格納した検索条件を画面に渡す事。
 
 		String previousPeriod = sale.getPreviousPeriod();
+		if (!(previousPeriod.isEmpty())) {
+			try {
 
-		try {
+				previousLocalDate = LocalDate.parse(previousPeriod, DateTimeFormatter.ofPattern("yyyy/MM/d"));
 
-			previousLocalDate = LocalDate.parse(previousPeriod, DateTimeFormatter.ofPattern("yyyy/MM/d"));
+			} catch (Exception e) {
 
-		} catch (Exception e) {
-
-			errMsg.add("販売日(検索開始日)を正しく入力してください。");
+				errMsg.add("販売日(検索開始日)を正しく入力してください。");
+			}
 		}
 
 		String latePeriod = sale.getLatePeriod();
+		if (!(latePeriod.isEmpty())) {
 
-		try {
+			try {
 
-			lateLocalDate = LocalDate.parse(latePeriod, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+				lateLocalDate = LocalDate.parse(latePeriod, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
-		} catch (Exception e) {
-			errMsg.add("販売日(検索終了日)を正しく入力してください。");
+			} catch (Exception e) {
+				errMsg.add("販売日(検索終了日)を正しく入力してください。");
+			}
 		}
 		//販売日（開始日＜終了日）チェック
 		if (!(previousLocalDate == null) && !(lateLocalDate == null)) {
@@ -79,9 +83,12 @@ public class S0021 extends HttpServlet {
 		}
 
 		request.setAttribute("saleslLst", service.find(sale));
+
 		SaleService saleService = new SaleService();
+		saleService.find(sale);
 		if (saleService.find(sale).size() == 0) {
 			errMsg.add("検索結果はありません");
+			session.removeAttribute("searchCondition");
 			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/S0020.jsp").forward(request, response);
 		}

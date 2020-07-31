@@ -82,10 +82,6 @@ public class S0011 extends HttpServlet {
 			result = ps.executeUpdate();
 
 			session.removeAttribute("sales");
-			session.removeAttribute("puroductCategory");
-			//個別で持っているのはおかしい。
-			session.removeAttribute("responsible");
-			session.removeAttribute("commaNumer");
 
 			StringBuilder isertSucCheckSql = new StringBuilder();
 			isertSucCheckSql.append("SELECT");

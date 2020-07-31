@@ -196,12 +196,8 @@ public class S0010 extends HttpServlet {
 		if (errMsg.size() > 0) {
 			request.setAttribute("errMsg", errMsg);
 			request.setAttribute("responsible", request.getParameter("responsible"));
-			request.setAttribute("puroductCategory", request.getParameter("puroductCategory"));
-			request.setAttribute("sales", saleservice.parse(request));
 			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request, response);
 		}
-		session.setAttribute("responsible", request.getParameter("responsible"));
-		session.setAttribute("puroductCategory", request.getParameter("puroductCategory"));
 		session.setAttribute("sales", saleservice.parse(request));
 		this.getServletContext().getRequestDispatcher("/JSP/S0011.jsp").forward(request, response);
 

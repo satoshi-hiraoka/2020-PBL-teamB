@@ -20,7 +20,7 @@ public class S0020 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//		ログインチェック
-		LoginCheck.checkLoginAndTransition(request, response);
+//		LoginCheck.checkLoginAndTransition(request, response);
 
 		SaleService saleservice = new SaleService();
 		HttpSession session = request.getSession();

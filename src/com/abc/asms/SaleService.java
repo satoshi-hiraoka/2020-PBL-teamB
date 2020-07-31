@@ -39,14 +39,16 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		sale.setNote(request.getParameter("remark"));
 		sale.setPreviousPeriod(request.getParameter("previousPeriod"));
 		sale.setLatePeriod(request.getParameter("latePeriod"));
-		if (!(sale.getSale_number().isEmpty()) && !(sale.getUnit_price().isEmpty())) {
-			try {
-				sale.setSubtotal(Integer.valueOf(sale.getSale_number()) * Integer.valueOf(sale.getUnit_price()));
-				sale.setCommaSubtotal(String.format("%,d", sale.getSubtotal()));
-				sale.setCommaNumber(String.format("%,d", Integer.valueOf(sale.getSale_number())));
-				sale.setCommaPrice(String.format("%,d", Integer.valueOf(sale.getUnit_price())));
-			} catch (Exception e) {
+		if (!(sale.getSale_number() == null)) {
+			if (!(sale.getSale_number().isEmpty()) && !(sale.getUnit_price().isEmpty())) {
+				try {
+					sale.setSubtotal(Integer.valueOf(sale.getSale_number()) * Integer.valueOf(sale.getUnit_price()));
+					sale.setCommaSubtotal(String.format("%,d", sale.getSubtotal()));
+					sale.setCommaNumber(String.format("%,d", Integer.valueOf(sale.getSale_number())));
+					sale.setCommaPrice(String.format("%,d", Integer.valueOf(sale.getUnit_price())));
+				} catch (Exception e) {
 
+				}
 			}
 		}
 
@@ -65,8 +67,17 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		sale.setUnit_price(rs.getString("unit_price"));
 		sale.setSale_number(rs.getString("sale_number"));
 		sale.setNote(rs.getString("note"));
-		if (!(sale.getSale_number().isEmpty()) && !(sale.getUnit_price().isEmpty())) {
-			sale.setSubtotal(Integer.valueOf(sale.getSale_number()) * Integer.valueOf(sale.getUnit_price()));
+		if (!(sale.getSale_number() == null)) {
+			if (!(sale.getSale_number().isEmpty()) && !(sale.getUnit_price().isEmpty())) {
+				try {
+					sale.setSubtotal(Integer.valueOf(sale.getSale_number()) * Integer.valueOf(sale.getUnit_price()));
+					sale.setCommaSubtotal(String.format("%,d", sale.getSubtotal()));
+					sale.setCommaNumber(String.format("%,d", Integer.valueOf(sale.getSale_number())));
+					sale.setCommaPrice(String.format("%,d", Integer.valueOf(sale.getUnit_price())));
+				} catch (Exception e) {
+
+				}
+			}
 		}
 
 		return sale;
@@ -139,7 +150,6 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 
 	//売上検索用メソッド
 	public List<Sale> find(Sale key) {
-		CheckLength checklength = new CheckLength();
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -184,21 +194,20 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 				lHMap.put("latePeriod", key.getLatePeriod());
 			}
 			//担当
-			if (!(Integer.valueOf(key.getAccount_id()) == null)) {
+			if (!(key.getAccount_id() == null)) {
 				sql.append("	 and s.account_id=?");
-				lHMap.put("account_id", String.valueOf(key.getAccount_id()));
+				lHMap.put("account_id", key.getAccount_id());
 			}
 			//商品カテゴリー
-			if (!(Integer.valueOf(key.getCategory_id()) == null)) {
+			if (!(key.getCategory_id() == null)) {
 				sql.append("	 and s.category_id=?");
-				lHMap.put("category_id", String.valueOf(key.getCategory_id()));
+				lHMap.put("category_id", key.getCategory_id());
 			}
 			//商品名
 			if (!(key.getTrade_name().isEmpty())) {
 				sql.append("	 and s.trade_name LIKE ?");
 				lHMap.put("trade_name", "%" + key.getTrade_name() + "%");
 			}
-
 			ps = cb.getCon().prepareStatement(sql.toString());
 
 			for (Entry<String, String> entry : lHMap.entrySet()) {

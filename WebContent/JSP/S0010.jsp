@@ -40,7 +40,7 @@
 						<option value="" disabled selected>選択して下さい</option>
 						<c:forEach var="responsibleData" items="${resposiblelist}">
 							<option value="${responsibleData.account_id}"
-								<c:if test="${responsibleData.account_id==responsible}">selected</c:if>>${responsibleData.name}</option>
+								<c:if test="${responsibleData.account_id==sales.account_id}">selected</c:if>>${responsibleData.name}</option>
 						</c:forEach>
 				</select></td>
 			</tr>
@@ -52,7 +52,7 @@
 						<c:forEach var="puroductCategoryData"
 							items="${puroductCategorylist}">
 							<option value="${puroductCategoryData.category_id}"
-								<c:if test="${puroductCategoryData.category_id==puroductCategory}">selected</c:if>>${puroductCategoryData.category_name}</option>
+								<c:if test="${puroductCategoryData.category_id==sales.category_id}">selected</c:if>>${puroductCategoryData.category_name}</option>
 						</c:forEach>
 				</select></td>
 			</tr>

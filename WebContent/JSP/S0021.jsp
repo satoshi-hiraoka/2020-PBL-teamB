@@ -54,7 +54,7 @@
 				<td>${sale.category_name}</td>
 				<td>${sale.trade_name}</td>
 				<td class="textAlign">${sale.commaPrice}</td>
-				<td class="textAlign">${ sale.commaNumer}</td>
+				<td class="textAlign">${ sale.commaNumber}</td>
 				<td class="textAlign">${sale.commaSubtotal}</td>
 			</tr>
 		</c:forEach>

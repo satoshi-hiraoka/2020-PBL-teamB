@@ -29,9 +29,9 @@
 		<table class="tablePosition">
 			<tr>
 				<td align="right">販売日</td>
-				<td><input type="text" name="previousPeriod" size="10"><span
+				<td><input type="text" name="previousPeriod" size="10" value="${searchCondition.previousPeriod}"><span
 					id="margin-77">～</span><input type="text" name="latePeriod"
-					size="10"></td>
+					size="10" ${searchCondition.latePeriod}></td>
 			</tr>
 			<tr>
 				<td align="right">担当</td>
@@ -39,7 +39,7 @@
 						<option value="" disabled selected>選択して下さい</option>
 						<c:forEach var="responsibleData" items="${resposiblelist}">
 							<option value="${responsibleData.account_id}"
-								<c:if test="${responsibleData.account_id==responsible}">selected</c:if>>${responsibleData.name}</option>
+								<c:if test="${responsibleData.account_id==searchCondition.account_id}">selected</c:if>>${responsibleData.name}</option>
 						</c:forEach>
 				</select></td>
 			</tr>
@@ -50,7 +50,7 @@
 						<c:forEach var="puroductCategoryData"
 							items="${puroductCategorylist}">
 							<option value="${puroductCategoryData.category_id}"
-								<c:if test="${puroductCategoryData.category_id==puroductCategory}">selected</c:if>>${puroductCategoryData.category_name}</option>
+								<c:if test="${puroductCategoryData.category_id==searchCondition.category_id}">selected</c:if>>${puroductCategoryData.category_name}</option>
 						</c:forEach>
 				</select></td>
 			</tr>
@@ -58,13 +58,13 @@
 				<td align="right">商品名<span
 					class="badge badge-pill badge-secondary">部分一致</span></td>
 				<td><input type="text" name="puroductName" placeholder="商品名"
-					class="salesFiledLength"></td>
+					class="salesFiledLength" value="${searchCondition.trade_name}"></td>
 			</tr>
 			<tr>
 				<td align="right" valign="top">備考<span
 					class="badge badge-pill badge-secondary">部分一致</span></td>
 				<td><input type="text" placeholder="備考"
-					class="salesFiledLength" name="remark"></td>
+					class="salesFiledLength" name="remark" value="${searchCondition.note}"></td>
 			</tr>
 		</table>
 		<div>
