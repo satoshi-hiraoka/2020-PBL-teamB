@@ -22,6 +22,7 @@
 	<jsp:include page="menu.jsp" />
 	<div class="m-lg-5">
 		<h1>ダッシュボード</h1>
+		<jsp:include page="Popup.jsp" />
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-4">
