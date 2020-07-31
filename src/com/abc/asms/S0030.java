@@ -11,6 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.abc.asms.dataset.Account;
 
 /**
  * Servlet implementation class S0030
@@ -59,6 +62,31 @@ public class S0030 extends HttpServlet {
 		String passwordCheck = request.getParameter("passwordCheck");
 		String authSales = request.getParameter("authSales");
 		String authAccount = request.getParameter("authAccount");
+		String authority = "";
+		if (authSales.equals("0")) {
+			if (authAccount.equals("0")) {
+				authority = "0";
+			} else if (authAccount.equals("1")) {
+				authority = "10";
+			}
+		} else if (authSales.equals("1")) {
+			if (authAccount.equals("0")) {
+				authority = "1";
+			} else if (authAccount.equals("1")) {
+				authority = "11";
+			}
+		}
+
+		HttpSession sessionS0030 = request.getSession();
+		AccountService as = new AccountService();
+		Account user = as.parse(request);
+		user.setName(name);
+		user.setMail(mail);
+		user.setPassword(password);
+		user.setPasswordCheck(passwordCheck);
+		user.setAuthSales(authSales);
+		user.setAuthAccount(authAccount);
+		user.setAuthority(authority);
 
 		ArrayList<String> errMsg = new ArrayList<String>();
 
@@ -107,6 +135,8 @@ public class S0030 extends HttpServlet {
 		checkAuthSales(authSales, errMsg);
 		checkAuthAccount(authAccount, errMsg);
 
+		sessionS0030.setAttribute("user", user);
+		request.setAttribute("user", sessionS0030.getAttribute("user"));
 		if (errMsg.size() > 0) {
 			request.setAttribute("errMsg", errMsg);
 			this.getServletContext().getRequestDispatcher("/JSP/S0030.jsp").forward(request, response);

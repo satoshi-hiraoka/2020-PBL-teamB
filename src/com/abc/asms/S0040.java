@@ -39,8 +39,10 @@ public class S0040 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		LoginCheck login = new LoginCheck();
-		login.checkLoginAndTransition(request, response, "/JSP/S0040.jsp");
+		PermitUseFunction puf = new PermitUseFunction();
+		LoginCheck.checkLoginAndTransition(request, response);
+		AuthCheck.checkAuthandTransition(request, response, "/JSP/S0040.jsp",
+				puf.getPermitList("all"));
 	}
 
 	/**
@@ -48,8 +50,10 @@ public class S0040 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		LoginCheck login = new LoginCheck();
-		login.checkLoginAndTransition(request, response);
+		PermitUseFunction puf = new PermitUseFunction();
+		LoginCheck.checkLoginAndTransition(request, response);
+		AuthCheck.checkAuthandTransition(request, response, null,
+				puf.getPermitList("all"));
 
 		request.setCharacterEncoding("UTF-8");
 
@@ -59,43 +63,38 @@ public class S0040 extends HttpServlet {
 		String mail = request.getParameter("mail");
 		String authSales = request.getParameter("authSales");
 		String authAccount = request.getParameter("authAccount");
-		List<String> authList = new ArrayList<String>();
+
+		SearchAuthorityFunction saf = new SearchAuthorityFunction();
+		ArrayList<String> authList = new ArrayList<String>();
 		//検索するauthorityの値
 		if (authSales.equals("all")) {
 			if (authAccount.equals("all")) {
-				authList.add("0");
-				authList.add("1");
-				authList.add("10");
-				authList.add("11");
+				authList.addAll(saf.getAuthList("all"));
 			} else if (authAccount.equals("0")) {
-				authList.add("0");
-				authList.add("1");
+				authList.addAll(saf.getAuthList("noAccount"));
 			} else {
-				authList.add("10");
-				authList.add("11");
+				authList.addAll(saf.getAuthList("account"));
 			}
 		} else if (authSales.equals("0")) {
 			if (authAccount.equals("all")) {
-				authList.add("0");
-				authList.add("10");
+				authList.addAll(saf.getAuthList("noSales"));
 			} else if (authAccount.equals("0")) {
-				authList.add("0");
+				authList.addAll(saf.getAuthList("noAuth"));
 			} else {
-				authList.add("10");
+				authList.addAll(saf.getAuthList("onlyAccount"));
 			}
 		} else {
 			if (authAccount.equals("all")) {
-				authList.add("1");
-				authList.add("11");
+				authList.addAll(saf.getAuthList("sales"));
 			} else if (authAccount.equals("0")) {
-				authList.add("1");
+				authList.addAll(saf.getAuthList("onlySales"));
 			} else {
-				authList.add("11");
+				authList.addAll(saf.getAuthList("salesAndAccount"));
 			}
 		}
 
 		ArrayList<String> errMsg = new ArrayList<String>();
-		List<Account> list = new ArrayList<Account>();
+		List<Account> accountList = new ArrayList<Account>();
 		LinkedHashMap<String, String> lHMap = new LinkedHashMap<>();
 
 		PreparedStatement ps = null;
@@ -151,16 +150,7 @@ public class S0040 extends HttpServlet {
 
 			rs = ps.executeQuery();
 
-			//取得したアカウントをlistに格納
-			while (rs.next()) {
-				Account resultAccount = new Account();
-				resultAccount.setAccount_id(rs.getString("account_id"));
-				resultAccount.setName(rs.getString("name"));
-				resultAccount.setMail(rs.getString("mail"));
-				resultAccount.setAuthority(rs.getString("authority"));
-				list.add(resultAccount);
-			}
-			if (list.size() == 0) {
+			if (accountList.size() == 0) {
 				errMsg.add("検索結果はありません。");
 			}
 			if (!(cl.inputEmptyCheck(name))) {
@@ -168,6 +158,15 @@ public class S0040 extends HttpServlet {
 			}
 			if (!(cl.inputEmptyCheck(mail))) {
 				checkMail(mail, errMsg);
+			}
+			//取得したアカウントをlistに格納
+			while (rs.next()) {
+				Account resultAccount = new Account();
+				resultAccount.setAccount_id(rs.getString("account_id"));
+				resultAccount.setName(rs.getString("name"));
+				resultAccount.setMail(rs.getString("mail"));
+				resultAccount.setAuthority(rs.getString("authority"));
+				accountList.add(resultAccount);
 			}
 
 			if (errMsg.size() > 0) {
@@ -177,7 +176,7 @@ public class S0040 extends HttpServlet {
 				Account account = (Account) request.getSession().getAttribute("accounts");
 				//ログイン中のアカウントの権限
 				request.setAttribute("authority", account.getAuthority());
-				request.setAttribute("list", list);
+				request.setAttribute("accountList", accountList);
 				this.getServletContext().getRequestDispatcher("/JSP/S0041.jsp").forward(request, response);
 			}
 

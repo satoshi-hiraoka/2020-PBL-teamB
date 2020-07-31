@@ -16,10 +16,7 @@
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="/teamB/CSS/logpass.css" type="text/css">
-<!-- エラーメッセージCSS -->
-<!--<link rel="stylesheet" href="/teamB/CSS/alert.css">  -->
-<!-- <link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.4.2/css/all.css"> -->
+
 <title>ログイン|物品売上管理システム</title>
 </head>
 
