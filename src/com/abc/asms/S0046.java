@@ -103,7 +103,6 @@ public class S0046 extends HttpServlet {
 
 	private void checkPassword(String target, ArrayList<String> errMsg, String prefix) {
 		new CheckInputValues();
-		//CheckLength cl = new CheckLength();
 		if (target.isEmpty()) {
 			errMsg.add(prefix + "パスワードを入力してください。");
 		} else {
@@ -114,8 +113,6 @@ public class S0046 extends HttpServlet {
 	}
 
 	private void checkPasswordMatch(String passWord, String CheckPassWord, ArrayList<String> errMsg) {
-		//CheckInputValues.passwordCheck(passWord,passWord);
-		//errMsg.add("新パスワードとパスワード(確認)が一致していません。");
 			if (!passWord.equals(CheckPassWord)) {
 			errMsg.add("新パスワードとパスワード(確認)が一致していません。");
 		}
