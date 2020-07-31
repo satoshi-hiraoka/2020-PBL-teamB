@@ -17,7 +17,7 @@
 <body>
 	<jsp:include page="menu.jsp" />
 	<form action="/teamB/S0040" method="POST" name="searchAccount">
-		<h1 id="title">アカウント検索</h1>
+		<h1 id="title">アカウント検索条件入力</h1>
 		<jsp:include page="Popup.jsp" />
 		<table class="tablePosition">
 			<tr>
