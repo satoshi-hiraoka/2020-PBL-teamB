@@ -26,12 +26,12 @@
 		<h3 class="text-center">パスワード再設定</h3>
 		<!-- エラー、成功メッセージ -->
 		<jsp:include page="Popup.jsp" />
-	
+
 		<div class="login-page">
 			<div class="form">
 				<form class="login-form" action="/teamB/S0045" method="post">
 					<div class="text-center">
-						<input type="text" name="mail" placeholder="メールアドレス"><br>
+						<input type="text" name="mail" placeholder="メールアドレス" value="${mail }"><br>
 						<input type="submit" class="login btn btn-primary btn-lg"
 							value="メール送信"><br>
 					</div>

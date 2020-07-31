@@ -24,14 +24,13 @@
 	<div class="container-fluid">
 		<h2 class="text-center">物品売上管理システム</h2>
 		<!-- エラー、成功メッセージ -->
-		<jsp:include page="Popup.jsp" />
-
+		<jsp:include page="Popup.jsp" ></jsp:include>
 		<div class="login-page">
 			<div class="form">
 				<form class="login-form" action="/teamB/C0010" method="post">
 					<div class="text-center">
-						<input type="text" placeholder="メールアドレス" name="mail" /><br>
-						<input type="password" placeholder="パスワード" name="passWord" /><br>
+						<input type="text" placeholder="メールアドレス" name="mail" value="${mail }"/><br>
+						<input type="password" placeholder="パスワード" name="passWord"/><br>
 						<input type="submit" class="login btn btn-primary btn-lg"
 							value="ログイン"><br>
 						<p class="message">

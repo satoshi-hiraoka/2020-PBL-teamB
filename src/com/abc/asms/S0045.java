@@ -30,6 +30,7 @@ public class S0045 extends HttpServlet {
 		//errMsgの要素が1以上であれば何かしらの入力エラー。
 		if (errMsg.size() > 0) {
 			request.setAttribute("errMsg", errMsg);
+			request.setAttribute("mail", mail);
 			this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
 		}
 
@@ -41,7 +42,7 @@ public class S0045 extends HttpServlet {
 				sucMsg.add("パスワード再設定メールを送信しました。");
 				request.setAttribute("sucMsg", sucMsg);//左は変数名右は中身
 			} else {
-				errMsg.add("メールアドレスを正しく入力してください");
+				errMsg.add("メールアドレスを正しく入力してください。");
 				request.setAttribute("errMsg", errMsg);
 			}
 			this.getServletContext().getRequestDispatcher("/JSP/S0045.jsp").forward(request, response);
@@ -61,15 +62,13 @@ public class S0045 extends HttpServlet {
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
 		new CheckInputValues();
-		//		CheckLength cl = new CheckLength();
-//		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
 		if (mail.isEmpty()) {
 			errMsg.add("メールアドレスを入力してください。");
 		} else {
-			if (!CheckInputValues.checkLength(mail, 100)) {
+			if (CheckInputValues.checkLength(mail, 100)) {
 				errMsg.add("メールアドレスが長すぎます。");
 			} else {
-				if (!CheckInputValues.mailFormatCheck(mail)) {
+				if (CheckInputValues.mailFormatCheck(mail)) {
 					errMsg.add("メールアドレスを正しく入力してください。");
 				}
 			}

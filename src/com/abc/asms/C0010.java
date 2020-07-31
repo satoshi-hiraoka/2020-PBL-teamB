@@ -42,6 +42,7 @@ public class C0010 extends HttpServlet {
 		//ログイン画面でerrmsgを全部出力する。
 		if (errMsg.size() > 0) {
 			request.setAttribute("errMsg", errMsg);
+			request.setAttribute("mail", mail);
 			this.getServletContext().getRequestDispatcher("/JSP/C0010.jsp").forward(request, response);
 		}
 
@@ -80,8 +81,8 @@ public class C0010 extends HttpServlet {
 				account.setName(rs.getString("name"));
 				account.setAuthority(rs.getString("authority"));
 				session.setAttribute("accounts", account);
+				System.out.println("セッション"+session);
 				this.getServletContext().getRequestDispatcher("/JSP/C0020.jsp").forward(request, response);
-
 				return;
 			} else {
 				errMsg.add("メールアドレス、パスワードを正しく入力してください");
@@ -113,8 +114,6 @@ public class C0010 extends HttpServlet {
 
 	private void checkMail(String mail, ArrayList<String> errMsg) {
 		new CheckInputValues();
-//		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
-//		CheckLength cl = new CheckLength();
 		if (mail.isEmpty()) {
 			errMsg.add("メールアドレスを入力してください。");
 		} else {
