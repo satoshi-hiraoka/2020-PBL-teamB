@@ -66,19 +66,20 @@
 			<tr>
 				<td class="textAlign">単価</td>
 				<td><input type="text" name="puroductUnitPrice"
-					value="<%=String.format("%,d", sale.getUnit_price())%>"
+					value="${sales.commaPrice}"
 					class="salesInputIntText" size="10" disabled></td>
 			</tr>
+
 			<tr>
 				<td class="textAlign">個数</td>
 				<td><input type="text" name="puroductNumber" size="10"
-					value="<%=String.format("%,d", sale.getSale_number())%>"
+					value="${sales.commaNumber}"
 					class="salesInputIntText" disabled></td>
 			</tr>
 			<tr>
 				<td class="textAlign">小計</td>
 				<td><input type="text" name="puroductSubtotal"
-					value="<%=String.format("%,d", sale.getSubtotal())%>" size="10"
+					value="${sales.commaSubtotal}" size="10"
 					class="salesInputIntText" disabled></td>
 			</tr>
 			<tr>
@@ -92,8 +93,8 @@ remark" disabled>${sales.note}</textarea></td>
 			<button type="submit" class="btn btn-primary mainButton">
 				<i class="fas fa-check"></i>OK
 			</button>
-			<button type="submit" name="cancel" class="btn btn-outline-dark mainButton"
-				formaction="/teamB/S0011" value="cancel">キャンセル</button>
+			<button type="submit"  class="btn btn-outline-dark mainButton"
+				formaction="/teamB/S0011Cancel" value="cancel">キャンセル</button>
 		</div>
 	</form>
 

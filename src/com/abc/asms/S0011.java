@@ -32,10 +32,10 @@ public class S0011 extends HttpServlet {
 		LoginCheck logincheck = new LoginCheck();
 		logincheck.checkLoginAndTransition(request, response, "0", "10");
 		//キャンセルボタンを押したとき
-		if (!(request.getParameter("cancel")==null)) {
+		if (!(request.getParameter("cancel") == null)) {
 			SaleService saleservice = new SaleService();
-			request.setAttribute("resposiblelist", saleservice.responsibleList(""));
-			request.setAttribute("puroductCategorylist", saleservice.categoryList());
+			request.setAttribute("resposiblelist", saleservice.responsibleList());
+			request.setAttribute("puroductCategorylist", saleservice.categoryList("1"));
 			this.getServletContext().getRequestDispatcher("/JSP/S0010.jsp").forward(request,
 					response);
 		}
@@ -73,11 +73,11 @@ public class S0011 extends HttpServlet {
 
 			ps = cb.getCon().prepareStatement(sql.toString());
 			ps.setString(1, sale.getSale_date());
-			ps.setInt(2, sale.getAccount_id());
-			ps.setInt(3, sale.getCategory_id());
+			ps.setString(2, sale.getAccount_id());
+			ps.setString(3, sale.getCategory_id());
 			ps.setString(4, sale.getTrade_name());
-			ps.setInt(5, sale.getUnit_price());
-			ps.setInt(6, sale.getSale_number());
+			ps.setString(5, sale.getUnit_price());
+			ps.setString(6, sale.getSale_number());
 			ps.setString(7, sale.getNote());
 			result = ps.executeUpdate();
 
@@ -103,16 +103,16 @@ public class S0011 extends HttpServlet {
 
 			isertSucCheckPs = cb.getCon().prepareStatement(isertSucCheckSql.toString());
 			isertSucCheckPs.setString(1, sale.getSale_date());
-			isertSucCheckPs.setInt(2, sale.getAccount_id());
-			isertSucCheckPs.setInt(3, sale.getCategory_id());
+			isertSucCheckPs.setString(2, sale.getAccount_id());
+			isertSucCheckPs.setString(3, sale.getCategory_id());
 			isertSucCheckPs.setString(4, sale.getTrade_name());
-			isertSucCheckPs.setInt(5, sale.getUnit_price());
-			isertSucCheckPs.setInt(6, sale.getSale_number());
+			isertSucCheckPs.setString(5, sale.getUnit_price());
+			isertSucCheckPs.setString(6, sale.getSale_number());
 			isertSucCheckPs.setString(7, sale.getNote());
 			rs = isertSucCheckPs.executeQuery();
 
 			if (rs.next()) {
-				sale.setSale_id(rs.getInt("sale_id"));
+				sale.setSale_id(rs.getString("sale_id"));
 			}
 
 			if (result == 0) {

@@ -31,30 +31,25 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		Sale sale = new Sale();
 		//requestから売上のデータ取り出してSale型の変数に格納
 		sale.setSale_date(request.getParameter("saleDate"));
-		if (!(request.getParameter("responsible") == null)) {
-			sale.setAccount_id(Integer.parseInt(request.getParameter("responsible")));
-		} else {
-			sale.setAccount_id(0);
-		}
-		if (!(request.getParameter("puroductCategory") == null)) {
-			sale.setCategory_id(Integer.parseInt(request.getParameter("puroductCategory")));
-		}else {
-			sale.setCategory_id(0);
-		}
-
-		if ( !(request.getParameter("puroductUnitPrice").isEmpty())) {
-			sale.setUnit_price(Integer.parseInt(request.getParameter("puroductUnitPrice")));
-		}
-		if (!(request.getParameter("puroductNumber").isEmpty())) {
-			sale.setSale_number(Integer.parseInt(request.getParameter("puroductNumber")));
-		}
+		sale.setAccount_id(request.getParameter("responsible"));
+		sale.setCategory_id(request.getParameter("puroductCategory"));
+		sale.setUnit_price(request.getParameter("puroductUnitPrice"));
+		sale.setSale_number(request.getParameter("puroductNumber"));
 		sale.setTrade_name(request.getParameter("puroductName"));
 		sale.setNote(request.getParameter("remark"));
 		sale.setPreviousPeriod(request.getParameter("previousPeriod"));
 		sale.setLatePeriod(request.getParameter("latePeriod"));
-		if(false){
-		sale.setSubtotal(sale.getSale_number() * sale.getUnit_price());
+		if (!(sale.getSale_number().isEmpty()) && !(sale.getUnit_price().isEmpty())) {
+			try {
+				sale.setSubtotal(Integer.valueOf(sale.getSale_number()) * Integer.valueOf(sale.getUnit_price()));
+				sale.setCommaSubtotal(String.format("%,d", sale.getSubtotal()));
+				sale.setCommaNumber(String.format("%,d", Integer.valueOf(sale.getSale_number())));
+				sale.setCommaPrice(String.format("%,d", Integer.valueOf(sale.getUnit_price())));
+			} catch (Exception e) {
+
+			}
 		}
+
 		return sale;
 	}
 
@@ -62,20 +57,17 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		Sale sale = new Sale();
 		//ResultSetから売上のデータ取り出してSale型の変数に格納
 
-		sale.setSale_id(Integer.parseInt(rs.getString("sale_id")));
+		sale.setSale_id(rs.getString("sale_id"));
 		sale.setSale_date(rs.getString("sale_date"));
 		sale.setName(rs.getString("name"));
 		sale.setCategory_name(rs.getString("category_name"));
 		sale.setTrade_name(rs.getString("trade_name"));
-		sale.setUnit_price(Integer.parseInt(rs.getString("unit_price")));
-		sale.setSale_number(Integer.parseInt(rs.getString("sale_number")));
+		sale.setUnit_price(rs.getString("unit_price"));
+		sale.setSale_number(rs.getString("sale_number"));
 		sale.setNote(rs.getString("note"));
-		int number = sale.getSale_number();
-		int praice = sale.getUnit_price();
-		sale.setSubtotal(number * praice);
-
-		sale.setCommaNumer(String.format("%,d", number));
-		sale.setCommaPrice(String.format("%,d", praice));
+		if (!(sale.getSale_number().isEmpty()) && !(sale.getUnit_price().isEmpty())) {
+			sale.setSubtotal(Integer.valueOf(sale.getSale_number()) * Integer.valueOf(sale.getUnit_price()));
+		}
 
 		return sale;
 	}
@@ -263,11 +255,11 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 
 			ps = cb.getCon().prepareStatement(sql.toString());
 			ps.setString(1, bean.getSale_date());
-			ps.setInt(2, bean.getAccount_id());
-			ps.setInt(3, bean.getCategory_id());
+			ps.setString(2, bean.getAccount_id());
+			ps.setString(3, bean.getCategory_id());
 			ps.setString(4, bean.getTrade_name());
-			ps.setInt(5, bean.getUnit_price());
-			ps.setInt(6, bean.getSale_number());
+			ps.setString(5, bean.getUnit_price());
+			ps.setString(6, bean.getSale_number());
 			ps.setString(7, bean.getNote());
 			ps.executeUpdate();
 
@@ -317,7 +309,7 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		}
 	}
 
-	public List<Account> responsibleList(String account_id) {
+	public List<Account> responsibleList() {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Account> resposiblelist = new ArrayList<>();
@@ -327,14 +319,8 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 			sql.append("	*");
 			sql.append(" FROM ");
 			sql.append("	accounts");
-			if (!(account_id.equals(""))) {
-				sql.append(" WHERE ");
-				sql.append("	account_id=?");
-			}
+
 			ps = cb.getCon().prepareStatement(sql.toString());
-			if (!(account_id.equals(""))) {
-				ps.setString(1, account_id);
-			}
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -359,7 +345,7 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 		return resposiblelist;
 	}
 
-	public List<Category> categoryList() {
+	public List<Category> categoryList(String activ_flg) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Category> puroductCategorylist = new ArrayList<>();
@@ -369,8 +355,13 @@ public class SaleService extends ConnectionTeamB implements Service<Sale> /* コ
 			sql.append("	*");
 			sql.append(" FROM ");
 			sql.append("	categories ");
-			sql.append(" WHERE active_flg=1");
+			if (!(activ_flg.equals(""))) {
+				sql.append(" WHERE active_flg=?");
+			}
 			ps = cb.getCon().prepareStatement(sql.toString());
+			if (!(activ_flg.equals(""))) {
+				ps.setString(1, activ_flg);
+			}
 			rs = ps.executeQuery();
 
 			while (rs.next()) {

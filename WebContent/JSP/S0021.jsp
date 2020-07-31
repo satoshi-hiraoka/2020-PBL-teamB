@@ -19,7 +19,9 @@
 <link rel="stylesheet" href="/teamB/CSS/common.css">
 <link rel="stylesheet" href="/teamB/CSS/searchResultList.css">
 <title>売上検索結果次画面</title>
-<% Sale sale= (Sale) request.getAttribute("sales");%>
+<%
+	Sale sale = (Sale) request.getAttribute("sales");
+%>
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
@@ -40,7 +42,7 @@
 			<tr>
 				<td>
 					<form action="/teamB/S0022" method="post">
-					<input type="hidden" name="sale_id" value="${sale.sale_id}" />
+						<input type="hidden" name="sale_id" value="${sale.sale_id}" />
 						<button type="submit" class="btn btn-primary">
 							<i class="fas fa-check"></i>詳細
 						</button>
